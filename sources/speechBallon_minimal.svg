@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+width="400px" height="400px" viewBox="0 0 400 400">
+
+	<!-- Lines for test purposes
+	<line x1="0" y1="100" x2="400" y2="100" stroke-width="1" stroke="blue"/>
+	<line x1="0" y1="200" x2="400" y2="200" stroke-width="1" stroke="blue"/>
+	<line x1="100" y1="0" x2="100" y2="400" stroke-width="1" stroke="blue"/>
+	<line x1="300" y1="0" x2="300" y2="400" stroke-width="1" stroke="blue"/>
+	-->
+
+	<svg class="svg-rect" x="100" y="100" width="200" height="100">
+		<rect x="0" y="0" rx="30" ry="30" width="200" height="100" fill="#e7e7e7"
+		style="fill:#ffffff;
+		       fill-opacity:1;
+		       fill-rule:nonzero;
+		       stroke:#1a1a1a;
+		       stroke-width:5;
+		       stroke-linecap:butt;
+		       stroke-linejoin:round;
+		       stroke-miterlimit:4;
+		       stroke-opacity:1;
+		       stroke-dasharray:none;
+		       stroke-dashoffset:0" ></rect>
+		<text x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="1px" dy=".3em"
+		style="font-size:30px;
+		       font-style:normal;
+		       font-variant:normal;
+		       font-weight:500;
+		       font-stretch:normal;
+		       text-align:center;
+		       line-height:125%;
+		       letter-spacing:0px;
+		       word-spacing:0px;
+		       text-anchor:middle;
+		       fill:#1a1a1a;
+		       fill-opacity:1;
+		       stroke:none;
+		       font-family:OpenComicFont;
+		       -inkscape-font-specification:OpenComicFont Medium" >
+			<tspan dy="-1em" x="50%" dx="0em">bonjour</tspan>
+			<tspan dy="1em" x="50%" dx="0em">ça va ?</tspan>
+			<tspan dy="1em" x="50%" dx="0em">bien j'espère</tspan>
+		</text>
+	</svg>
+
+</svg>
