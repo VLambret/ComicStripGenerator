@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <svg xmlns="http://www.w3.org/2000/svg"
-width="400px" height="400px" viewBox="0 0 400 400">
+width="1024px" height="768px" viewBox="0 0 1024 768">
 
 	<!-- Lines for test purposes
 	<line x1="0" y1="100" x2="400" y2="100" stroke-width="1" stroke="blue"/>
@@ -9,8 +9,8 @@ width="400px" height="400px" viewBox="0 0 400 400">
 	<line x1="300" y1="0" x2="300" y2="400" stroke-width="1" stroke="blue"/>
 	-->
 
-	<svg class="svg-rect" x="100" y="100" width="200" height="100">
-		<rect x="0" y="0" rx="30" ry="30" width="200" height="100" fill="#e7e7e7"
+	<svg class="svg-rect" x="100" y="100" width="300" height="100">
+		<rect x="2.5" y="2.5" rx="30" ry="30" width="295" height="95" fill="#e7e7e7"
 		style="fill:#ffffff;
 		       fill-opacity:1;
 		       fill-rule:nonzero;
@@ -18,12 +18,12 @@ width="400px" height="400px" viewBox="0 0 400 400">
 		       stroke-width:5;
 		       stroke-linecap:butt;
 		       stroke-linejoin:round;
-		       stroke-miterlimit:4;
+		       stroke-miterlimit:0;
 		       stroke-opacity:1;
 		       stroke-dasharray:none;
 		       stroke-dashoffset:0" ></rect>
 		<text x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="1px" dy=".3em"
-		style="font-size:30px;
+		style="font-size:25px;
 		       font-style:normal;
 		       font-variant:normal;
 		       font-weight:500;
@@ -38,10 +38,11 @@ width="400px" height="400px" viewBox="0 0 400 400">
 		       stroke:none;
 		       font-family:OpenComicFont;
 		       -inkscape-font-specification:OpenComicFont Medium" >
-			<tspan dy="-1em" x="50%" dx="0em">bonjour</tspan>
+			<tspan dy="-1em" x="50%" dx="0em">Salut, comment</tspan>
 			<tspan dy="1em" x="50%" dx="0em">ça va ?</tspan>
 			<tspan dy="1em" x="50%" dx="0em">bien j'espère</tspan>
 		</text>
 	</svg>
+	<line x1="200" y1="197.5" x2="180" y2="230" stroke-width="5" stroke="#1a1a1a"/>
 
 </svg>
