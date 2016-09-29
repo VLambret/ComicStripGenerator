@@ -22,6 +22,22 @@ width="1024px" height="768px" viewBox="0 0 1024 768">
 		       stroke-opacity:1;
 		       stroke-dasharray:none;
 		       stroke-dashoffset:0" ></rect>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
+       x="100"
+       y="100"
+       id="text3003"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="50%"
+         y="1em"
+         id="tspan3011">Hello, this </tspan><tspan
+         sodipodi:role="line"
+         x="50%"
+         y="2em"
+         id="tspan2996">is a test</tspan></text>
+	<!-- 
 		<text x="50%" y="50%" text-anchor="middle" stroke="black" stroke-width="1px" dy=".3em"
 		style="font-size:25px;
 		       font-style:normal;
@@ -42,6 +58,7 @@ width="1024px" height="768px" viewBox="0 0 1024 768">
 			<tspan dy="1em" x="50%" dx="0em">ça va ?</tspan>
 			<tspan dy="1em" x="50%" dx="0em">bien j'espère</tspan>
 		</text>
+		-->
 	</svg>
 	<line x1="200" y1="197.5" x2="180" y2="230" stroke-width="5" stroke="#1a1a1a"/>
 
