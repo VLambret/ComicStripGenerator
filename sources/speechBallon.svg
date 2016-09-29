@@ -83,26 +83,15 @@
 	inkscape:connector-curvature="0"
 	sodipodi:nodetypes="cccc" />
 </g>
-
+</g>
 	<!-- Text -->
-	<flowRoot
-	xml:space="preserve"
-	id="flowRoot3771"
-	style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#1a1a1a;fill-opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
-	transform="translate(3.5355339,20.960665)">
-	<flowRegion
-	id="flowRegion3773">
-	<rect
-	id="rect3775"
-	width="201.52544"
-	height="87.125656"
-	x="156.57364"
-	y="327.3252"
-	style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;text-anchor:middle;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium;fill:#1a1a1a;fill-opacity:1" />
-	</flowRegion>
-	<flowPara
-	id="flowPara3777">Bonjour !</flowPara>
-	</flowRoot>
+	<text
+		style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
+		x="258.928585"
+		y="385.219335"
+		alignment-baseline="middle"
+		text-anchor="middle"
+		>Bonjour !</text>
 	
 </g>
 </svg>
