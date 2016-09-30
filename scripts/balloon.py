@@ -2,6 +2,8 @@
 
 import argparse
 
+FONTSIZE = 50
+
 def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-x', help = "top left absciss of the bubble", type = float, required = True)
@@ -50,17 +52,24 @@ def path(x, y, w, h):
 #Return svg for the text
 def text(x, y, w, h, c):
 	t = """	<text
-	style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
-	x=""" + "\"" + str(x + w/2) + "\"" + """
-	y=""" + "\"" + str(y + h/2 + 10) + "\"" + """
+	style="font-size:""" + str(FONTSIZE) + """px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
+	x=""" + "\"" + str(x) + "\"" + """
+	y=""" + "\"" + str(y) + "\"" + """
 	alignment-baseline="middle"
 	text-anchor="middle"
 	>"""
-	for word in c :
-		t += word + " "
-	t += """</text>
+	t += c +"""</text>
 """
+#	y=""" + "\"" + str(y + h/2 + 10) + "\"" + """
 	return t
+
+def multiline(x, y, w, h, c):
+	result = ""
+	i = 0
+	while i < len(c) :
+		result += text(x + w/2, y + (h / (len(c)+1)) + FONTSIZE * 0.375 + i*FONTSIZE, w, h, c[i])
+		i += 1
+	return result
 
 #Print svg for a speech balloon
 def output_balloon(x, y, w, h, c):
@@ -85,7 +94,7 @@ def output_balloon(x, y, w, h, c):
 	print """</g>
 	<!-- Text -->
 """ 
-	print text(x, y, w, h, c)
+	print multiline(x, y, w, h, c)
 	print """
 </g>
 </svg>
