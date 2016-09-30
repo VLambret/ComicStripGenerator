@@ -79,11 +79,21 @@ def height(c):
 
 #Computes the width of the bubble according to the largest word
 def width(c):
+	small = ['.', ',', '\'', '!', ':', '\"', 'i', 'I', '|', '(', ')', '[', ']', '{', '}', '`', ';']
+	medium = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 	l = 0
 	for w in c :
-		if len(w) > l :
-			l = len(w)
-	return l * WIDTH_CHAR
+		width = 0
+		for letter in w :
+			if letter in small :
+				width += WIDTH_CHAR * 0.6
+			elif letter in medium :
+				width += WIDTH_CHAR * 0.8
+			else :
+				width += WIDTH_CHAR
+		if width > l :
+			l = width
+	return l + 2 * PADDING
 
 #Print svg for a speech balloon
 def output_balloon(x, y, w, h, c):
