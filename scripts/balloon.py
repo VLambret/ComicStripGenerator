@@ -2,17 +2,18 @@
 
 import argparse
 
-FONTSIZE = 50
+FONTSIZE = 40
+INTERLINE = FONTSIZE * 0.375
+PADDING = FONTSIZE / 2
 
 def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-x', help = "top left absciss of the bubble", type = float, required = True)
 	parser.add_argument('-y', help = "top left ordinate of the bubble", type = float, required = True)
 	parser.add_argument('-w', help = "width of the bubble", type = float, required = True)
-	parser.add_argument('-height', help = "height of the bubble", type = float, required = True)
 	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True, nargs ="+")
 	args = parser.parse_args()
-	return args.x, args.y, args.w, args.height, args.c
+	return args.x, args.y, args.w, args.c
 
 #Return svg for the main rectangle bubble
 def rect(x, y, w, h):
@@ -67,9 +68,13 @@ def multiline(x, y, w, h, c):
 	result = ""
 	i = 0
 	while i < len(c) :
-		result += text(x + w/2, y + (h / (len(c)+1)) + FONTSIZE * 0.375 + i*FONTSIZE, w, h, c[i])
+		result += text(x + w/2, y + (h / (len(c)+1)) + INTERLINE + i*FONTSIZE, w, h, c[i])
 		i += 1
 	return result
+
+def height(c):
+	h = len(c) * FONTSIZE + 2 * PADDING
+	return h
 
 #Print svg for a speech balloon
 def output_balloon(x, y, w, h, c):
@@ -100,5 +105,8 @@ def output_balloon(x, y, w, h, c):
 </svg>
 """
 
-x, y, w, h, c = get_args()
+
+x, y, w, c = get_args()
+
+h = height(c)
 output_balloon(x, y, w, h, c)
