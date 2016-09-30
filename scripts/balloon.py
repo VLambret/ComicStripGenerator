@@ -4,11 +4,11 @@ import argparse
 
 def get_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-x', type = float, required = True)
-	parser.add_argument('-y', type = float, required = True)
-	parser.add_argument('-w', type = float, required = True)
-	parser.add_argument('-height', type = float, required = True)
-	parser.add_argument('-c', type = str, required = True)
+	parser.add_argument('-x', help = "top left absciss of the bubble", type = float, required = True)
+	parser.add_argument('-y', help = "top left ordinate of the bubble", type = float, required = True)
+	parser.add_argument('-w', help = "width of the bubble", type = float, required = True)
+	parser.add_argument('-height', help = "height of the bubble", type = float, required = True)
+	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True)
 	args = parser.parse_args()
 	return args.x, args.y, args.w, args.height, args.c
 
