@@ -8,7 +8,7 @@ def get_args():
 	parser.add_argument('-y', help = "top left ordinate of the bubble", type = float, required = True)
 	parser.add_argument('-w', help = "width of the bubble", type = float, required = True)
 	parser.add_argument('-height', help = "height of the bubble", type = float, required = True)
-	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True)
+	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True, nargs ="+")
 	args = parser.parse_args()
 	return args.x, args.y, args.w, args.height, args.c
 
@@ -48,15 +48,19 @@ def path(x, y, w, h):
 """
 
 #Return svg for the text
-def text(x, y, w, h):
-	return """	<text
+def text(x, y, w, h, c):
+	t = """	<text
 	style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
 	x=""" + "\"" + str(x + w/2) + "\"" + """
 	y=""" + "\"" + str(y + h/2 + 10) + "\"" + """
 	alignment-baseline="middle"
 	text-anchor="middle"
-	>""" + c + """</text>
+	>"""
+	for word in c :
+		t += word + " "
+	t += """</text>
 """
+	return t
 
 #Print svg for a speech balloon
 def output_balloon(x, y, w, h, c):
@@ -81,7 +85,7 @@ def output_balloon(x, y, w, h, c):
 	print """</g>
 	<!-- Text -->
 """ 
-	print text(x, y, w, h)
+	print text(x, y, w, h, c)
 	print """
 </g>
 </svg>
