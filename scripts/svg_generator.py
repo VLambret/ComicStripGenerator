@@ -12,26 +12,26 @@ def rect(x, y, w, h):
 """
 
 #Return svg for the small rectangle hiding the top of the path
-def hide(x, y , w, h):
+def hide(x, y , w, h, offset):
 	return """	<rect
 	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
 	id="hide"
 	width="20.46574"
 	height="30.052038"
-	x=""" + "\"" + str(w/3 + x) + "\"" + """
+	x=""" + "\"" + str(offset + x) + "\"" + """
 	y=""" + "\"" + str(y + h - 28.052038) + "\"" + """
 	/>
 """
 
 #Return svg for the path (=peak of the bubble)
-def path(x, y, w, h, o):
+def path(x, y, w, h, o, offset):
 
 	top_width = 23
 	total_width = 34
 	total_height = 28
 	top_height = 11
 
-	start_x = x + w/3 - 0.8
+	start_x = x + offset - 0.8
 	start_y = y + h - 2.45
 
 	if o == 'r':

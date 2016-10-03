@@ -19,9 +19,10 @@ def get_args():
 	parser.add_argument('-x', help = "top left absciss of the bubble", type = float, required = True)
 	parser.add_argument('-y', help = "top left ordinate of the bubble", type = float, required = True)
 	parser.add_argument('-o', help = "Bubble oriented left or right (l or r)", type = orientation, required = True)
+	parser.add_argument('-offset', help = "Space before peak", type = float, required = True)
 	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True, nargs ="+")
 	args = parser.parse_args()
-	return args.x, args.y, args.o, args.c
+	return args.x, args.y, args.o, args.offset, args.c
 
 def orientation(o):
 	if o != 'l' and o != 'r' :
@@ -63,7 +64,7 @@ def width(c):
 			l = width
 	return l + 2 * PADDING
 
-def body(x, y, w, h, c, o):
+def body(x, y, w, h, c, o, offset):
 	result = """ <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
@@ -76,8 +77,8 @@ def body(x, y, w, h, c, o):
 	   id="layer2">
 """ 
 	result += svg_generator.rect(x, y, w, h)
-	result += svg_generator.hide(x, y, w, h)
-	result += svg_generator.path(x, y, w, h, o)
+	result += svg_generator.hide(x, y, w, h, offset)
+	result += svg_generator.path(x, y, w, h, o, offset)
 	result += """</g>
 	<!-- Text -->
 """ 
@@ -89,14 +90,14 @@ def body(x, y, w, h, c, o):
 	return result
 
 #Print svg for a speech balloon
-def output_balloon(x, y, w, h, c, o):
+def output_balloon(x, y, w, h, c, o, offset):
 	f = open("header.svg", 'r')
 	print f.read()
 	f.close()
-	print body(x, y, w, h, c, o)
+	print body(x, y, w, h, c, o, offset)
 
-x, y, o, c = get_args()
+x, y, o, offset, c = get_args()
 
 h = height(c)
 w = width(c)
-output_balloon(x, y, w, h, c, o)
+output_balloon(x, y, w, h, c, o, offset)
