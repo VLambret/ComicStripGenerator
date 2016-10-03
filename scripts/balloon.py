@@ -1,11 +1,18 @@
 #!/usr/bin/python
 
+import svg_generator
 import argparse
 
 FONTSIZE = 40
 INTERLINE = FONTSIZE * 0.375
 PADDING = FONTSIZE / 2
+
+#Number of pixels for a standard character
 WIDTH_CHAR = FONTSIZE * 3/4
+
+#lists defining characters with small or medium width
+small = ['.', ',', '\'', '!', ':', '\"', 'i', 'I', '|', '(', ')', '[', ']', '{', '}', '`', ';']
+medium = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 def get_args():
 	parser = argparse.ArgumentParser()
@@ -15,60 +22,12 @@ def get_args():
 	args = parser.parse_args()
 	return args.x, args.y, args.c
 
-#Return svg for the main rectangle bubble
-def rect(x, y, w, h):
-	return """	<rect
-		style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#1a1a1a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-		id="balloon"
-		width=""" + "\"" + str(w) + "\"" + """
-		height=""" + "\"" + str(h) + "\"" + """
-		x=""" + "\"" + str(x) + "\"" + """
-		y=""" + "\"" + str(y) + "\"" + """
-		ry="17.857147"
-	/>
-"""
-
-#Return svg for the small rectangle hiding the top of the path
-def hide(x, y , w, h):
-	return """	<rect
-	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-	id="hide"
-	width="20.46574"
-	height="30.052038"
-	x=""" + "\"" + str(w/3 + x) + "\"" + """
-	y=""" + "\"" + str(y + h - 28.052038) + "\"" + """
-	/>
-"""
-
-#Return svg for the path (=peak of the bubble)
-def path(x, y, w, h):
-	return """	<path
-	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#1a1a1a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-	d="m """ + str(x + w/3 - 0.8) + "," + str(y + h - 2.45) + """ -0.1177,11.13567 -11.24652,17.65368 34.37565,-26.78428"
-	id="peak"
-	inkscape:connector-curvature="0"
-	sodipodi:nodetypes="cccc" />
-"""
-
-#Return svg for the text
-def text(x, y, w, h, c):
-	t = """	<text
-	style="font-size:""" + str(FONTSIZE) + """px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:black;opacity:1;stroke:none;font-family:OpenComicFont;-inkscape-font-specification:OpenComicFont Medium"
-	x=""" + "\"" + str(x) + "\"" + """
-	y=""" + "\"" + str(y) + "\"" + """
-	alignment-baseline="middle"
-	text-anchor="middle"
-	>"""
-	t += c +"""</text>
-"""
-#	y=""" + "\"" + str(y + h/2 + 10) + "\"" + """
-	return t
-
+#Generates svg for several lines of text
 def multiline(x, y, w, h, c):
 	result = ""
 	i = 0
 	while i < len(c) :
-		result += text(x + w/2, y + (h / (len(c)+1)) + INTERLINE + i*FONTSIZE, w, h, c[i])
+		result += svg_generator.text(x + w/2, y + (h / (len(c)+1)) + INTERLINE + i*FONTSIZE, w, h, c[i], FONTSIZE)
 		i += 1
 	return result
 
@@ -77,31 +36,29 @@ def height(c):
 	h = len(c) * FONTSIZE + 2 * PADDING
 	return h
 
+#Computes the width needed for a word according to the width of its characters
+def width_word(w):
+	width = 0
+	for letter in w :
+		if letter in small :
+			width += WIDTH_CHAR * 0.6
+		elif letter in medium :
+			width += WIDTH_CHAR * 0.8
+		else :
+			width += WIDTH_CHAR
+	return width
+
 #Computes the width of the bubble according to the largest word
 def width(c):
-	small = ['.', ',', '\'', '!', ':', '\"', 'i', 'I', '|', '(', ')', '[', ']', '{', '}', '`', ';']
-	medium = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 	l = 0
 	for w in c :
-		width = 0
-		for letter in w :
-			if letter in small :
-				width += WIDTH_CHAR * 0.6
-			elif letter in medium :
-				width += WIDTH_CHAR * 0.8
-			else :
-				width += WIDTH_CHAR
+		width = width_word(w)
 		if width > l :
 			l = width
 	return l + 2 * PADDING
 
-#Print svg for a speech balloon
-def output_balloon(x, y, w, h, c):
-	f = open("header.svg", 'r')
-	print f.read()
-	f.close()
-
-	print """ <g
+def body(x, y, w, h, c):
+	result = """ <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1">
@@ -112,18 +69,25 @@ def output_balloon(x, y, w, h, c):
 	   inkscape:groupmode="layer"
 	   id="layer2">
 """ 
-	print rect(x, y, w, h)
-	print hide(x, y, w, h)
-	print path(x, y, w, h)
-	print """</g>
+	result += svg_generator.rect(x, y, w, h)
+	result += svg_generator.hide(x, y, w, h)
+	result += svg_generator.path(x, y, w, h)
+	result += """</g>
 	<!-- Text -->
 """ 
-	print multiline(x, y, w, h, c)
-	print """
+	result += multiline(x, y, w, h, c)
+	result +=  """
 </g>
 </svg>
 """
+	return result
 
+#Print svg for a speech balloon
+def output_balloon(x, y, w, h, c):
+	f = open("header.svg", 'r')
+	print f.read()
+	f.close()
+	print body(x, y, w, h, c)
 
 x, y, c = get_args()
 
