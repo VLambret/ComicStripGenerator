@@ -24,11 +24,33 @@ def hide(x, y , w, h):
 """
 
 #Return svg for the path (=peak of the bubble)
-def path(x, y, w, h):
+def path(x, y, w, h, o):
+
+	top_width = 23
+	total_width = 34
+	total_height = 28
+	top_height = 11
+
+	start_x = x + w/3 - 0.8
+	start_y = y + h - 2.45
+
+	if o == 'r':
+		start_x += top_width 
+		point3_x = total_width - top_width
+		point4_x = -(total_width + 0.5)
+	else :
+		point3_x = -(total_width - top_width)
+		point4_x = total_width + 0.5
+
+	point1 = (start_x, start_y)
+	point2 = (0, top_height)
+	point3 = (point3_x, total_height - top_height)
+	point4 = (point4_x, -total_height + 2)
+
 	return """	<path
 	style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#1a1a1a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-	d="m """ + str(x + w/3 - 0.8) + "," + str(y + h - 2.45) + """ -0.1177,11.13567 -11.24652,17.65368 34.37565,-26.78428"
 	id="peak"
+	d="m """ + str(point1[0]) +"," + str(point1[1]) + " " + str(point2[0]) + "," + str(point2[1]) + " " + str(point3[0]) + "," + str(point3[1]) + " " + str(point4[0]) + "," + str(point4[1]) + "\"" + """
 	inkscape:connector-curvature="0"
 	sodipodi:nodetypes="cccc" />
 """

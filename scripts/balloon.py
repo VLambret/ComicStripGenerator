@@ -18,9 +18,15 @@ def get_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-x', help = "top left absciss of the bubble", type = float, required = True)
 	parser.add_argument('-y', help = "top left ordinate of the bubble", type = float, required = True)
+	parser.add_argument('-o', help = "Bubble oriented left or right (l or r)", type = orientation, required = True)
 	parser.add_argument('-c', help = "Text for the bubble", type = str, required = True, nargs ="+")
 	args = parser.parse_args()
-	return args.x, args.y, args.c
+	return args.x, args.y, args.o, args.c
+
+def orientation(o):
+	if o != 'l' and o != 'r' :
+		raise argparse.ArgumentTypeError("Orientation must be l or r")
+	return o
 
 #Generates svg for several lines of text
 def multiline(x, y, w, h, c):
@@ -57,7 +63,7 @@ def width(c):
 			l = width
 	return l + 2 * PADDING
 
-def body(x, y, w, h, c):
+def body(x, y, w, h, c, o):
 	result = """ <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
@@ -71,7 +77,7 @@ def body(x, y, w, h, c):
 """ 
 	result += svg_generator.rect(x, y, w, h)
 	result += svg_generator.hide(x, y, w, h)
-	result += svg_generator.path(x, y, w, h)
+	result += svg_generator.path(x, y, w, h, o)
 	result += """</g>
 	<!-- Text -->
 """ 
@@ -83,14 +89,14 @@ def body(x, y, w, h, c):
 	return result
 
 #Print svg for a speech balloon
-def output_balloon(x, y, w, h, c):
+def output_balloon(x, y, w, h, c, o):
 	f = open("header.svg", 'r')
 	print f.read()
 	f.close()
-	print body(x, y, w, h, c)
+	print body(x, y, w, h, c, o)
 
-x, y, c = get_args()
+x, y, o, c = get_args()
 
 h = height(c)
 w = width(c)
-output_balloon(x, y, w, h, c)
+output_balloon(x, y, w, h, c, o)
