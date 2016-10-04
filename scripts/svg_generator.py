@@ -35,14 +35,8 @@ def path(x, y, w, h, offset, bx, by):
 		o = 'r'
 
 	top_width = 23
-	total_height = 50
-
-	slope = (by - start_y) / (bx - start_x)
-	y_intercept = (bx * start_y - start_x * by) / (bx - start_x)
-	absolute_x = (total_height + start_y - y_intercept) / slope
-
-#	total_width = 34
-	total_width = abs(start_x - absolute_x)
+	total_width = abs(start_x - bx) -30
+	total_height = abs(start_y - by) - 30
 	top_height = 11
 
 	if o == 'r':
