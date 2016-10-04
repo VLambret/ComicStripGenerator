@@ -24,10 +24,15 @@ def hide(x, y , w, h, offset):
 """
 
 #Return svg for the path (=peak of the bubble)
-def path(x, y, w, h, o, offset, bx, by):
+def path(x, y, w, h, offset, bx, by):
 
 	start_x = x + offset - 1.5
 	start_y = y + h -0.6
+
+	if bx <= start_x :
+		o = 'l'
+	else :
+		o = 'r'
 
 	top_width = 23
 	total_height = 50
