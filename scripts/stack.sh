@@ -6,17 +6,19 @@ function usage {
 }
 
 if [ 3 -gt $# ]; then
-	echo "illegal number of parameters"
+	echo "Illegal number of parameters"
 	usage
 	exit -1
 fi
 
+eval "OUTPUT=\${$#}"
+
 length=$(($#-3))
 array=(${@:3:$length})
 
-composite $1 $2 ${@: -1}
+composite $2 $1 ${OUTPUT}
 
 for i in "${array[@]}"
 do
-	composite ${@: -1} $i ${@: -1}
+	composite $i ${OUTPUT} ${OUTPUT}
 done
