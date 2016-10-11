@@ -1,21 +1,23 @@
 RST=results
 SRC=sources
 
-.PHONY: all clean
+.PHONY: all clean test
 
-all: $(RST)/result.png
+all: ${RST}/strip.png
+
+test: stack_test
 
 clean :
 	rm -f $(RST)/*
 
-$(RST)/result.png : $(RST)/tmp2.png $(RST)/speechBubble.png
-	composite $(RST)/speechBubble.png $< $@
+${RST}/strip.png: ${RST}/panel.png
+	cp $^ $@
 
-$(RST)/tmp2.png : $(RST)/tmp.png
-	composite $(SRC)/perso2.png $< $@
+${RST}/panel.png: $(SRC)/background.png \
+                  $(SRC)/perso1.png \
+                  $(SRC)/perso2.png
+	./scripts/stack.sh $^ $@
 
-$(RST)/tmp.png:
-	composite $(SRC)/perso1.png $(SRC)/background.png $@
-
-$(RST)/speechBubble.png : $(SRC)/speechBubble.svg
-	convert $< $@
+stack_test:
+	./scripts/stack.sh sources/background.png sources/perso1.png sources/perso2.png results/stack_test1.png
+	./scripts/stack.sh sources/background.png sources/perso1.png results/stack_test2.png
