@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import sys
+import os.path
 import svg_generator
 import argparse
 
@@ -90,9 +92,15 @@ def body(x, y, w, h, c, offset, bx, by):
 """
 	return result
 
+def header_name():
+    prefix=os.path.dirname(sys.argv[0])
+    return prefix + "/header.svg"
+    
+
 #Print svg for a speech balloon
 def output_balloon(x, y, w, h, c, offset, bx, by):
-	f = open("header.svg", 'r')
+        header = header_name()
+	f = open(header, 'r')
 	print f.read()
 	f.close()
 	print body(x, y, w, h, c, offset, bx, by)
