@@ -5,7 +5,20 @@ class MakefileGenerator():
 		self.workDir = workDir
 
 	def generatePanelRules(self):
-		pass
+		counter = 1
+
+		commands = ["./scripts/stack.sh $^ $@", "convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@"]
+
+		for panel in self.strip.panelList:
+			target = self.workDir + "/panel" + str(counter) + ".png"
+
+			dependancies = []
+			for panelItem in panel.panelItemList:
+				dependancies.append(panelItem.imageName)
+
+
+			self.printMakefileRule(target, dependancies, commands)
+			counter += 1
 
 	def generateStripRule(self):
 		target = self.workDir + "/strip.png"
@@ -43,3 +56,4 @@ class MakefileGenerator():
 		print()
 		for c in commands:
 			print("\t" + c)
+		print()
