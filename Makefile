@@ -6,7 +6,7 @@ SRC=sources
 all:
 	rm -f $(RST)/*
 	python3 src/main.py > strip.mk	
-	make -f strip.mk
+	make -f strip.mk -j 4
 
 all: ${RST}/strip.png
 
