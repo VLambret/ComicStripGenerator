@@ -5,7 +5,8 @@ function usage {
 	echo "        compose several images by stacking from background to foreground"
 }
 
-if [ 3 -gt $# ]; then
+if [ 3 -gt $# ]
+then
 	echo "Illegal number of parameters"
 	usage
 	exit -1
