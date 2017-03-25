@@ -4,9 +4,9 @@ from Panel import *
 from MakefileGenerator import *
 
 def main():
-	background = PanelItem("../sources/background.png")
-	bluePerso = PanelItem("../sources/perso1.png")
-	redPerso = PanelItem("../sources/perso2.png")
+	background = PanelItem("sources/background.png")
+	bluePerso = PanelItem("sources/perso1.png")
+	redPerso = PanelItem("sources/perso2.png")
 
 	panelTop = Panel(1074)
 	panelMiddle = Panel(1074)
@@ -27,7 +27,7 @@ def main():
 	strip.addPanel(panelMiddle)
 	strip.addPanel(panelBottom)
 
-	makefileGenerator = MakefileGenerator(strip)
+	makefileGenerator = MakefileGenerator(strip, "results")
 	makefileGenerator.generateMakefile()
 
 main()
