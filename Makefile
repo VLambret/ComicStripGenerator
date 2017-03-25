@@ -10,10 +10,10 @@ test: stack_test
 clean :
 	rm -f $(RST)/*
 
-${RST}/strip.png: ${RST}/panel1_pos.png \
-                  ${RST}/panel2_pos.png \
-                  ${RST}/panel3_pos.png
-	./scripts/stack.sh $^ $@
+${RST}/strip.png: ${RST}/panel1.png \
+                  ${RST}/panel2.png \
+                  ${RST}/panel3.png
+	convert -append $^ $@
 
 ${RST}/panel.png: $(SRC)/background.png \
                   $(SRC)/perso1.png \
@@ -26,9 +26,6 @@ ${RST}/panel.png: $(SRC)/background.png \
 ###############################################################################
 # PANEL 1
 ###############################################################################
-
-${RST}/panel1_pos.png: ${RST}/panel1.png
-	./scripts/pos.sh $< 0 0 1024 2304 $@
 
 ${RST}/panel1.png: ${RST}/panel.png ${RST}/bubble1_pos.png
 	./scripts/stack.sh $^ $@
@@ -43,9 +40,6 @@ ${RST}/bubble1.svg : Makefile
 # PANEL 2
 ###############################################################################
 
-${RST}/panel2_pos.png: ${RST}/panel2.png
-	./scripts/pos.sh $< 0 768 1024 2304 $@
-
 ${RST}/panel2.png: ${RST}/panel.png ${RST}/bubble2_pos.png
 	./scripts/stack.sh $^ $@
 
@@ -58,9 +52,6 @@ ${RST}/bubble2.svg : Makefile
 ###############################################################################
 # PANEL 3
 ###############################################################################
-
-${RST}/panel3_pos.png: ${RST}/panel3.png
-	./scripts/pos.sh $< 0 1536 1024 2304 $@
 
 ${RST}/panel3.png: ${RST}/panel.png ${RST}/bubble3_left_pos.png ${RST}/bubble3_rigth_pos.png
 	./scripts/stack.sh $^ $@
