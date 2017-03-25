@@ -1,6 +1,7 @@
 from Strip import *
 from PanelItem import *
 from Panel import *
+from MakefileGenerator import *
 
 def main():
 	background = PanelItem("../sources/background.png")
@@ -25,5 +26,8 @@ def main():
 	strip.addPanel(panelTop)
 	strip.addPanel(panelMiddle)
 	strip.addPanel(panelBottom)
+
+	makefileGenerator = MakefileGenerator(strip)
+	makefileGenerator.generateMakefile()
 
 main()
