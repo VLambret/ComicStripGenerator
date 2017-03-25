@@ -3,6 +3,11 @@ SRC=sources
 
 .PHONY: all clean test
 
+all:
+	rm -f $(RST)/*
+	python3 src/main.py > strip.mk	
+	make -f strip.mk
+
 all: ${RST}/strip.png
 
 test: stack_test
