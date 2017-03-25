@@ -29,6 +29,7 @@ ${RST}/panel.png: $(SRC)/background.png \
 
 ${RST}/panel1.png: ${RST}/panel.png ${RST}/bubble1_pos.png
 	./scripts/stack.sh $^ $@
+	convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@
 
 ${RST}/bubble1_pos.png: ${RST}/bubble1.png
 	./scripts/pos.sh $< 350 100 1024 768 $@
@@ -42,6 +43,7 @@ ${RST}/bubble1.svg : Makefile
 
 ${RST}/panel2.png: ${RST}/panel.png ${RST}/bubble2_pos.png
 	./scripts/stack.sh $^ $@
+	convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@
 
 ${RST}/bubble2_pos.png: ${RST}/bubble2.png
 	./scripts/pos.sh $< 550 100 1024 768 $@
@@ -55,6 +57,7 @@ ${RST}/bubble2.svg : Makefile
 
 ${RST}/panel3.png: ${RST}/panel.png ${RST}/bubble3_left_pos.png ${RST}/bubble3_rigth_pos.png
 	./scripts/stack.sh $^ $@
+	convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@
 
 ${RST}/bubble3_left_pos.png: ${RST}/bubble3_left.png
 	./scripts/pos.sh $< 250 10 1024 768 $@
