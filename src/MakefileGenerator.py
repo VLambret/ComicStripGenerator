@@ -2,8 +2,9 @@ from MakefileCommand import *
 
 class MakefileGenerator():
 
-	def __init__(self, strip, workDir):
+	def __init__(self, strip, pngTargetName, workDir):
 		self.strip = strip
+		self.pngTargetName = pngTargetName
 		self.workDir = workDir
 
 	def generatePanelBalloonsRules(self, panel, panelCounter):
@@ -57,8 +58,6 @@ class MakefileGenerator():
 			panelCounter += 1
 
 	def generateStripRule(self):
-		target = self.workDir + "/strip.png"
-
 		dependancies = []
 		i = 1
 		for panel in self.strip.panelList:
@@ -67,7 +66,7 @@ class MakefileGenerator():
 
 		commands = ["convert -append $^ $@"]
 
-		self.printMakefileRule(target, dependancies, commands)
+		self.printMakefileRule(self.pngTargetName, dependancies, commands)
 
 	def generateMakefile(self):
 		self.printGenericRules()

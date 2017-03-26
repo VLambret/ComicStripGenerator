@@ -3,6 +3,7 @@ from PanelItem import *
 from Panel import *
 from MakefileGenerator import *
 from Balloon import *
+import argparse
 
 def createBackground(panel, config):
     background = PanelItem("sources/"+ config[1], (0, 0))
@@ -44,9 +45,18 @@ def initFromFile(fileName):
         strip.addPanel(panel)
     return strip
 
+def getArgs():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-f', help = "comic file to transform into Makefile", default = "strip.comic", type = str, required = False)
+	parser.add_argument('-w', help = "workdir where temporary files are created", default = "results", type = str, required = False)
+	args = parser.parse_args()
+	return args.f, args.w
+
 def main():
-	strip = initFromFile("strip.comic")
-	makefileGenerator = MakefileGenerator(strip, "results")
-	makefileGenerator.generateMakefile()
+    comicFileName, workDir = getArgs()
+    finalPNGName = comicFileName.replace(".comic", ".png")
+    strip = initFromFile(comicFileName)
+    makefileGenerator = MakefileGenerator(strip, finalPNGName, workDir)
+    makefileGenerator.generateMakefile()
 
 main()
