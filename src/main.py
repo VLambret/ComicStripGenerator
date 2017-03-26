@@ -9,7 +9,7 @@ def createBackground(panel, config):
     panel.addPanelItem(background)
 
 def createItem(panel, config):
-    item = PanelItem("sources/"+ config[1], (0, 0))
+    item = PanelItem("sources/"+ config[1], (config[2], config[3]))
     panel.addPanelItem(item)
 
 # balloon:350:100:40:-50:-35:"Hi !"
