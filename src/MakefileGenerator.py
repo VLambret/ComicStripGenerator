@@ -1,3 +1,5 @@
+from MakefileCommand import *
+
 class MakefileGenerator():
 
 	def __init__(self, strip, workDir):
@@ -6,12 +8,14 @@ class MakefileGenerator():
 
 	def generatePanelBalloonsRules(self, panel, panelCounter):
 		balloonCounter = 1
-		for balloon in panel.balloonList:
-			targetPosName = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + "_pos.png"
-			targetName = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + ".png"
-			targetSVGName = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + ".svg"
 
-			posCommand = "./scripts/pos.sh $< " + str(balloon.position[0]) + " " + str(balloon.position[1]) + " " + str(panel.width) + " " + str(panel.height) + " $@"
+		for balloon in panel.balloonList:
+			targetPrefix = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter)
+			targetPosName = targetPrefix + "_pos.png"
+			targetName = targetPrefix + ".png"
+			targetSVGName = targetPrefix + ".svg"
+
+			posCommand = MakefileCommand.generatePositionCommand(balloon ,panel)
 
 			svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + str(balloon.offset) +  " -bx " + str(balloon.orientation[0]) + "  -by " + str(balloon.orientation[1]) + " -c " + balloon.speech + " > $@"
 
@@ -19,6 +23,10 @@ class MakefileGenerator():
 			self.printMakefileRule(targetSVGName, [""], [svgCommand])
 
 			balloonCounter += 1
+
+	def generatePosItemRule(self, targetName, panelItem, panel):
+		posCommand = MakefileCommand.generatePositionCommand(panelItem ,panel)
+		self.printMakefileRule(targetName, [panelItem.imageName], [posCommand])
 
 	def generatePanelRules(self):
 		panelCounter = 1
@@ -29,8 +37,14 @@ class MakefileGenerator():
 			target = self.workDir + "/panel" + str(panelCounter) + ".png"
 
 			dependancies = []
+			itemCounter = 1
 			for panelItem in panel.panelItemList:
-				dependancies.append(panelItem.imageName)
+				itemPosRuleName = target.replace(".png", "_pos" + str(itemCounter) + ".png")
+				dependancies.append(itemPosRuleName)
+
+				self.generatePosItemRule(itemPosRuleName, panelItem, panel)
+
+				itemCounter += 1
 
 			balloonCounter = 1
 			for balloon in panel.balloonList:
