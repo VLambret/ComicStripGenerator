@@ -24,6 +24,10 @@ class MakefileGenerator():
 
 			balloonCounter += 1
 
+	def generatePosItemRule(self, targetName, panelItem, panel):
+		posCommand = MakefileCommand.generatePositionCommand(panelItem ,panel)
+		self.printMakefileRule(targetName, [panelItem.imageName], [posCommand])
+
 	def generatePanelRules(self):
 		panelCounter = 1
 
@@ -33,8 +37,14 @@ class MakefileGenerator():
 			target = self.workDir + "/panel" + str(panelCounter) + ".png"
 
 			dependancies = []
+			itemCounter = 1
 			for panelItem in panel.panelItemList:
-				dependancies.append(panelItem.imageName)
+				itemPosRuleName = target.replace(".png", "_pos" + str(itemCounter) + ".png")
+				dependancies.append(itemPosRuleName)
+
+				self.generatePosItemRule(itemPosRuleName, panelItem, panel)
+
+				itemCounter += 1
 
 			balloonCounter = 1
 			for balloon in panel.balloonList:
