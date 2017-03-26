@@ -1,0 +1,15 @@
+background:background.png
+item:perso1.png
+item:perso2.png
+balloon:350:100:40:-50:-35:"Hi !"
+
+background:background.png
+item:perso1.png
+item:perso2.png
+balloon:550:100:40:150:-35:"Hi"
+
+background:background.png
+item:perso1.png
+item:perso2.png
+balloon:250:10:100:-50:-35:"Will Eisner award is" "not for today..."
+balloon:550:120:150:250:-35:"Next time maybe ?"

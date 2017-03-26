@@ -13,10 +13,7 @@ class MakefileGenerator():
 
 			posCommand = "./scripts/pos.sh $< " + str(balloon.position[0]) + " " + str(balloon.position[1]) + " " + str(panel.width) + " " + str(panel.height) + " $@"
 
-			balloonContent = ""
-			for line in balloon.sentences:
-				balloonContent += '"' + line +  '" '
-			svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + str(balloon.offset) +  " -bx " + str(balloon.orientation[0]) + "  -by " + str(balloon.orientation[1]) + " -c " + balloonContent + " > $@"
+			svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + str(balloon.offset) +  " -bx " + str(balloon.orientation[0]) + "  -by " + str(balloon.orientation[1]) + " -c " + balloon.speech + " > $@"
 
 			self.printMakefileRule(targetPosName, [targetName], [posCommand])
 			self.printMakefileRule(targetSVGName, [""], [svgCommand])
