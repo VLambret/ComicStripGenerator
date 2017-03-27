@@ -5,9 +5,9 @@ from MakefileGenerator import *
 from Balloon import *
 import argparse
 
-def createBackground(panel, config):
-    background = PanelItem("sources/"+ config[1], (0, 0))
-    panel.addPanelItem(background)
+def createPanelFromBackground(config):
+    backgroundFileName = PanelItem("sources/"+ config[1], (0, 0))
+    return Panel(backgroundFileName)
 
 def createItem(panel, config):
     item = PanelItem("sources/"+ config[1], (config[2], config[3]))
@@ -24,7 +24,7 @@ def createBalloon(panel, config):
 
 def initFromFile(fileName):
     strip = Strip()
-    panel = Panel(1024, 768)
+    panel = None
 
     with open(fileName, 'r') as f:
         for line in f:
@@ -34,14 +34,13 @@ def initFromFile(fileName):
             print("#^" +typeOfItem + "$")
 
             if typeOfItem == "background":
-                createBackground(panel, parsedLine)
+                if panel is not None:
+                    strip.addPanel(panel)
+                panel = createPanelFromBackground(parsedLine)
             elif typeOfItem == "item":
                 createItem(panel, parsedLine)
             elif typeOfItem == "balloon":
                 createBalloon(panel, parsedLine)
-            elif typeOfItem == "":
-                strip.addPanel(panel)
-                panel = Panel(1024, 768)
         strip.addPanel(panel)
     return strip
 

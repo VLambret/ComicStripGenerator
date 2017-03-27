@@ -1,10 +1,14 @@
+from PanelItem import *
+
 class Panel:
 
-	def __init__(self, width, height):
+	def __init__(self, backgroundPanelItem):
+		backgroundSize = backgroundPanelItem.getSize()
 		self.panelItemList = []
 		self.balloonList = []
-		self.width = width
-		self.height= height
+		self.width = backgroundSize[0]
+		self.height= backgroundSize[1]
+		self.addPanelItem(backgroundPanelItem)
 
 	def addPanelItem(self, panelItem):
 		self.panelItemList.append(panelItem)

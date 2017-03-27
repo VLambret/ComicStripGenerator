@@ -7,3 +7,6 @@ class PanelItem:
 		im = Image.open(self.imageName)
 		self.size = im.size
 		self.position = position
+
+	def getSize(self):
+		return self.size
