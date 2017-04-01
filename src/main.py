@@ -1,8 +1,8 @@
 import argparse
-from PanelItem import *
-from Panel import *
-from MakefileGenerator import *
-from Balloon import *
+from PanelItem import PanelItem
+from Panel import Panel
+from MakefileGenerator import MakefileGenerator
+from Balloon import Balloon
 
 def create_panel_from_background(config):
     background_file_name = PanelItem("sources/"+ config[1], (0, 0))
