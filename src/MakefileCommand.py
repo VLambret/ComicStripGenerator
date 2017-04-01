@@ -3,8 +3,9 @@ class MakefileCommand:
     @staticmethod
     def generatePositionCommand(panelItem, panel):
         parameters = ["./scripts/pos.sh $<"]
-        parameters.append(str(panelItem.position[0]))
-        parameters.append(str(panelItem.position[1]))
+        position = panelItem.get_position()
+        parameters.append(str(position[0]))
+        parameters.append(str(position[1]))
         parameters.append(str(panel.get_width()))
         parameters.append(str(panel.get_height()))
         parameters.append("$@")

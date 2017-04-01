@@ -18,7 +18,7 @@ class MakefileGenerator():
 
             posCommand = MakefileCommand.generatePositionCommand(balloon ,panel)
 
-            svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + str(balloon.offset) +  " -bx " + str(balloon.orientation[0]) + "  -by " + str(balloon.orientation[1]) + " -c " + balloon.speech + " > $@"
+            svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + balloon.get_offset() +  " -bx " + balloon.get_horizontal_orientation() + "  -by " + balloon.get_vertical_orientation() + " -c " + balloon.get_speech() + " > $@"
 
             self.printMakefileRule(targetPosName, [targetName], [posCommand])
             self.printMakefileRule(targetSVGName, [""], [svgCommand])

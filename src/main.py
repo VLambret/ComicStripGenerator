@@ -12,7 +12,6 @@ def createItem(panel, config):
     item = PanelItem("sources/"+ config[1], (config[2], config[3]))
     panel.add_panel_item(item)
 
-# balloon:350:100:40:-50:-35:"Hi !"
 def createBalloon(panel, config):
     speeches = config[6]
     position=(config[1], config[2])
