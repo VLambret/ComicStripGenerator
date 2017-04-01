@@ -1,7 +1,7 @@
 class Panel:
 
     def __init__(self, background_panel_item):
-        self.background_size = background_panel_item.getSize()
+        self.background_size = background_panel_item.get_size()
         self.panel_item_list = []
         self.balloon_list = []
         self.add_panel_item(background_panel_item)

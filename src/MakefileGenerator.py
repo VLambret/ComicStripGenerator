@@ -27,7 +27,7 @@ class MakefileGenerator():
 
     def generatePosItemRule(self, targetName, panelItem, panel):
         posCommand = MakefileCommand.generatePositionCommand(panelItem ,panel)
-        self.printMakefileRule(targetName, [panelItem.imageName], [posCommand])
+        self.printMakefileRule(targetName, [panelItem.get_image_name()], [posCommand])
 
     def generatePanelRules(self):
         panelCounter = 1
