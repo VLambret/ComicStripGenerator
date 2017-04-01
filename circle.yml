@@ -1,6 +1,12 @@
+machine:
+  python:
+    - 3.4.3
 dependencies:
   pre:
-    - pip install pylint
+    - sudo apt-get install python3-pip
+    - sudo /usr/bin/pip3 install --upgrade pip
+    - sudo /usr/bin/pip3 install pylint
+    - sudo /usr/bin/pip3 install pillow
 test:
   override:
     - make pylint
