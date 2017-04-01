@@ -17,7 +17,7 @@ class MakefileGenerator():
             target_name = target_prefix + ".png"
             target_svg_name = target_prefix + ".svg"
 
-            pos_command = MakefileCommand.generatePositionCommand(balloon, panel)
+            pos_command = MakefileCommand.generate_position_command(balloon, panel)
 
             svg_command = "./scripts/balloon.py -x 0 -y 0 -offset " + balloon.get_offset()
             svg_command += " -bx " + balloon.get_horizontal_orientation()
@@ -30,7 +30,7 @@ class MakefileGenerator():
             balloon_counter += 1
 
     def generate_pos_item_rule(self, target_name, panel_item, panel):
-        pos_command = MakefileCommand.generatePositionCommand(panel_item, panel)
+        pos_command = MakefileCommand.generate_position_command(panel_item, panel)
         self.print_makefile_rule(target_name, [panel_item.get_image_name()], [pos_command])
 
     def generate_panel_rules(self):
