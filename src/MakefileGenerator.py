@@ -10,7 +10,7 @@ class MakefileGenerator():
     def generatePanelBalloonsRules(self, panel, panelCounter):
         balloonCounter = 1
 
-        for balloon in panel.balloonList:
+        for balloon in panel.get_balloons():
             targetPrefix = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter)
             targetPosName = targetPrefix + "_pos.png"
             targetName = targetPrefix + ".png"
@@ -39,7 +39,7 @@ class MakefileGenerator():
 
             dependancies = []
             itemCounter = 1
-            for panelItem in panel.panelItemList:
+            for panelItem in panel.get_panel_items():
                 itemPosRuleName = target.replace(".png", "_pos" + str(itemCounter) + ".png")
                 dependancies.append(itemPosRuleName)
 
@@ -48,7 +48,7 @@ class MakefileGenerator():
                 itemCounter += 1
 
             balloonCounter = 1
-            for balloon in panel.balloonList:
+            for balloon in panel.get_balloons():
                 dependancies.append(self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + "_pos.png")
                 balloonCounter += 1
 

@@ -11,7 +11,7 @@ def createPanelFromBackground(config):
 
 def createItem(panel, config):
     item = PanelItem("sources/"+ config[1], (config[2], config[3]))
-    panel.addPanelItem(item)
+    panel.add_panel_item(item)
 
 # balloon:350:100:40:-50:-35:"Hi !"
 def createBalloon(panel, config):
@@ -20,7 +20,7 @@ def createBalloon(panel, config):
     offset=config[3]
     orientation=(config[4], config[5])
     balloon = Balloon(speeches, offset, orientation, position)
-    panel.addBalloon(balloon)
+    panel.add_balloon(balloon)
 
 def initFromFile(fileName):
     strip = Strip()
