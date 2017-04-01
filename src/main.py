@@ -54,6 +54,6 @@ def main():
     finalPNGName = comicFileName.replace(".comic", ".png")
     strip = initFromFile(comicFileName)
     makefileGenerator = MakefileGenerator(strip, finalPNGName, workDir)
-    makefileGenerator.generateMakefile()
+    makefileGenerator.generate_makefile()
 
 main()

@@ -25,3 +25,6 @@ class Panel:
     def get_balloons(self):
         for balloon in self._balloon_list:
             yield balloon
+
+    def get_balloons_number(self):
+        return len(self._balloon_list)

@@ -1,98 +1,102 @@
-from MakefileCommand import *
+from MakefileCommand import MakefileCommand
 
 class MakefileGenerator():
 
-    def __init__(self, strip, pngTargetName, workDir):
+    def __init__(self, strip, png_target_name, work_dir):
         self._strip = strip
-        self._pngTargetName = pngTargetName
-        self._workDir = workDir
+        self._png_target_name = png_target_name
+        self._work_dir = work_dir
 
-    def generatePanelBalloonsRules(self, panel, panelCounter):
-        balloonCounter = 1
+    def generate_panel_balloon_rules(self, panel, panel_counter):
+        balloon_counter = 0
 
         for balloon in panel.get_balloons():
-            targetPrefix = self._workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter)
-            targetPosName = targetPrefix + "_pos.png"
-            targetName = targetPrefix + ".png"
-            targetSVGName = targetPrefix + ".svg"
+            target_prefix = self._work_dir + "/panel" + str(panel_counter)
+            target_prefix += "_balloon" + str(balloon_counter)
+            target_pos_name = target_prefix + "_pos.png"
+            target_name = target_prefix + ".png"
+            target_svg_name = target_prefix + ".svg"
 
-            posCommand = MakefileCommand.generatePositionCommand(balloon ,panel)
+            pos_command = MakefileCommand.generatePositionCommand(balloon, panel)
 
-            svgCommand = "./scripts/balloon.py -x 0 -y 0 -offset " + balloon.get_offset() +  " -bx " + balloon.get_horizontal_orientation() + "  -by " + balloon.get_vertical_orientation() + " -c " + balloon.get_speech() + " > $@"
+            svg_command = "./scripts/balloon.py -x 0 -y 0 -offset " + balloon.get_offset()
+            svg_command += " -bx " + balloon.get_horizontal_orientation()
+            svg_command += "  -by " + balloon.get_vertical_orientation()
+            svg_command += " -c " + balloon.get_speech() + " > $@"
 
-            self.printMakefileRule(targetPosName, [targetName], [posCommand])
-            self.printMakefileRule(targetSVGName, [""], [svgCommand])
+            self.print_makefile_rule(target_pos_name, [target_name], [pos_command])
+            self.print_makefile_rule(target_svg_name, [""], [svg_command])
 
-            balloonCounter += 1
+            balloon_counter += 1
 
-    def generatePosItemRule(self, targetName, panelItem, panel):
-        posCommand = MakefileCommand.generatePositionCommand(panelItem ,panel)
-        self.printMakefileRule(targetName, [panelItem.get_image_name()], [posCommand])
+    def generate_pos_item_rule(self, target_name, panel_item, panel):
+        pos_command = MakefileCommand.generatePositionCommand(panel_item, panel)
+        self.print_makefile_rule(target_name, [panel_item.get_image_name()], [pos_command])
 
-    def generatePanelRules(self):
-        panelCounter = 1
+    def generate_panel_rules(self):
+        panel_counter = 0
 
-        commands = ["./scripts/stack.sh $^ $@", "convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@"]
+        convert_command = "convert $@ -bordercolor black -compose Copy -border 5"
+        convert_command += " -bordercolor white -compose Copy -border 20 $@"
+        commands = ["./scripts/stack.sh $^ $@", convert_command]
 
         for panel in self._strip:
-            target = self._workDir + "/panel" + str(panelCounter) + ".png"
+            target = self._work_dir + "/panel" + str(panel_counter) + ".png"
 
             dependancies = []
-            itemCounter = 1
-            for panelItem in panel.get_panel_items():
-                itemPosRuleName = target.replace(".png", "_pos" + str(itemCounter) + ".png")
-                dependancies.append(itemPosRuleName)
+            item_counter = 1
+            for panel_item in panel.get_panel_items():
+                item_pos_rule_name = target.replace(".png", "_pos" + str(item_counter) + ".png")
+                dependancies.append(item_pos_rule_name)
 
-                self.generatePosItemRule(itemPosRuleName, panelItem, panel)
+                self.generate_pos_item_rule(item_pos_rule_name, panel_item, panel)
 
-                itemCounter += 1
+                item_counter += 1
 
-            balloonCounter = 1
-            for balloon in panel.get_balloons():
-                dependancies.append(self._workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + "_pos.png")
-                balloonCounter += 1
+            for balloon_counter in range(0, panel.get_balloons_number()):
+                dependancy = self._work_dir + "/panel" + str(panel_counter)
+                dependancy += "_balloon" + str(balloon_counter) + "_pos.png"
+                dependancies.append(dependancy)
 
-            self.generatePanelBalloonsRules(panel, panelCounter)
+            self.generate_panel_balloon_rules(panel, panel_counter)
 
-            self.printMakefileRule(target, dependancies, commands)
-            panelCounter += 1
+            self.print_makefile_rule(target, dependancies, commands)
+            panel_counter += 1
 
-    def generateStripRule(self):
+    def generate_strip_rule(self):
         dependancies = []
-        i = 1
-        for panel in self._strip:
-            dependancies.append(self._workDir + "/panel" + str(i) + ".png")
-            i += 1
+        for panel_counter in range(0, len(self._strip)):
+            dependancies.append(self._work_dir + "/panel" + str(panel_counter) + ".png")
 
         commands = ["convert -append $^ $@"]
 
-        self.printMakefileRule(self._pngTargetName, dependancies, commands)
+        self.print_makefile_rule(self._png_target_name, dependancies, commands)
 
-    def generateMakefile(self):
-        self.printGenericRules()
-        self.generateStripRule()
-        self.generatePanelRules()
+    def generate_makefile(self):
+        self.print_generic_rules()
+        self.generate_strip_rule()
+        self.generate_panel_rules()
 
-    def printMakefileRule(self, target, dependancies, commands):
-        print(target + " : ", end = "")
-        dependancyIndentation = " " * (len(target) + 3)
+    def print_makefile_rule(self, target, dependancies, commands):
+        print(target + " : ", end="")
+        dependancy_indentation = " " * (len(target) + 3)
         first = True
-        dependanciesNumber = len(dependancies)
+        dependancies_number = len(dependancies)
         counter = 0
-        for d in dependancies:
+        for dependancy in dependancies:
             if first:
                 first = False
             else:
-                print(dependancyIndentation, end="")
-            print(d + " ", end="")
+                print(dependancy_indentation, end="")
+            print(dependancy + " ", end="")
 
             counter += 1
-            if counter != dependanciesNumber:
+            if counter != dependancies_number:
                 print(" \\")
         print()
-        for c in commands:
-            print("\t" + c)
+        for command in commands:
+            print("\t" + command)
         print()
 
-    def printGenericRules(self):
-        self.printMakefileRule("%.png", ["%.svg"], ["convert $< $@"])
+    def print_generic_rules(self):
+        self.print_makefile_rule("%.png", ["%.svg"], ["convert $< $@"])
