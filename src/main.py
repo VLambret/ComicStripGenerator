@@ -1,4 +1,3 @@
-from Strip import *
 from PanelItem import *
 from Panel import *
 from MakefileGenerator import *
@@ -23,7 +22,7 @@ def createBalloon(panel, config):
     panel.add_balloon(balloon)
 
 def initFromFile(fileName):
-    strip = Strip()
+    strip = []
     panel = None
 
     with open(fileName, 'r') as f:
@@ -35,13 +34,13 @@ def initFromFile(fileName):
 
             if typeOfItem == "background":
                 if panel is not None:
-                    strip.addPanel(panel)
+                    strip.append(panel)
                 panel = createPanelFromBackground(parsedLine)
             elif typeOfItem == "item":
                 createItem(panel, parsedLine)
             elif typeOfItem == "balloon":
                 createBalloon(panel, parsedLine)
-        strip.addPanel(panel)
+        strip.append(panel)
     return strip
 
 def getArgs():

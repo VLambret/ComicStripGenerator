@@ -34,7 +34,7 @@ class MakefileGenerator():
 
         commands = ["./scripts/stack.sh $^ $@", "convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@"]
 
-        for panel in self.strip.panelList:
+        for panel in self.strip:
             target = self.workDir + "/panel" + str(panelCounter) + ".png"
 
             dependancies = []
@@ -60,7 +60,7 @@ class MakefileGenerator():
     def generateStripRule(self):
         dependancies = []
         i = 1
-        for panel in self.strip.panelList:
+        for panel in self.strip:
             dependancies.append(self.workDir + "/panel" + str(i) + ".png")
             i += 1
 

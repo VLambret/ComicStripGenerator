@@ -1,5 +1,3 @@
-from PanelItem import *
-
 class Panel:
 
     def __init__(self, background_panel_item):
