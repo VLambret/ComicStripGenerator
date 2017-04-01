@@ -45,11 +45,11 @@ def initFromFile(fileName):
     return strip
 
 def getArgs():
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-f', help = "comic file to transform into Makefile", default = "strip.comic", type = str, required = False)
-	parser.add_argument('-w', help = "workdir where temporary files are created", default = "results", type = str, required = False)
-	args = parser.parse_args()
-	return args.f, args.w
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', help = "comic file to transform into Makefile", default = "strip.comic", type = str, required = False)
+    parser.add_argument('-w', help = "workdir where temporary files are created", default = "results", type = str, required = False)
+    args = parser.parse_args()
+    return args.f, args.w
 
 def main():
     comicFileName, workDir = getArgs()
