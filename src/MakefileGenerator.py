@@ -3,15 +3,15 @@ from MakefileCommand import *
 class MakefileGenerator():
 
     def __init__(self, strip, pngTargetName, workDir):
-        self.strip = strip
-        self.pngTargetName = pngTargetName
-        self.workDir = workDir
+        self._strip = strip
+        self._pngTargetName = pngTargetName
+        self._workDir = workDir
 
     def generatePanelBalloonsRules(self, panel, panelCounter):
         balloonCounter = 1
 
         for balloon in panel.get_balloons():
-            targetPrefix = self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter)
+            targetPrefix = self._workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter)
             targetPosName = targetPrefix + "_pos.png"
             targetName = targetPrefix + ".png"
             targetSVGName = targetPrefix + ".svg"
@@ -34,8 +34,8 @@ class MakefileGenerator():
 
         commands = ["./scripts/stack.sh $^ $@", "convert $@ -bordercolor black -compose Copy -border 5 -bordercolor white -compose Copy -border 20 $@"]
 
-        for panel in self.strip:
-            target = self.workDir + "/panel" + str(panelCounter) + ".png"
+        for panel in self._strip:
+            target = self._workDir + "/panel" + str(panelCounter) + ".png"
 
             dependancies = []
             itemCounter = 1
@@ -49,7 +49,7 @@ class MakefileGenerator():
 
             balloonCounter = 1
             for balloon in panel.get_balloons():
-                dependancies.append(self.workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + "_pos.png")
+                dependancies.append(self._workDir + "/panel" + str(panelCounter) + "_balloon" + str(balloonCounter) + "_pos.png")
                 balloonCounter += 1
 
             self.generatePanelBalloonsRules(panel, panelCounter)
@@ -60,13 +60,13 @@ class MakefileGenerator():
     def generateStripRule(self):
         dependancies = []
         i = 1
-        for panel in self.strip:
-            dependancies.append(self.workDir + "/panel" + str(i) + ".png")
+        for panel in self._strip:
+            dependancies.append(self._workDir + "/panel" + str(i) + ".png")
             i += 1
 
         commands = ["convert -append $^ $@"]
 
-        self.printMakefileRule(self.pngTargetName, dependancies, commands)
+        self.printMakefileRule(self._pngTargetName, dependancies, commands)
 
     def generateMakefile(self):
         self.printGenericRules()
