@@ -1,0 +1,9 @@
+doc-warnings: false
+strictness: medium
+test-warnings: yes
+max-line-length: 100
+autodetect: true
+ignore-paths:
+        - scripts
+python-targets:
+  - 3
