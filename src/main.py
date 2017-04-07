@@ -1,7 +1,8 @@
 import argparse
 from PanelItem import PanelItem
 from Panel import Panel
-from MakefileGenerator import MakefileGenerator
+#from MakefileGenerator import MakefileGenerator
+import StripGenerator
 from Balloon import Balloon
 
 def create_panel_from_background(config):
@@ -9,7 +10,8 @@ def create_panel_from_background(config):
     return Panel(background_file_name)
 
 def create_item(panel, config):
-    item = PanelItem("sources/"+ config[1], (config[2], config[3]))
+    position = (int(config[2]), int(config[3]))
+    item = PanelItem("sources/"+ config[1], position)
     panel.add_panel_item(item)
 
 def create_balloon(panel, config):
@@ -55,7 +57,8 @@ def main():
     comic_file_name, work_dir = get_arguments()
     final_png_name = comic_file_name.replace(".comic", ".png")
     strip = init_from_file(comic_file_name)
-    makefile_generator = MakefileGenerator(strip, final_png_name, work_dir)
-    makefile_generator.generate_makefile()
+    #makefile_generator = MakefileGenerator(strip, final_png_name, work_dir)
+    #makefile_generator.generate_makefile()
+    StripGenerator.create_image_from_strip(strip)
 
 main()

@@ -12,7 +12,7 @@ $(RST)/strip.png : strip.mk
 
 strip.mk : strip.comic
 	make clean
-	python3 src/main.py -f strip.comic -w results > $@
+	python3 src/main.py -f strip.comic -w results
 
 pylint:
 	pylint --rcfile=ci/pylintrc src/*.py
