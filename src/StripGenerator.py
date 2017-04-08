@@ -27,7 +27,7 @@ def create_image_from_panel(panel):
 
 def create_image_from_strip(strip, output_file_name):
     strip_width = 0
-    strip_height = 0
+    strip_height = strip.space_arround_panels
     panel_image_list = []
     for panel in strip.panels:
         panel_image = create_image_from_panel(panel)
@@ -35,14 +35,16 @@ def create_image_from_strip(strip, output_file_name):
                                   strip.panel_border_size,
                                   strip.panel_border_color)
         strip_width = max(strip_width, panel_image.size[0])
-        strip_height += panel_image.size[1]
+        strip_height += panel_image.size[1] + strip.space_arround_panels
         panel_image_list.append(panel_image)
 
-    strip_image = Image.new("RGBA", (strip_width, strip_height), "white")
+    strip_width += 2* strip.space_arround_panels
 
-    height_offset = 0
+    strip_image = Image.new("RGBA", (strip_width, strip_height), strip.background_color)
+
+    height_offset = strip.space_arround_panels
     for panel_image in panel_image_list:
-        strip_image.paste(panel_image, (0, height_offset))
-        height_offset += panel_image.size[1]
+        strip_image.paste(panel_image, (strip.space_arround_panels, height_offset))
+        height_offset += panel_image.size[1] + strip.space_arround_panels
 
     strip_image.save(output_file_name, "PNG")
