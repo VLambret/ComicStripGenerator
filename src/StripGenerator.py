@@ -38,8 +38,6 @@ def create_image_from_strip(strip, output_file_name):
 
     strip_image = Image.new("RGBA", (strip_width, strip_height), "white")
 
-    print("width=" + str(strip_width) + ", height=" + str(strip_height))
-
     height_offset = 0
     for panel_image in panel_image_list:
         strip_image.paste(panel_image, (0, height_offset))

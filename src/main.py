@@ -31,8 +31,6 @@ def init_from_file(file_name):
             parsed_line = line.rstrip().split(':')
             type_of_item = parsed_line[0]
 
-            print("#^" +type_of_item + "$")
-
             if type_of_item == "background":
                 if panel is not None:
                     strip.append(panel)
@@ -48,17 +46,13 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', help="comic file to transform into Makefile",
                         default="strip.comic", type=str, required=False)
-    parser.add_argument('-w', help="workdir where temporary files are created",
-                        default="results", type=str, required=False)
     args = parser.parse_args()
-    return args.f, args.w
+    return args.f
 
 def main():
-    comic_file_name, work_dir = get_arguments()
+    comic_file_name = get_arguments()
     final_png_name = comic_file_name.replace(".comic", ".png")
     strip = init_from_file(comic_file_name)
-    #makefile_generator = MakefileGenerator(strip, final_png_name, work_dir)
-    #makefile_generator.generate_makefile()
-    StripGenerator.create_image_from_strip(strip)
+    StripGenerator.create_image_from_strip(strip, final_png_name)
 
 main()

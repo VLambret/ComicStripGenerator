@@ -2,17 +2,13 @@ RST=results
 
 .PHONY: all clean test
 
-all: $(RST)/strip.png
+all: strip.png
 
 clean :
-	rm -f $(RST)/* strip.mk
+	rm -f strip.png
 
-$(RST)/strip.png : strip.mk
-	make -f strip.mk -j 4
-
-strip.mk : strip.comic
-	make clean
-	python3 src/main.py -f strip.comic -w results
+%.png : %.comic
+	python3 src/main.py -f $<
 
 pylint:
 	pylint --rcfile=ci/pylintrc src/*.py
