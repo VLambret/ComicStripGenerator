@@ -18,13 +18,12 @@ def overlay_panel_items(image, panel_items):
         image = Image.alpha_composite(image, alpha_tmp)
     return image
 
-def draw_borders(image):
-    return ImageOps.expand(image, 5, "black")
+def add_borders(image, size, color):
+    return ImageOps.expand(image, size, color)
 
 def create_image_from_panel(panel):
     panel_image = create_image_from_background(panel.get_background())
-    panel_image = overlay_panel_items(panel_image, panel.get_panel_items())
-    return draw_borders(panel_image)
+    return overlay_panel_items(panel_image, panel.get_panel_items())
 
 def create_image_from_strip(strip, output_file_name):
     strip_width = 0
@@ -32,6 +31,9 @@ def create_image_from_strip(strip, output_file_name):
     panel_image_list = []
     for panel in strip.panels:
         panel_image = create_image_from_panel(panel)
+        panel_image = add_borders(panel_image,
+                                  strip.panel_border_size,
+                                  strip.panel_border_color)
         strip_width = max(strip_width, panel_image.size[0])
         strip_height += panel_image.size[1]
         panel_image_list.append(panel_image)
