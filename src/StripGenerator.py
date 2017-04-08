@@ -30,7 +30,7 @@ def create_image_from_strip(strip, output_file_name):
     strip_width = 0
     strip_height = 0
     panel_image_list = []
-    for panel in strip:
+    for panel in strip.panels:
         panel_image = create_image_from_panel(panel)
         strip_width = max(strip_width, panel_image.size[0])
         strip_height += panel_image.size[1]

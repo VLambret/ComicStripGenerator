@@ -1,9 +1,9 @@
 import argparse
 from PanelItem import PanelItem
 from Panel import Panel
-#from MakefileGenerator import MakefileGenerator
 import StripGenerator
 from Balloon import Balloon
+from Strip import Strip
 
 def create_panel_from_background(config):
     background_file_name = PanelItem("sources/"+ config[1], (0, 0))
@@ -23,7 +23,7 @@ def create_balloon(panel, config):
     panel.add_balloon(balloon)
 
 def init_from_file(file_name):
-    strip = []
+    strip = Strip()
     panel = None
 
     with open(file_name, 'r') as file_opened:
@@ -33,13 +33,13 @@ def init_from_file(file_name):
 
             if type_of_item == "background":
                 if panel is not None:
-                    strip.append(panel)
+                    strip.panels.append(panel)
                 panel = create_panel_from_background(parsed_line)
             elif type_of_item == "item":
                 create_item(panel, parsed_line)
             elif type_of_item == "balloon":
                 create_balloon(panel, parsed_line)
-        strip.append(panel)
+        strip.panels.append(panel)
     return strip
 
 def get_arguments():
