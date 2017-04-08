@@ -11,9 +11,9 @@ class Panel:
 
     def add_balloon(self, balloon):
         self._balloon_list.append(balloon)
-    
+
     def get_background(self):
-        return self._panel_item_list[0]        
+        return self._panel_item_list[0]
 
     def get_width(self):
         return self._background_size[0]
