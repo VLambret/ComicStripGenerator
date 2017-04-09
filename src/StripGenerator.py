@@ -1,5 +1,6 @@
 from PIL import Image
 from PIL import ImageOps
+import ImageFactory
 
 def create_image_from_background(background):
     return Image.open(background.get_image_name())
@@ -25,6 +26,16 @@ def create_image_from_panel(panel):
     panel_image = create_image_from_background(panel.get_background())
     return overlay_panel_items(panel_image, panel.get_panel_items())
 
+def overlay_balloons_to_panel(panel_image, balloons):
+    balloons_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
+    for balloon in balloons:
+        font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+        balloon_text = ImageFactory.draw_balloon_text(balloon.speech, font_name, 40)
+        balloon_image = ImageFactory.draw_balloon(balloon_text, 25, 6)
+        balloons_image.paste(balloon_image, balloon.position)
+        # XXX
+    return Image.alpha_composite(panel_image, balloons_image)
+
 def create_image_from_strip(strip, output_file_name):
     strip_width = 0
     strip_height = strip.space_arround_panels
@@ -34,6 +45,7 @@ def create_image_from_strip(strip, output_file_name):
         panel_image = add_borders(panel_image,
                                   strip.panel_border_size,
                                   strip.panel_border_color)
+        panel_image = overlay_balloons_to_panel(panel_image, panel.get_balloons())
         strip_width = max(strip_width, panel_image.size[0])
         strip_height += panel_image.size[1] + strip.space_arround_panels
         panel_image_list.append(panel_image)

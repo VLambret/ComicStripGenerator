@@ -18,7 +18,7 @@ def create_balloon(panel, config):
     position = (int(config[1]), int(config[2]))
     speacker_position = (int(config[3]), int(config[4]))
     tail_length = int(config[5])
-    speech = config[6].join('\n')
+    speech = config[6].replace("\\n", "\n")
     balloon = Balloon(position, speacker_position, tail_length, speech)
     panel.add_balloon(balloon)
 
