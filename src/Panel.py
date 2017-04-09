@@ -1,33 +1,18 @@
 class Panel:
 
     def __init__(self, background_panel_item):
-        self._background_size = background_panel_item.get_size()
-        self._panel_item_list = []
-        self._balloon_list = []
-        self.add_panel_item(background_panel_item)
+        self.size = background_panel_item.get_size()
+        self.panel_items = [background_panel_item]
+        self.balloons = []
 
     def add_panel_item(self, panel_item):
-        self._panel_item_list.append(panel_item)
+        self.panel_items.append(panel_item)
 
     def add_balloon(self, balloon):
-        self._balloon_list.append(balloon)
+        self.balloons.append(balloon)
 
     def get_background(self):
-        return self._panel_item_list[0]
-
-    def get_width(self):
-        return self._background_size[0]
-
-    def get_height(self):
-        return self._background_size[1]
+        return self.panel_items[0]
 
     def get_panel_items(self):
-        for item in self._panel_item_list[1:]:
-            yield item
-
-    def get_balloons(self):
-        for balloon in self._balloon_list:
-            yield balloon
-
-    def get_balloons_number(self):
-        return len(self._balloon_list)
+        return self.panel_items[1:]
