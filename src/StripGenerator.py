@@ -1,8 +1,8 @@
+import math
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
 import ImageFactory
-import math
 
 def create_image_from_background(background):
     return Image.open(background.get_image_name())
@@ -30,8 +30,8 @@ def create_image_from_panel(panel):
 
 def draw_tail(draw, position, size, angle, length):
     start = (position[0] + size[0] / 2, position[1] + size[1])
-    offsetx =  length * math.cos(math.radians(angle))
-    offsety =  length * math.sin(math.radians(angle))
+    offsetx = length * math.cos(math.radians(angle))
+    offsety = length * math.sin(math.radians(angle))
     end = (start[0] + offsetx, start[1] + offsety)
     draw.line([start, end], fill="black", width=6)
 
@@ -45,7 +45,8 @@ def overlay_balloons_to_panel(panel_image, balloons):
         balloon_text = ImageFactory.draw_balloon_text(balloon.speech, font_name, 40)
         balloon_image = ImageFactory.draw_balloon(balloon_text, 25, 6)
         balloons_image.paste(balloon_image, balloon.position)
-        draw_tail(tail_draw, balloon.position, balloon_image.size, balloon.tail_angle, balloon.tail_length)
+        draw_tail(tail_draw, balloon.position, balloon_image.size,
+                  balloon.tail_angle, balloon.tail_length)
         # XXX
     complete_balloon_image = Image.alpha_composite(tails_image, balloons_image)
     return Image.alpha_composite(panel_image, complete_balloon_image)
