@@ -11,7 +11,7 @@ def get_text_size(speech, font):
 def draw_balloon_text(speech, font_name, font_size):
     font = ImageFont.truetype(font_name, font_size)
     text_size = get_text_size(speech, font)
-    balloon_text = Image.new("RGBA", text_size, "white")
+    balloon_text = Image.new("RGBA", text_size, (0, 0, 0, 0))
 
     draw = ImageDraw.Draw(balloon_text)
     #draw.rectangle([(0, 0), size], fill="white", outline="black")
@@ -24,9 +24,9 @@ def draw_lines(balloon_draw, text_size, padding, width):
     left_right = [(0, padding), (2 * padding + text_size[0], 1 * padding + text_size[1])]
     left_right_inner = [(width, padding), (2 * padding + text_size[0] - width, 1 * padding + text_size[1])]
 
-    balloon_draw.rectangle(top_bottom, fill="green", outline=None)
+    balloon_draw.rectangle(top_bottom, fill="black", outline=None)
     balloon_draw.rectangle(top_bottom_inner, fill="white", outline=None)
-    balloon_draw.rectangle(left_right, fill="blue", outline=None)
+    balloon_draw.rectangle(left_right, fill="black", outline=None)
     balloon_draw.rectangle(left_right_inner, fill="white", outline=None)
 
 def orientation_to_offset_box(orientation, text_size, padding):
@@ -49,24 +49,26 @@ def draw_corners(balloon_draw, text_size, padding, width):
                      (2 * padding + offset_box[0], 2 * padding + offset_box[1])]
         white_box = [(width + offset_box[0], width + offset_box[1]),
                      (2 * padding - width + offset_box[0], 2 * padding - width + offset_box[1])]
-        balloon_draw.pieslice(color_box, orientation, orientation + 90, "red")
+        balloon_draw.pieslice(color_box, orientation, orientation + 90, "black")
         balloon_draw.pieslice(white_box, orientation, orientation + 90, "white")
 
 def draw_balloon(balloon_text, padding, width):
     text_size = balloon_text.size
     balloon_size = (text_size[0] + 2 * padding, text_size[1] + 2 * padding)
 
-    balloon = Image.new("RGBA", balloon_size, "white")
+    balloon = Image.new("RGBA", balloon_size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(balloon)
 
-    balloon.paste(balloon_text, (padding, padding))
     draw_lines(draw, text_size, padding, width)
     draw_corners(draw, text_size, padding, width)
 
-    return balloon
+    balloon_text_padded = Image.new('RGBA', balloon_size, (255, 255, 255, 0))
+    balloon_text_padded.paste(balloon_text, (padding, padding))
+
+    return Image.alpha_composite(balloon, balloon_text_padded)
 
 speech = "Hello world, how\nare you today ?"
 font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 balloon_text = draw_balloon_text(speech, font_name, 40)
 balloon = draw_balloon(balloon_text, 25, 6)
-balloon.show()
+balloon.save("tmp.png", "PNG")
