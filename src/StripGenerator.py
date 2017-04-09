@@ -41,13 +41,15 @@ def overlay_balloons_to_panel(panel_image, balloons):
     tail_draw = ImageDraw.Draw(tails_image)
 
     for balloon in balloons:
+        tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
         font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
         balloon_text = ImageFactory.draw_balloon_text(balloon.speech, font_name, 40)
         balloon_image = ImageFactory.draw_balloon(balloon_text, 25, 6)
-        balloons_image.paste(balloon_image, balloon.position)
+        tmp_image.paste(balloon_image, balloon.position)
         draw_tail(tail_draw, balloon.position, balloon_image.size,
                   balloon.tail_angle, balloon.tail_length)
-        # XXX
+        balloons_image = Image.alpha_composite(balloons_image, tmp_image)
+
     complete_balloon_image = Image.alpha_composite(tails_image, balloons_image)
     return Image.alpha_composite(panel_image, complete_balloon_image)
 
