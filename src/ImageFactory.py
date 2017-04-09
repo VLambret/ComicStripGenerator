@@ -1,7 +1,6 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-from PIL import ImageOps
 
 def get_text_size(speech, font):
     image = Image.new("RGBA", (1, 1), "white")
@@ -19,17 +18,21 @@ def draw_balloon_text(speech, font_name, font_size):
     return balloon_text
 
 def draw_lines(balloon_draw, text_size, padding, width):
-    top_bottom = [(padding, 0), (padding + text_size[0], 2 * padding + text_size[1])]
-    top_bottom_inner = [(padding, width), (padding + text_size[0], 2 * padding + text_size[1]-width)]
-    left_right = [(0, padding), (2 * padding + text_size[0], 1 * padding + text_size[1])]
-    left_right_inner = [(width, padding), (2 * padding + text_size[0] - width, 1 * padding + text_size[1])]
+    top_bottom = [(padding, 0),
+                  (padding + text_size[0], 2 * padding + text_size[1])]
+    top_bottom_inner = [(padding, width),
+                        (padding + text_size[0], 2 * padding + text_size[1]-width)]
+    left_right = [(0, padding),
+                  (2 * padding + text_size[0], 1 * padding + text_size[1])]
+    left_right_inner = [(width, padding),
+                        (2 * padding + text_size[0] - width, 1 * padding + text_size[1])]
 
     balloon_draw.rectangle(top_bottom, fill="black", outline=None)
     balloon_draw.rectangle(top_bottom_inner, fill="white", outline=None)
     balloon_draw.rectangle(left_right, fill="black", outline=None)
     balloon_draw.rectangle(left_right_inner, fill="white", outline=None)
 
-def orientation_to_offset_box(orientation, text_size, padding):
+def orientation_to_offset_box(orientation, text_size):
     if orientation in [0, 270]:
         offsetx = text_size[0]
     else:
@@ -44,7 +47,7 @@ def orientation_to_offset_box(orientation, text_size, padding):
 
 def draw_corners(balloon_draw, text_size, padding, width):
     for orientation in [0, 90, 180, 270]:
-        offset_box = orientation_to_offset_box(orientation, text_size, padding)
+        offset_box = orientation_to_offset_box(orientation, text_size)
         color_box = [(0 + offset_box[0], 0 + offset_box[1]),
                      (2 * padding + offset_box[0], 2 * padding + offset_box[1])]
         white_box = [(width + offset_box[0], width + offset_box[1]),
@@ -67,8 +70,8 @@ def draw_balloon(balloon_text, padding, width):
 
     return Image.alpha_composite(balloon, balloon_text_padded)
 
-speech = "Hello world, how\nare you today ?"
-font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
-balloon_text = draw_balloon_text(speech, font_name, 40)
-balloon = draw_balloon(balloon_text, 25, 6)
-balloon.save("tmp.png", "PNG")
+#speech = "Hello world, how\nare you today ?"
+#font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+#balloon_text = draw_balloon_text(speech, font_name, 40)
+#balloon = draw_balloon(balloon_text, 25, 6)
+#balloon.save("tmp.png", "PNG")
