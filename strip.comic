@@ -1,15 +1,15 @@
 background:background.png
 item:perso1.png:0:0
 item:perso2.png:0:0
-balloon:350:100:40:-50:-35:Hi !
+balloon:350:100:120:60:Hi !
 
 background:background.png
 item:perso1.png:0:0
 item:perso2.png:0:0
-balloon:550:100:40:150:-35:Hi
+balloon:550:100:70:60:Hi
 
 background:background.png
 item:perso1.png:0:0
 item:perso2.png:0:0
-balloon:250:10:100:-50:-35:Will Eisner award is\nnot for today...
-balloon:550:120:150:250:-35:Next time maybe ?
+balloon:250:10:120:60:Will Eisner award is\nnot for today...
+balloon:550:120:70:60:Next time maybe ?
