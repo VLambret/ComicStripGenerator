@@ -15,11 +15,11 @@ def create_item(panel, config):
     panel.add_panel_item(item)
 
 def create_balloon(panel, config):
-    speeches = config[6]
-    position = (config[1], config[2])
-    offset = config[3]
-    orientation = (config[4], config[5])
-    balloon = Balloon(speeches, offset, orientation, position)
+    position = (int(config[1]), int(config[2]))
+    speacker_position = (int(config[3]), int(config[4]))
+    tail_length = int(config[5])
+    speech = config[6].join('\n')
+    balloon = Balloon(position, speacker_position, tail_length, speech)
     panel.add_balloon(balloon)
 
 def init_from_file(file_name):
