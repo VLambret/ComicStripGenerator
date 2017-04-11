@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import argparse
 from PanelItem import PanelItem
 from Panel import Panel
