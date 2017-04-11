@@ -7,15 +7,34 @@ def get_text_size(speech, font):
     draw = ImageDraw.Draw(image)
     return draw.textsize(speech, font=font)
 
+def center_text_images(text_images):
+    width = 0
+    height = 0
+    for image in text_images:
+        width = max(width, image.size[0])
+        height = height + image.size[1]
+
+    text_image_centered = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    offsety = 0
+    for image in text_images:
+        offsetx = (width - image.size[0]) // 2
+        text_image_centered.paste(image, (offsetx, offsety))
+        offsety += image.size[1]
+
+    return text_image_centered
+
 def draw_balloon_text(speech, font_name, font_size):
     font = ImageFont.truetype(font_name, font_size)
-    text_size = get_text_size(speech, font)
-    balloon_text = Image.new("RGBA", text_size, (0, 0, 0, 0))
+    text_images = []
+    for text_line in speech.split('\n'):
+        text_size = get_text_size(text_line, font)
+        line_image = Image.new("RGBA", text_size, (0, 0, 0, 0))
 
-    draw = ImageDraw.Draw(balloon_text)
-    #draw.rectangle([(0, 0), size], fill="white", outline="black")
-    draw.text((0, 0), speech, fill="black", font=font)
-    return balloon_text
+        draw = ImageDraw.Draw(line_image)
+        draw.text((0, 0), text_line, fill="black", font=font)
+        text_images.append(line_image)
+
+    return center_text_images(text_images)
 
 def draw_lines(balloon_draw, text_size, padding, width):
     top_bottom = [(padding, 0),
