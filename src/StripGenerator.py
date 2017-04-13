@@ -43,7 +43,8 @@ def overlay_balloons_to_panel(panel_image, balloons):
 
     for balloon in balloons:
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
-        balloon_text = ImageFactory.draw_balloon_text(balloon.speech, Config.font_name, Config.font_size)
+        balloon_text = ImageFactory.draw_balloon_text(balloon.speech,
+                                                      Config.font_name, Config.font_size)
         balloon_image = ImageFactory.draw_balloon(balloon_text, 25, Config.border_width)
         tmp_image.paste(balloon_image, balloon.position)
         draw_tail(tail_draw, balloon.position, balloon_image.size,
