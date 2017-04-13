@@ -30,7 +30,7 @@ def create_image_from_panel(panel):
     return overlay_panel_items(panel_image, panel.get_panel_items())
 
 def draw_tail(draw, position, size, angle, length):
-    start = (position[0] + size[0] / 2, position[1] + size[1])
+    start = (position[0] + size[0] / 2, position[1] + size[1] - Config.border_width / 2)
     offsetx = length * math.cos(math.radians(angle))
     offsety = length * math.sin(math.radians(angle))
     end = (start[0] + offsetx, start[1] + offsety)
