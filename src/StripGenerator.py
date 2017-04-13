@@ -3,6 +3,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
 import ImageFactory
+import Config
 
 def create_image_from_background(background):
     return Image.open(background.get_image_name())
@@ -33,7 +34,7 @@ def draw_tail(draw, position, size, angle, length):
     offsetx = length * math.cos(math.radians(angle))
     offsety = length * math.sin(math.radians(angle))
     end = (start[0] + offsetx, start[1] + offsety)
-    draw.line([start, end], fill="black", width=6)
+    draw.line([start, end], fill="black", width=Config.border_width)
 
 def overlay_balloons_to_panel(panel_image, balloons):
     balloons_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
@@ -42,9 +43,8 @@ def overlay_balloons_to_panel(panel_image, balloons):
 
     for balloon in balloons:
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
-        font_name = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
-        balloon_text = ImageFactory.draw_balloon_text(balloon.speech, font_name, 40)
-        balloon_image = ImageFactory.draw_balloon(balloon_text, 25, 6)
+        balloon_text = ImageFactory.draw_balloon_text(balloon.speech, Config.font_name, Config.font_size)
+        balloon_image = ImageFactory.draw_balloon(balloon_text, 25, Config.border_width)
         tmp_image.paste(balloon_image, balloon.position)
         draw_tail(tail_draw, balloon.position, balloon_image.size,
                   balloon.tail_angle, balloon.tail_length)
