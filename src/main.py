@@ -2,7 +2,7 @@
 
 import argparse
 import sys
-import Parser
+import Parser.StripParser
 import StripGenerator
 
 def get_arguments():
@@ -15,7 +15,7 @@ def get_arguments():
 def main():
     comic_file_name = get_arguments()
     final_png_name = comic_file_name.replace(".comic", ".png")
-    strip = Parser.init_from_file(comic_file_name)
+    strip = Parser.StripParser.init_from_file(comic_file_name)
     StripGenerator.create_image_from_strip(strip, final_png_name)
 
 main()
