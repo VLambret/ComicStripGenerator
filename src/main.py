@@ -2,11 +2,11 @@
 
 import argparse
 import sys
-from PanelItem import PanelItem
-from Panel import Panel
+from Model.Strip import Strip
+from Model.Panel import Panel
+from Model.PanelItem import PanelItem
+from Model.Balloon import Balloon
 import StripGenerator
-from Balloon import Balloon
-from Strip import Strip
 import Config
 
 def create_panel_from_background(config):
