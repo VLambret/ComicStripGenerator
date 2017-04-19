@@ -1,5 +1,6 @@
 #! /usr/bin/python3
 
+import sys
 from Model.Strip import Strip
 from Model.Panel import Panel
 from Model.PanelItem import PanelItem
@@ -26,9 +27,11 @@ def create_balloon(panel, config):
 def init_from_file(file_name):
     strip = Strip()
     panel = None
+    line_number = 0
 
     with open(file_name, 'r') as file_opened:
         for line in file_opened:
+            line_number += 1
             parsed_line = line.rstrip().split(':')
             type_of_item = parsed_line[0]
 
@@ -49,6 +52,6 @@ def init_from_file(file_name):
             elif type_of_item == "border_width":
                 Config.border_width = int(parsed_line[1])
             elif type_of_item != "":
-                sys.stderr.write("Unknown option:" + type_of_item + "\n")
+                sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
         strip.panels.append(panel)
     return strip
