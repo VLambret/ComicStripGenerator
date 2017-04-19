@@ -11,4 +11,4 @@ clean :
 	python3 src/main.py -f $<
 
 pylint:
-	pylint --rcfile=ci/pylintrc src/*.py
+	pylint --rcfile=ci/pylintrc src/*.py src/*/*.py
