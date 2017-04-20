@@ -8,8 +8,18 @@ from Model.PanelItem import PanelItem
 from Model.Balloon import Balloon
 import Config
 
+SPACE = "[ \t]+"
+INDENT = "[ \t]*"
+DEC = "([-+]?[0-9]+)"
+FILENAME = "([^ \t]+)"
+
+BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
+
+def line_regex(description):
+    return "^" + "".join(description) + "$"
+
 def is_background(line):
-    if re.match("^[ \t]*=[ \t]*[^ \t]+[ \t]*$", line) is not None:
+    if re.match(line_regex(BACKGROUND_REGEX), line) is not None:
         return True
     return False
 
