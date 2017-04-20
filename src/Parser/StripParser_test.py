@@ -34,6 +34,20 @@ def test_parse_item():
     assert result.get_image_name() == "sources/perso1.png", "valid item with spaces image name"
     assert result.get_position() == (0, 0), "valid item with spaces position"
 
+def test_parse_balloon():
+    result = Parser.StripParser.parse_balloon("")
+    assert result is None, "Empty line"
+
+    result = Parser.StripParser.parse_balloon("Non-balloon description")
+    assert result is None, "Invalid balloon description"
+
+    result = Parser.StripParser.parse_balloon("- (350,100) 120 60 Hi !")
+    assert result is not None, "valid balloon with single-line speech"
+    assert result.position == (350, 100), "balloon position"
+    assert result.tail_angle == 120, "balloon tail angle"
+    assert result.tail_length == 60, "balloon tail length"
+    assert result.speech == "Hi !", "balloon speech"
+
 def test_is_config():
     result = Parser.StripParser.is_config("")
     assert result is False, "Empty line"

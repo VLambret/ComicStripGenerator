@@ -14,17 +14,15 @@ COMMENT = INDENT + "(#.*)?"
 DEC = "([-+]?[0-9]+)"
 FILENAME = "([^ \t\n]+)"
 POSITION = r"\(" + DEC + "," + DEC + r"\)"
+SPEECH = "([^\n]+)"
 
 IGNORE_REGEX = [COMMENT]
 BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
 ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
+BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, SPEECH]
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
-
-def is_balloon(line):
-    type_of_item = line.rstrip().split(':')[0]
-    return type_of_item == "balloon"
 
 def is_config(line):
     # A valid config is a key:value string
@@ -64,14 +62,15 @@ def parse_item(line):
     position = (int(match.group(2)), int(match.group(3)))
     return PanelItem(Config.image_database + "/" + filename, position)
 
-def create_balloon_from_line(panel, line):
-    config = line.rstrip().split(':')
-    position = (int(config[1]), int(config[2]))
-    tail_angle = int(config[3])
-    tail_length = int(config[4])
-    speech = config[5].replace("\\n", "\n")
-    balloon = Balloon(position, tail_angle, tail_length, speech)
-    panel.add_balloon(balloon)
+def parse_balloon(line):
+    match = re.match(line_regex(BALLOON_REGEX), line)
+    if not match:
+        return None
+    position = (int(match.group(1)), int(match.group(2)))
+    tail_angle = int(match.group(3))
+    tail_length = int(match.group(4))
+    speech = match.group(5).strip().replace('\\n', '\n')
+    return Balloon(position, tail_angle, tail_length, speech)
 
 def init_from_file(file_name):
     strip = Strip()
@@ -97,9 +96,12 @@ def init_from_file(file_name):
                 panel = Panel(background_item)
                 continue
 
-            if is_balloon(line):
-                create_balloon_from_line(panel, line)
-            elif is_config(line):
+            balloon = parse_balloon(line)
+            if balloon is not None:
+                panel.add_balloon(balloon)
+                continue
+
+            if is_config(line):
                 set_config(line)
             else:
                 sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
