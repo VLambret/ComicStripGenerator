@@ -9,8 +9,9 @@ from Model.Balloon import Balloon
 import Config
 
 def is_background(line):
-    type_of_item = line.rstrip().split(':')[0]
-    return type_of_item == "background"
+    if re.match("^[ \t]*=[ \t]*[^ \t]+[ \t]*$", line) is not None:
+        return True
+    return False
 
 def is_item(line):
     type_of_item = line.rstrip().split(':')[0]
@@ -46,9 +47,9 @@ def set_config(line):
         Config.border_width = int(value)
 
 def new_panel_from_background_line(line):
-    config = line.rstrip().split(':')
-    background_file_name = PanelItem(Config.image_database+"/"+ config[1], (0, 0))
-    return Panel(background_file_name)
+    background_name = line.split('=')[1].strip()
+    background_item = PanelItem(Config.image_database+"/"+ background_name, (0, 0))
+    return Panel(background_item)
 
 def create_item_from_line(panel, line):
     config = line.rstrip().split(':')
