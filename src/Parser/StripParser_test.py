@@ -1,26 +1,21 @@
 import Parser.StripParser
 
-def test_is_background():
-    result = Parser.StripParser.is_background("")
-    assert result is False, "Empty line"
+def test_parse_background():
+    result = Parser.StripParser.parse_background("")
+    assert result is None, "Empty line"
 
-    result = Parser.StripParser.is_background("This is not a background")
-    assert result is False, "Invalid background"
+    result = Parser.StripParser.parse_background("This is not a background")
+    assert result is None, "Invalid background"
 
-    result = Parser.StripParser.is_background("=background.png")
-    assert result is True, "valid background"
-
-    result = Parser.StripParser.is_background("     =    background.png     ")
-    assert result is True, "valid indented background"
-
-def test_new_panel_from_background_line():
-    panel = Parser.StripParser.new_panel_from_background_line("=background.png")
-    background_name = panel.get_background().get_image_name()
+    result = Parser.StripParser.parse_background("=background.png")
+    assert result is not None, "valid background"
+    background_name = result.get_image_name()
     assert background_name == "sources/background.png", "valid background"
 
-    panel = Parser.StripParser.new_panel_from_background_line("  =    background.png    ")
-    background_name = panel.get_background().get_image_name()
-    assert background_name == "sources/background.png", "valid background width spaces"
+    result = Parser.StripParser.parse_background("     =    background.png     ")
+    assert result is not None, "valid indented background"
+    background_name = result.get_image_name()
+    assert background_name == "sources/background.png", "valid background with spaces"
 
 def test_parse_item():
     result = Parser.StripParser.parse_item("")

@@ -11,7 +11,7 @@ import Config
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
 DEC = "([-+]?[0-9]+)"
-FILENAME = "([^ \t]+)"
+FILENAME = "([^ \t\n]+)"
 POSITION = r"\(" + DEC + "," + DEC + r"\)"
 
 BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
@@ -19,11 +19,6 @@ ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
-
-def is_background(line):
-    if re.match(line_regex(BACKGROUND_REGEX), line) is not None:
-        return True
-    return False
 
 def is_balloon(line):
     type_of_item = line.rstrip().split(':')[0]
@@ -54,10 +49,12 @@ def set_config(line):
     elif config_key == "border_width":
         Config.border_width = int(value)
 
-def new_panel_from_background_line(line):
-    background_name = line.split('=')[1].strip()
-    background_item = PanelItem(Config.image_database+"/"+ background_name, (0, 0))
-    return Panel(background_item)
+def parse_background(line):
+    match = re.match(line_regex(BACKGROUND_REGEX), line)
+    if match is None:
+        return None
+    background_name = match.group(1)
+    return PanelItem(Config.image_database+"/"+ background_name, (0, 0))
 
 def parse_item(line):
     match = re.match(line_regex(ITEM_REGEX), line)
@@ -90,11 +87,14 @@ def init_from_file(file_name):
                 panel.add_panel_item(panel_item)
                 continue
 
-            if is_background(line):
+            background_item = parse_background(line)
+            if background_item is not None:
                 if panel is not None:
                     strip.panels.append(panel)
-                panel = new_panel_from_background_line(line)
-            elif is_balloon(line):
+                panel = Panel(background_item)
+                continue
+
+            if is_balloon(line):
                 create_balloon_from_line(panel, line)
             elif is_config(line):
                 set_config(line)
