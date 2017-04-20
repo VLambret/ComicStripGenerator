@@ -10,10 +10,12 @@ import Config
 
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
+COMMENT = INDENT + "(#.*)?"
 DEC = "([-+]?[0-9]+)"
 FILENAME = "([^ \t\n]+)"
 POSITION = r"\(" + DEC + "," + DEC + r"\)"
 
+IGNORE_REGEX = [COMMENT]
 BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
 ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 
@@ -33,9 +35,7 @@ def is_config(line):
     return config_key in ["font_name", "font_size", "image_database", "border_width"]
 
 def is_empty_line(line):
-    if re.match("^[ \t]*$", line) is not None:
-        return True
-    return False
+    return re.match(line_regex(IGNORE_REGEX), line) is not None
 
 def set_config(line):
     config_key = line.rstrip().split(':')[0]
@@ -82,6 +82,9 @@ def init_from_file(file_name):
         for line in file_opened:
             line_number += 1
 
+            if is_empty_line(line):
+                continue
+
             panel_item = parse_item(line)
             if panel_item is not None:
                 panel.add_panel_item(panel_item)
@@ -98,7 +101,7 @@ def init_from_file(file_name):
                 create_balloon_from_line(panel, line)
             elif is_config(line):
                 set_config(line)
-            elif not is_empty_line(line):
+            else:
                 sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
         strip.panels.append(panel)
     return strip
