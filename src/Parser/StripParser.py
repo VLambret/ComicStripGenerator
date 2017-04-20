@@ -72,38 +72,43 @@ def parse_balloon(line):
     speech = match.group(5).strip().replace('\\n', '\n')
     return Balloon(position, tail_angle, tail_length, speech)
 
-def init_from_file(file_name):
+def parse_strip(file_content):
     strip = Strip()
     panel = None
     line_number = 0
 
-    with open(file_name, 'r') as file_opened:
-        for line in file_opened:
-            line_number += 1
+    for line in file_content:
+        line_number += 1
 
-            if is_empty_line(line):
-                continue
+        if is_empty_line(line):
+            continue
 
-            panel_item = parse_item(line)
-            if panel_item is not None:
-                panel.add_panel_item(panel_item)
-                continue
+        panel_item = parse_item(line)
+        if panel_item is not None:
+            panel.add_panel_item(panel_item)
+            continue
 
-            background_item = parse_background(line)
-            if background_item is not None:
-                if panel is not None:
-                    strip.panels.append(panel)
-                panel = Panel(background_item)
-                continue
+        background_item = parse_background(line)
+        if background_item is not None:
+            if panel is not None:
+                strip.panels.append(panel)
+            panel = Panel(background_item)
+            continue
 
-            balloon = parse_balloon(line)
-            if balloon is not None:
-                panel.add_balloon(balloon)
-                continue
+        balloon = parse_balloon(line)
+        if balloon is not None:
+            panel.add_balloon(balloon)
+            continue
 
-            if is_config(line):
-                set_config(line)
-            else:
-                sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
+        if is_config(line):
+            set_config(line)
+        else:
+            sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
+    if panel is not None:
         strip.panels.append(panel)
     return strip
+
+def init_from_file(file_name):
+
+    with open(file_name, 'r') as file_opened:
+        return parse_strip(file_opened)

@@ -58,6 +58,39 @@ def test_is_config():
     result = Parser.StripParser.is_config("unknown_key:strange_value")
     assert result is False, "We should not accept unknown keys"
 
+def test_parse_strip():
+    content = [""]
+    strip = Parser.StripParser.parse_strip(content)
+    assert strip is not None, "Empty strip"
+    assert len(strip.panels) == 0, "Empty strip should have no panels"
+
+    content = ["= background.png"]
+    strip = Parser.StripParser.parse_strip(content)
+    assert strip is not None, "Single panel strip"
+    assert len(strip.panels) == 1, "check panels number for a single panel strip"
+
+    content = ["= background.png", "= background.png", "= background.png"]
+    strip = Parser.StripParser.parse_strip(content)
+    assert strip is not None, "Three panels strip"
+    assert len(strip.panels) == 3, "check panels number for a three panel strip"
+
+    content = ["font_name:/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+               "font_size:40",
+               "image_database:sources",
+               "border_width:6",
+               "= background.png",
+               "@ perso1.png (0,0)",
+               "- (350,100) 120 60 Hi !",
+               "= background.png"]
+    strip = Parser.StripParser.parse_strip(content)
+    assert strip is not None, "More complete strip"
+    assert len(strip.panels) == 2, "check panels number for a more complete strip"
+
+    content = ["int main() {", "     return 0;", "}"]
+    strip = Parser.StripParser.parse_strip(content)
+    assert strip is not None, "Invalid strip content"
+    assert len(strip.panels) == 0, "check panels number for an invalid strip"
+
 def test_is_empty_line():
     result = Parser.StripParser.is_empty_line("")
     assert result is True, "Empty line"
