@@ -29,6 +29,11 @@ def is_config(line):
     print("config_key:" + config_key)
     return config_key in ["font_name", "font_size", "image_database", "border_width"]
 
+def is_empty_line(line):
+    if re.match("^[ \t]*$", line) is not None:
+        return True
+    return False
+
 def set_config(line):
     config_key = line.rstrip().split(':')[0]
     value = line.rstrip().split(':')[1]
@@ -79,7 +84,7 @@ def init_from_file(file_name):
                 create_balloon(panel, parsed_line)
             elif is_config(line):
                 set_config(line)
-            elif type_of_item != "":
+            elif not is_empty_line(line):
                 sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
         strip.panels.append(panel)
     return strip
