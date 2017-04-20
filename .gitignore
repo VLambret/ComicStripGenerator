@@ -1,3 +1,4 @@
 *.swp
 *.pyc
 strip.png
+.coverage

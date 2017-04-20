@@ -13,7 +13,10 @@ clean :
 test : unittest pylint
 
 unittest:
-	nosetests3 --all-modules
+	py.test-3
+
+coverage:
+	py.test-3 --cov=src --cov-report term-missing
 
 pylint:
 	pylint --rcfile=ci/pylintrc src/*.py src/*/*.py
