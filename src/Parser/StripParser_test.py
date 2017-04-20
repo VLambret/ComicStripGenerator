@@ -22,6 +22,19 @@ def test_new_panel_from_background_line():
     background_name = panel.get_background().get_image_name()
     assert background_name == "sources/background.png", "valid background width spaces"
 
+def test_is_item():
+    result = Parser.StripParser.is_item("")
+    assert result is False, "Empty line"
+
+    result = Parser.StripParser.is_item("This is not a item")
+    assert result is False, "Invalid item"
+
+    result = Parser.StripParser.is_item("@ item.png (0,0)")
+    assert result is True, "valid item"
+
+    result = Parser.StripParser.is_item("     @     item.png     (0,0)   ")
+    assert result is True, "valid indented item"
+
 def test_is_config():
     result = Parser.StripParser.is_config("")
     assert result is False, "Empty line"

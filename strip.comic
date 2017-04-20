@@ -4,17 +4,17 @@ image_database:sources
 border_width:6
 
 = background.png
-item:perso1.png:0:0
-item:perso2.png:0:0
+@ perso1.png (0,0)
+@ perso2.png (0,0)
 balloon:350:100:120:60:Hi !
 
 = background.png
-item:perso1.png:0:0
-item:perso2.png:0:0
+@ perso1.png (0,0)
+@ perso2.png (0,0)
 balloon:550:100:70:60:Hi
 
 = background.png
-item:perso1.png:0:0
-item:perso2.png:0:0
+@ perso1.png (0,0)
+@ perso2.png (0,0)
 balloon:250:10:120:60:Will Eisner award is\nnot for today...
 balloon:550:120:70:60:Next time maybe ?

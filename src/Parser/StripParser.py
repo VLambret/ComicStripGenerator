@@ -12,8 +12,10 @@ SPACE = "[ \t]+"
 INDENT = "[ \t]*"
 DEC = "([-+]?[0-9]+)"
 FILENAME = "([^ \t]+)"
+POSITION = r"\(" + DEC + "," + DEC + r"\)"
 
 BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
+ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
@@ -24,8 +26,9 @@ def is_background(line):
     return False
 
 def is_item(line):
-    type_of_item = line.rstrip().split(':')[0]
-    return type_of_item == "item"
+    if re.match(line_regex(ITEM_REGEX), line) is not None:
+        return True
+    return False
 
 def is_balloon(line):
     type_of_item = line.rstrip().split(':')[0]
@@ -62,9 +65,10 @@ def new_panel_from_background_line(line):
     return Panel(background_item)
 
 def create_item_from_line(panel, line):
-    config = line.rstrip().split(':')
-    position = (int(config[2]), int(config[3]))
-    item = PanelItem(Config.image_database + "/" + config[1], position)
+    match = re.match(line_regex(ITEM_REGEX), line)
+    filename = match.group(1)
+    position = (int(match.group(2)), int(match.group(3)))
+    item = PanelItem(Config.image_database + "/" + filename, position)
     panel.add_panel_item(item)
 
 def create_balloon_from_line(panel, line):
