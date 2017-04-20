@@ -25,11 +25,6 @@ def is_background(line):
         return True
     return False
 
-def is_item(line):
-    if re.match(line_regex(ITEM_REGEX), line) is not None:
-        return True
-    return False
-
 def is_balloon(line):
     type_of_item = line.rstrip().split(':')[0]
     return type_of_item == "balloon"
@@ -64,12 +59,13 @@ def new_panel_from_background_line(line):
     background_item = PanelItem(Config.image_database+"/"+ background_name, (0, 0))
     return Panel(background_item)
 
-def create_item_from_line(panel, line):
+def parse_item(line):
     match = re.match(line_regex(ITEM_REGEX), line)
+    if not match:
+        return None
     filename = match.group(1)
     position = (int(match.group(2)), int(match.group(3)))
-    item = PanelItem(Config.image_database + "/" + filename, position)
-    panel.add_panel_item(item)
+    return PanelItem(Config.image_database + "/" + filename, position)
 
 def create_balloon_from_line(panel, line):
     config = line.rstrip().split(':')
@@ -89,12 +85,15 @@ def init_from_file(file_name):
         for line in file_opened:
             line_number += 1
 
+            panel_item = parse_item(line)
+            if panel_item is not None:
+                panel.add_panel_item(panel_item)
+                continue
+
             if is_background(line):
                 if panel is not None:
                     strip.panels.append(panel)
                 panel = new_panel_from_background_line(line)
-            elif is_item(line):
-                create_item_from_line(panel, line)
             elif is_balloon(line):
                 create_balloon_from_line(panel, line)
             elif is_config(line):

@@ -22,18 +22,22 @@ def test_new_panel_from_background_line():
     background_name = panel.get_background().get_image_name()
     assert background_name == "sources/background.png", "valid background width spaces"
 
-def test_is_item():
-    result = Parser.StripParser.is_item("")
-    assert result is False, "Empty line"
+def test_parse_item():
+    result = Parser.StripParser.parse_item("")
+    assert result is None, "Empty line"
 
-    result = Parser.StripParser.is_item("This is not a item")
-    assert result is False, "Invalid item"
+    result = Parser.StripParser.parse_item("This is not a item")
+    assert result is None, "Invalid item"
 
-    result = Parser.StripParser.is_item("@ item.png (0,0)")
-    assert result is True, "valid item"
+    result = Parser.StripParser.parse_item("@ perso1.png (0,0)")
+    assert result is not None, "valid item detection"
+    assert result.get_image_name() == "sources/perso1.png", "valid item image name"
+    assert result.get_position() == (0, 0), "valid item position"
 
-    result = Parser.StripParser.is_item("     @     item.png     (0,0)   ")
-    assert result is True, "valid indented item"
+    result = Parser.StripParser.parse_item("     @     perso1.png     (0,0)   ")
+    assert result is not None, "valid item with spaces detection"
+    assert result.get_image_name() == "sources/perso1.png", "valid item with spaces image name"
+    assert result.get_position() == (0, 0), "valid item with spaces position"
 
 def test_is_config():
     result = Parser.StripParser.is_config("")
