@@ -10,9 +10,9 @@ clean :
 %.png : %.comic
 	python3 src/main.py -f $<
 
-test : unittest pylint
+test : pytest pylint
 
-unittest:
+pytest:
 	py.test-3
 
 coverage:

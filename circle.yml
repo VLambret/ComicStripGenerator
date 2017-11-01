@@ -3,10 +3,11 @@ machine:
     - 3.4.3
 dependencies:
   pre:
-    - sudo apt-get install python3-pip
+    - sudo apt-get install python3-pip python3-pytest
     - sudo /usr/bin/pip3 install --upgrade pip
     - sudo /usr/bin/pip3 install pylint
     - sudo /usr/bin/pip3 install pillow
 test:
   override:
+    - make pytest
     - make pylint
