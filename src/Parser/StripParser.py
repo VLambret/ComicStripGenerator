@@ -25,7 +25,7 @@ ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, SPEECH]
 
 def identify(line):
-    if (line is ""):
+    if (line == "" or line.isspace()):
         return SeparatorLine()
     return IgnoredLine()
 
