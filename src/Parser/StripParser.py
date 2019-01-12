@@ -10,6 +10,8 @@ import Config
 
 from Parser.IgnoredLine import IgnoredLine
 from Parser.SeparatorLine import SeparatorLine
+from Parser.BackgroundLine import BackgroundLine
+from Parser.CharacterLine import CharacterLine
 
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
@@ -27,7 +29,11 @@ BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, S
 def identify(line):
     if (line == "" or line.isspace()):
         return SeparatorLine()
-    return IgnoredLine()
+    if (line[0] == "@"):
+        return BackgroundLine()
+    if (line[0] == "#"):
+        return IgnoredLine()
+    return CharacterLine()
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
