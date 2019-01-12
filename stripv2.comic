@@ -1,0 +1,16 @@
+# This is a comment
+
+font_name:/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf
+font_size:40
+image_database:sources
+border_width:6
+
+@mountains
+perso1.left - Hi !
+perso2.right
+
+perso1.left
+perso2.right - Hi
+
+perso1.left - Will Eisner award is\nnot for today...
+perso2.right - Next time maybe ?
