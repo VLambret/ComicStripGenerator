@@ -8,6 +8,9 @@ from Model.PanelItem import PanelItem
 from Model.Balloon import Balloon
 import Config
 
+from Parser.IgnoredLine import IgnoredLine
+from Parser.SeparatorLine import SeparatorLine
+
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
 COMMENT = INDENT + "(#.*)?"
@@ -20,6 +23,11 @@ IGNORE_REGEX = [COMMENT]
 BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
 ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, SPEECH]
+
+def identify(line):
+    if (line is ""):
+        return SeparatorLine()
+    return IgnoredLine()
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
