@@ -26,7 +26,7 @@ BACKGROUND_REGEX = [INDENT, "=", INDENT, FILENAME, INDENT]
 ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, SPEECH]
 
-def identify(line):
+def identify_line(line):
     if (line == "" or line.isspace()):
         return SeparatorLine()
     if (line[0] == "@"):
