@@ -45,13 +45,11 @@ CSG_COMMAND=../../src/main.py
 @test "Given a valid input file name command produce an output with default name" {
 	run $CSG_COMMAND valid.strip > /dev/null
 	[ $status -eq 0 ]
-	[ $output = "" ]
-	[ -f valid.png ]
+	[ -f valid.strip.png ]
 }
 
 @test "Given a valid input file name and a target name command produce an output with target name" {
 	run $CSG_COMMAND valid.strip valid_alternate.png > /dev/null
 	[ $status -eq 0 ]
-	[ $output = "" ]
 	[ -f valid_alternate.png ]
 }

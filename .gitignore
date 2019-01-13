@@ -2,3 +2,4 @@
 *.pyc
 strip.png
 .coverage
+test/integration/*.png

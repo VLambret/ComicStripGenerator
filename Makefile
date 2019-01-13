@@ -7,10 +7,10 @@ all: strip.png
 clean :
 	rm -f strip.png
 
-%.png : %.comic
-	python3 src/main.py -f $<
+strip.png : test/integration/valid.strip
+	cd test/integration && ../../src/main.py valid.strip ../../strip.png
 
-.PHONY : test pytest integration_tests pyling coverage
+.PHONY : test pytest integration_tests pylint coverage
 test : pytest integration_tests pylint 
 
 pytest:
