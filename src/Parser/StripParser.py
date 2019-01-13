@@ -27,7 +27,12 @@ ITEM_REGEX = [INDENT, "@", SPACE, FILENAME, SPACE, POSITION, INDENT]
 BALLOON_REGEX = [INDENT, "-", INDENT, POSITION, SPACE, DEC, SPACE, DEC, SPACE, SPEECH]
 
 def parse_lines(lines):
-    return []
+    result = []
+    for line in lines:
+        parsed_line = identify_line(line)
+        result.append(parsed_line)
+
+    return result
 
 def identify_line(line):
     if (line == "" or line.isspace()):

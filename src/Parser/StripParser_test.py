@@ -33,4 +33,11 @@ def test_by_default_a_line_with_at_least_a_name_is_a_character(line):
 def test_parsing_an_empty_file_gives_an_empty_line_list():
     empty_file = [""]
     result = Parser.StripParser.parse_lines(empty_file)
-    assert len(result) == 0
+    assert len(result) == 1
+    assert type(result[0]) is SeparatorLine
+
+def test_parsing_a_file_with_a_single_background():
+    background_file = ["@mountains"]
+    result = Parser.StripParser.parse_lines(background_file)
+    assert len(result) == 1
+    assert type(result[0]) is BackgroundLine
