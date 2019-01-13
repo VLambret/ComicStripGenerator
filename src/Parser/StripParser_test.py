@@ -29,3 +29,8 @@ def test_a_line_starting_with_arobase_is_a_background(line):
 def test_by_default_a_line_with_at_least_a_name_is_a_character(line):
     result = Parser.StripParser.identify_line(line)
     assert type(result) is CharacterLine
+
+def test_parsing_an_empty_file_gives_an_empty_line_list():
+    empty_file = [""]
+    result = Parser.StripParser.parse_lines(empty_file)
+    assert len(result) == 0

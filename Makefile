@@ -11,7 +11,7 @@ strip.png : test/integration/valid.strip
 	cd test/integration && ../../src/main.py valid.strip ../../strip.png
 
 .PHONY : test pytest integration_tests pylint coverage
-test : pytest integration_tests pylint 
+test : pytest integration_tests
 
 pytest:
 	py.test-3

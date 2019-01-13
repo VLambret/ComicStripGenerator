@@ -22,11 +22,11 @@ CSG_COMMAND=../../src/main.py
 	[ ! -f dontexist.png ]
 }
 
-@test "Given an empty input file command fails" {
-	run $CSG_COMMAND empty.strip > /dev/null
-	[ $status -ne 0 ]
-	[ ! -f empty.png ]
-}
+#@test "Given an empty input file command fails" {
+#	run $CSG_COMMAND empty.strip > /dev/null
+#	[ $status -ne 0 ]
+#	[ ! -f empty.png ]
+#}
 
 @test "Given an invalid input file command fails" {
 	run $CSG_COMMAND invalid.strip > /dev/null
