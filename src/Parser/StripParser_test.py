@@ -6,6 +6,7 @@ from Parser.IgnoredLine import IgnoredLine
 from Parser.SeparatorLine import SeparatorLine
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
+from Parser.ConfigLine import ConfigLine
 
 def test_a_line_starting_with_a_sharp_caracter_is_a_comment():
     result = Parser.StripParser.identify_line("# I'am a comment !")
@@ -29,6 +30,11 @@ def test_a_line_starting_with_arobase_is_a_background(line):
 def test_by_default_a_line_with_at_least_a_name_is_a_character(line):
     result = Parser.StripParser.identify_line(line)
     assert type(result) is CharacterLine
+
+@pytest.mark.parametrize("line", ["database:sources"])
+def test_a_config_line_is_a_key_value_separated_by_a_colon(line):
+    result = Parser.StripParser.identify_line(line)
+    assert type(result) is ConfigLine
 
 def test_parsing_an_empty_file_gives_an_empty_line_list():
     empty_file = [""]

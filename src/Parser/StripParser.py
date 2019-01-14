@@ -12,6 +12,7 @@ from Parser.IgnoredLine import IgnoredLine
 from Parser.SeparatorLine import SeparatorLine
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
+from Parser.ConfigLine import ConfigLine
 
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
@@ -40,7 +41,6 @@ def create_strip_from_parsed_lines(parsed_lines):
         parsed_line.modify(strip)
     return strip
 
-
 def identify_line(line):
     if (line == "" or line.isspace()):
         return SeparatorLine()
@@ -48,18 +48,24 @@ def identify_line(line):
         return BackgroundLine()
     if (line[0] == "#"):
         return IgnoredLine()
+    if(is_config_format(line)):
+        return ConfigLine()
     return CharacterLine()
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
 
-def is_config(line):
+def is_config_format(line):
     # A valid config is a key:value string
     if re.match("[^:]+:[^:]+", line) is None:
         return False
+    return True
 
-    config_key = line.rstrip().split(':')[0]
-    return config_key in ["font_name", "font_size", "image_database", "border_width"]
+def is_config(line):
+    if (is_config_format(line)):
+        config_key = line.rstrip().split(':')[0]
+        return config_key in ["font_name", "font_size", "image_database", "border_width"]
+    return False
 
 def is_empty_line(line):
     return re.match(line_regex(IGNORE_REGEX), line) is not None
