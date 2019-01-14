@@ -34,6 +34,13 @@ def parse_lines(lines):
 
     return result
 
+def create_strip_from_parsed_lines(parsed_lines):
+    strip = Strip()
+    for parsed_line in parsed_lines:
+        parsed_line.modify(strip)
+    return strip
+
+
 def identify_line(line):
     if (line == "" or line.isspace()):
         return SeparatorLine()
@@ -97,11 +104,8 @@ def parse_balloon(line):
 def parse_strip(file_content):
     strip = Strip()
     panel = None
-    line_number = 0
 
     for line in file_content:
-        line_number += 1
-
         if is_empty_line(line):
             continue
 
@@ -124,8 +128,6 @@ def parse_strip(file_content):
 
         if is_config(line):
             set_config(line)
-        else:
-            sys.stderr.write("Parsing error line " + str(line_number)  + ": " + line)
     if panel is not None:
         strip.panels.append(panel)
     return strip

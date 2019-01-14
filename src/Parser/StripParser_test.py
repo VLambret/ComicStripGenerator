@@ -37,7 +37,10 @@ def test_parsing_an_empty_file_gives_an_empty_line_list():
     assert type(result[0]) is SeparatorLine
 
 def test_parsing_a_file_with_a_single_background():
-    background_file = ["@mountains"]
-    result = Parser.StripParser.parse_lines(background_file)
-    assert len(result) == 1
-    assert type(result[0]) is BackgroundLine
+    background_file = ["@background.png"]
+    parsed_lines = Parser.StripParser.parse_lines(background_file)
+    assert len(parsed_lines) == 1
+    assert type(parsed_lines[0]) is BackgroundLine
+
+    strip = Parser.StripParser.create_strip_from_parsed_lines(parsed_lines)
+    assert len(strip.panels) == 1
