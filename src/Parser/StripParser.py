@@ -50,7 +50,7 @@ def identify_line(line):
         return IgnoredLine()
     if(is_config_format(line)):
         return ConfigLine(line)
-    return CharacterLine()
+    return CharacterLine(line)
 
 def line_regex(description):
     return "^" + "".join(description) + "$"
