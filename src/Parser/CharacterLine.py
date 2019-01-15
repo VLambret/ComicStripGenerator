@@ -1,17 +1,39 @@
+import re
+
 import Config
 from Model.PanelItem import PanelItem
 from Model.Position import Position
 from Model.Position import Type
 
-def parse_position(position_text):
-    if position_text[-1] == "%":
-        x_type = Type.POURCENTAGE
-        x_value_text = position_text[0:-1]
+def captured(pattern):
+    return pattern
+
+def optional(pattern):
+    return "(" + pattern + ")?"
+
+def line_regex(patterns):
+    return "^" + "".join(patterns) + "$"
+
+SPACE = "[ \t]+"
+
+POSITION_VALUE = captured("([0-9]+%?)")
+
+POSITION_REGEX = POSITION_VALUE + optional("," + POSITION_VALUE)
+
+def parse_position_value(position_value_text):
+    if position_value_text[-1] == "%":
+        return (int(position_value_text[0:-1]), Type.POURCENTAGE)
     else:
-        x_type = Type.PIXELS
-        x_value_text = position_text
-    x_value = int(x_value_text)
-    return Position((x_value, x_type), (0, Type.POURCENTAGE))
+        return (int(position_value_text), Type.PIXELS)
+
+def parse_position(position_text):
+    match = re.match(POSITION_REGEX, position_text)
+    if not match:
+        return None
+    x_text = match.group(1)
+
+    x_value = parse_position_value(x_text)
+    return Position(x_value, (0, Type.POURCENTAGE))
 
 class CharacterLine:
 
