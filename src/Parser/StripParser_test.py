@@ -7,6 +7,7 @@ from Parser.SeparatorLine import SeparatorLine
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
 from Parser.ConfigLine import ConfigLine
+import Config
 
 def test_a_line_starting_with_a_sharp_caracter_is_a_comment():
     result = Parser.StripParser.identify_line("# I'am a comment !")
@@ -50,3 +51,13 @@ def test_parsing_a_file_with_a_single_background():
 
     strip = Parser.StripParser.create_strip_from_parsed_lines(parsed_lines)
     assert len(strip.panels) == 1
+
+def test_parsing_a_file_with_a_config_option():
+    background_file = ["database:some_new_path"]
+    parsed_lines = Parser.StripParser.parse_lines(background_file)
+    assert len(parsed_lines) == 1
+    assert type(parsed_lines[0]) is ConfigLine
+
+    strip = Parser.StripParser.create_strip_from_parsed_lines(parsed_lines)
+    assert len(strip.panels) == 0
+    assert Config.image_database == "some_new_path"

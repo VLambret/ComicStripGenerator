@@ -49,7 +49,7 @@ def identify_line(line):
     if (line[0] == "#"):
         return IgnoredLine()
     if(is_config_format(line)):
-        return ConfigLine()
+        return ConfigLine(line)
     return CharacterLine()
 
 def line_regex(description):
