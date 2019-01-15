@@ -9,6 +9,11 @@ class Position:
         self.x = x
         self.y = y
 
+    def __eq__(self, other):
+        if isinstance(other, Position):
+            return self.x == other.x and self.y == other.y
+        return False
+
     def value(position, item_length, container_length):
         value = position[0]
         type = position[1]
