@@ -1,22 +1,2 @@
-# This is a comment
-
-font_name:/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf
-font_size:40
-image_database:../../sources
-border_width:6
-
-= background.png
-@ perso1.png (0,0)
-@ perso2.png (0,0)
-- (350,100) 120 60 Hi !
-
-= background.png
-@ perso1.png (0,0)
-@ perso2.png (0,0)
-- (550,100) 70 60 Hi
-
-= background.png
-@ perso1.png (0,0)
-@ perso2.png (0,0)
-- (250,10) 120 60 Will Eisner award is\nnot for today...
-- (550,120) 70 60 Next time maybe ?
+database:../../sources
+@mountains

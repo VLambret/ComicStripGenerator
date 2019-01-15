@@ -108,6 +108,8 @@ def parse_balloon(line):
     return Balloon(position, tail_angle, tail_length, speech)
 
 def parse_strip(file_content):
+    parsed_lines = parse_lines(file_content)
+    return create_strip_from_parsed_lines(parsed_lines)
     strip = Strip()
     panel = None
 

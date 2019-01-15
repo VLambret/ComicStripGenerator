@@ -1,5 +1,5 @@
 *.swp
 *.pyc
-strip.png
+*.png
 .coverage
 test/integration/*.png
