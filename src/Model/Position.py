@@ -2,7 +2,6 @@ from enum import Enum
 class Type(Enum):
     PIXELS = 1
     POURCENTAGE = 2
-    AUTO = 3
 
 class Position:
 
@@ -15,7 +14,7 @@ class Position:
         type = position[1]
         if type is Type.POURCENTAGE:
             return int(float(value) * (container_length - item_length) / 100)
-        return 0
+        return value
 
     def get_position_in(self, item_box, container_box):
         x_value = Position.value(self.x, item_box[0], container_box[0])
