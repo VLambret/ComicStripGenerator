@@ -53,3 +53,12 @@ CSG_COMMAND=../../src/main.py
 	[ $status -eq 0 ]
 	[ -f valid_alternate.png ]
 }
+
+@test "test all valid files" {
+	for VALID_FILE in valid*.strip
+	do
+		run $CSG_COMMAND $VALID_FILE
+		diff -q $VALID_FILE.png valid_references/$VALID_FILE.png
+		echo $VALID_FILE
+	done
+}
