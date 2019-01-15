@@ -31,9 +31,15 @@ def parse_position(position_text):
     if not match:
         return None
     x_text = match.group(1)
+    y_text = match.group(2)
 
     x_value = parse_position_value(x_text)
-    return Position(x_value, (0, Type.POURCENTAGE))
+    if y_text is not None:
+        y_value = parse_position_value(y_text[1:])
+    else:
+        y_value = (0, Type.POURCENTAGE)
+
+    return Position(x_value, y_value)
 
 class CharacterLine:
 
