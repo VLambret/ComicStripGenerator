@@ -27,7 +27,7 @@ def test_a_line_starting_with_arobase_is_a_background(line):
     result = Parser.StripParser.identify_line(line)
     assert type(result) is BackgroundLine
 
-@pytest.mark.parametrize("line", ["david", "bernard \"Hello, I'm Bernard !\""])
+@pytest.mark.parametrize("line", ["david", "bernard"])
 def test_by_default_a_line_with_at_least_a_name_is_a_character(line):
     result = Parser.StripParser.identify_line(line)
     assert type(result) is CharacterLine
