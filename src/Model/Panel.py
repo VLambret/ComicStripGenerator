@@ -5,6 +5,9 @@ class Panel:
         self.panel_items = [background_panel_item]
         self.balloons = []
 
+    def get_size(self):
+        return self.size
+
     def add_panel_item(self, panel_item):
         self.panel_items.append(panel_item)
 

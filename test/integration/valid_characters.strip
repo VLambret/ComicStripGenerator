@@ -1,5 +1,6 @@
 database:../../sources
 
-# Single character case
+# A character can be designed by the full image name. By default he is centered.
 @mountains
+narrateur-open-arm.png
 
