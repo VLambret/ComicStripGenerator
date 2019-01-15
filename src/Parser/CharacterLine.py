@@ -1,18 +1,14 @@
 import Config
 from Model.PanelItem import PanelItem
+from Model.Position import Position
+from Model.Position import Type
 
 class CharacterLine:
 
     def __init__(self, line):
         self.character_file = line.strip()
+        self.position = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
 
     def modify(self, strip):
-        panel = strip.last_panel()
-        panel_size = panel.get_size()
-
-        character = PanelItem(Config.image_database+"/"+ self.character_file, (0,0))
-        character_size = character.get_size()
-
-        position = (int(panel_size[0] / 2 - character_size[0] / 2), int(panel_size[1] - character_size[1]))
-        character.set_position(position)
-        panel.add_panel_item(character)
+        character = PanelItem(Config.image_database+"/"+ self.character_file, self.position)
+        strip.last_panel().add_panel_item(character)

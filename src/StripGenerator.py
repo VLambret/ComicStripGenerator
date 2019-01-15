@@ -18,7 +18,8 @@ def overlay_panel_items(image, panel_items):
         # a temporary alpha image where the panel_item is pasted at the correct
         # position and then composite this image.
         alpha_tmp = Image.new('RGBA', image.size, (255, 255, 255, 0))
-        alpha_tmp.paste(item_image, item_position)
+        position = item_position.get_position_in(panel_item.get_size(), image.size)
+        alpha_tmp.paste(item_image, position)
         image = Image.alpha_composite(image, alpha_tmp)
     return image
 
