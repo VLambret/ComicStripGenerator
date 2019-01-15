@@ -6,3 +6,6 @@ class Strip:
         self.panel_border_size = 5
         self.space_arround_panels = 25
         self.panels = []
+
+    def last_panel(self):
+        return self.panels[-1]

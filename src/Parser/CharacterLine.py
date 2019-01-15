@@ -7,7 +7,7 @@ class CharacterLine:
         self.character_file = line.strip()
 
     def modify(self, strip):
-        panel = strip.panels[-1]
+        panel = strip.last_panel()
         panel_size = panel.get_size()
 
         character = PanelItem(Config.image_database+"/"+ self.character_file, (0,0))
