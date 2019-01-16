@@ -18,3 +18,13 @@ def test_character_line_parsing(line, expected_image, expected_position):
     c = CharacterLine(line)
     assert c.character_file == expected_image
     assert c.position == expected_position
+
+@pytest.mark.parametrize("line, expected_image, expected_position, expected_dialog", [
+    ("narrateur-angry.png \"Hello !\"", "narrateur-angry.png", Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE)), "Hello !"),
+    ("narrateur-angry.png 12,34% \"Bonjour !\"", "narrateur-angry.png", Position((12, Type.PIXELS), (34, Type.POURCENTAGE)), "Bonjour !")
+])
+def test_character_line_dialog_parsing(line, expected_image, expected_position, expected_dialog):
+    c = CharacterLine(line)
+    assert c.character_file == expected_image
+    assert c.position == expected_position
+    assert c.dialog == expected_dialog

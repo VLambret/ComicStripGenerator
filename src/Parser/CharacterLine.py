@@ -20,6 +20,8 @@ POSITION_VALUE = captured("([0-9]+%?)")
 
 POSITION_REGEX = POSITION_VALUE + optional("," + POSITION_VALUE)
 
+DIALOG_REGEX = '"(.+)"'
+
 def parse_position_value(position_value_text):
     if position_value_text[-1] == "%":
         return (int(position_value_text[0:-1]), Type.POURCENTAGE)
@@ -44,6 +46,14 @@ def parse_position(position_text):
 class CharacterLine:
 
     def __init__(self, line):
+        line = line.strip()
+        detect_dialogs = line.split('"', 2)
+        if (len(detect_dialogs) > 1):
+            self.dialog = detect_dialogs[1]
+        else:
+            self.dialog = None
+        line = detect_dialogs[0]
+
         elements = self.character_file = line.strip().split(" ")
         self.character_file = elements[0]
         if(len(elements) > 1):
