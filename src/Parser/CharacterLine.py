@@ -53,4 +53,4 @@ class CharacterLine:
 
     def modify(self, strip):
         character = PanelItem(Config.image_database+"/"+ self.character_file, self.position)
-        strip.last_panel().add_panel_item(character)
+        strip.last_panel().add_character(character)
