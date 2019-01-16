@@ -7,3 +7,7 @@ narrateur-open-arm.png
 @mountains
 narrateur-grumpy.png
 
+# Test with multiple characters on the same panel
+@mountains
+narrateur-open-arm.png 0%
+narrateur-grumpy.png 100%,100%
