@@ -1,7 +1,7 @@
 import re
 
 import Config
-from Model.PanelItem import PanelItem
+from Model.Character import Character
 from Model.Position import Position
 from Model.Position import Type
 
@@ -61,5 +61,5 @@ class CharacterLine:
             self.position = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
 
     def modify(self, strip):
-        character = PanelItem(Config.image_database+"/"+ self.character_file, self.position)
+        character = Character(Config.image_database+"/"+ self.character_file, self.position)
         strip.last_panel().add_character(character)
