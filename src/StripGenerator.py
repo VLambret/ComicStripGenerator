@@ -25,10 +25,10 @@ def create_image_from_panel(panel):
         panel_image = overlay_item(panel_image, panel_item)
     return panel_image
 
-def draw_tail(draw, position, size, angle, length):
-    start = (position[0] + size[0] / 2, position[1] + size[1] - Config.border_width / 2)
-    offsetx = length * math.cos(math.radians(angle))
-    offsety = length * math.sin(math.radians(angle))
+def draw_tail(draw, position, balloon):
+    start = (position[0] + balloon.size[0] / 2, position[1] + balloon.size[1] - Config.border_width / 2)
+    offsetx = balloon.tail_length * math.cos(math.radians(balloon.tail_angle))
+    offsety = balloon.tail_length * math.sin(math.radians(balloon.tail_angle))
     end = (start[0] + offsetx, start[1] + offsety)
     draw.line([start, end], fill="black", width=Config.border_width)
 
@@ -41,8 +41,7 @@ def overlay_balloons_to_panel(panel_image, balloons):
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
         balloon_position = balloon.get_absolute_position_in(panel_image.size)
         tmp_image.paste(balloon.image, balloon_position)
-        draw_tail(tail_draw, balloon_position, balloon.size,
-                  balloon.tail_angle, balloon.tail_length)
+        draw_tail(tail_draw, balloon_position, balloon)
         balloons_image = Image.alpha_composite(balloons_image, tmp_image)
 
     complete_balloon_image = Image.alpha_composite(tails_image, balloons_image)
