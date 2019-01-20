@@ -4,6 +4,9 @@ from Parser.CharacterLine import CharacterLine
 from Model.Position import Position
 from Model.Position import Type
 
+DEFAULT_IMAGE = "narrateur-angry.png"
+DEFAULT_CENTER_POSITION = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
+
 @pytest.mark.parametrize("line, expected_image, expected_position", [
     ("narrateur-angry.png", "narrateur-angry.png", Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))),
     ("narrateur-angry.png 0%", "narrateur-angry.png", Position((0, Type.POURCENTAGE), (0, Type.POURCENTAGE))),
@@ -15,16 +18,20 @@ from Model.Position import Type
     ("narrateur-angry.png 0,10%", "narrateur-angry.png", Position((0, Type.PIXELS), (10, Type.POURCENTAGE))),
 ])
 def test_character_line_parsing(line, expected_image, expected_position):
-    c = CharacterLine(line)
-    assert c.character_file == expected_image
-    assert c.position == expected_position
+    character = CharacterLine(line)
+    assert character.character_file == expected_image
+    assert character.position == expected_position
+    assert character.dialog is None
 
-@pytest.mark.parametrize("line, expected_image, expected_position, expected_dialog", [
-    ("narrateur-angry.png \"Hello !\"", "narrateur-angry.png", Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE)), "Hello !"),
-    ("narrateur-angry.png 12,34% \"Bonjour !\"", "narrateur-angry.png", Position((12, Type.PIXELS), (34, Type.POURCENTAGE)), "Bonjour !")
+@pytest.mark.parametrize("position_text, dialog_text, expected_position, expected_dialog", [
+    ('', '', DEFAULT_CENTER_POSITION, None),
+    ('12,34%', '""', Position((12, Type.PIXELS), (34, Type.POURCENTAGE)), ""),
+    ('12,34%', '"Hello !"', Position((12, Type.PIXELS), (34, Type.POURCENTAGE)), "Hello !"),
+    ('12,34%', '"Bonjour !"', Position((12, Type.PIXELS), (34, Type.POURCENTAGE)), "Bonjour !"),
 ])
-def test_character_line_dialog_parsing(line, expected_image, expected_position, expected_dialog):
-    c = CharacterLine(line)
-    assert c.character_file == expected_image
-    assert c.position == expected_position
-    assert c.dialog == expected_dialog
+def test_character_line_dialog_parsing(position_text, dialog_text, expected_position, expected_dialog):
+    line = " ".join([DEFAULT_IMAGE, position_text, dialog_text])
+    character = CharacterLine(line)
+    assert character.character_file == DEFAULT_IMAGE
+    assert character.position == expected_position
+    assert character.dialog == expected_dialog

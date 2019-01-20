@@ -24,9 +24,8 @@ DIALOG_REGEX = '"(.+)"'
 
 def parse_position_value(position_value_text):
     if position_value_text[-1] == "%":
-        return (int(position_value_text[0:-1]), Type.POURCENTAGE)
-    else:
-        return (int(position_value_text), Type.PIXELS)
+        return int(position_value_text[0:-1]), Type.POURCENTAGE
+    return int(position_value_text), Type.PIXELS
 
 def parse_position(position_text):
     match = re.match(POSITION_REGEX, position_text)
@@ -48,7 +47,7 @@ class CharacterLine:
     def __init__(self, line):
         line = line.strip()
         detect_dialogs = line.split('"', 2)
-        if (len(detect_dialogs) > 1):
+        if len(detect_dialogs) > 1:
             self.dialog = detect_dialogs[1]
         else:
             self.dialog = None
@@ -56,7 +55,7 @@ class CharacterLine:
 
         elements = self.character_file = line.strip().split(" ")
         self.character_file = elements[0]
-        if(len(elements) > 1):
+        if len(elements) > 1:
             self.position = parse_position(elements[1])
         else:
             self.position = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
