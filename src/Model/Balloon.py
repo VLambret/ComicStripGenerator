@@ -8,3 +8,7 @@ class Balloon:
         self.tail_angle = 90
         self.tail_length = 20
         self.speech = speech
+
+    @property
+    def size(self):
+        return self.image.size
