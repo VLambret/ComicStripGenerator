@@ -1,18 +1,16 @@
 #! /usr/bin/python3
 
-import sys
 import re
-from Model.Strip import Strip
-from Model.Panel import Panel
-from Model.PanelItem import PanelItem
-from Model.Balloon import Balloon
-import Config
 
-from Parser.IgnoredLine import IgnoredLine
-from Parser.SeparatorLine import SeparatorLine
+import Config
+from Model.Balloon import Balloon
+from Model.PanelItem import PanelItem
+from Model.Strip import Strip
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
 from Parser.ConfigLine import ConfigLine
+from Parser.IgnoredLine import IgnoredLine
+from Parser.SeparatorLine import SeparatorLine
 
 SPACE = "[ \t]+"
 INDENT = "[ \t]*"
@@ -42,13 +40,13 @@ def create_strip_from_parsed_lines(parsed_lines):
     return strip
 
 def identify_line(line):
-    if (line == "" or line.isspace()):
+    if line == "" or line.isspace():
         return SeparatorLine()
-    if (line[0] == "@"):
+    if line[0] == "@":
         return BackgroundLine()
-    if (line[0] == "#"):
+    if line[0] == "#":
         return IgnoredLine()
-    if(is_config_format(line)):
+    if is_config_format(line):
         return ConfigLine(line)
     return CharacterLine(line)
 
@@ -62,7 +60,7 @@ def is_config_format(line):
     return True
 
 def is_config(line):
-    if (is_config_format(line)):
+    if is_config_format(line):
         config_key = line.rstrip().split(':')[0]
         return config_key in ["font_name", "font_size", "image_database", "border_width"]
     return False
@@ -110,35 +108,6 @@ def parse_balloon(line):
 def parse_strip(file_content):
     parsed_lines = parse_lines(file_content)
     return create_strip_from_parsed_lines(parsed_lines)
-    strip = Strip()
-    panel = None
-
-    for line in file_content:
-        if is_empty_line(line):
-            continue
-
-        panel_item = parse_item(line)
-        if panel_item is not None:
-            panel.add_panel_item(panel_item)
-            continue
-
-        background_item = parse_background(line)
-        if background_item is not None:
-            if panel is not None:
-                strip.panels.append(panel)
-            panel = Panel(background_item)
-            continue
-
-        balloon = parse_balloon(line)
-        if balloon is not None:
-            panel.add_balloon(balloon)
-            continue
-
-        if is_config(line):
-            set_config(line)
-    if panel is not None:
-        strip.panels.append(panel)
-    return strip
 
 def init_from_file(file_name):
 
