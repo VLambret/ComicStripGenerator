@@ -1,13 +1,14 @@
 class Panel:
 
     def __init__(self, background_panel_item):
-        self.size = background_panel_item.get_size()
+        self.background = background_panel_item
         self.panel_items = [background_panel_item]
         self.characters = []
         self.balloons = []
 
-    def get_size(self):
-        return self.size
+    @property
+    def size(self):
+        return self.background.get_size()
 
     def add_panel_item(self, panel_item):
         self.panel_items.append(panel_item)
