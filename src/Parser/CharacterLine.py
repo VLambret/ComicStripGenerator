@@ -63,3 +63,5 @@ class CharacterLine:
     def modify(self, strip):
         character = Character("", Config.image_database+"/"+ self.character_file, self.position)
         strip.last_panel().add_character(character)
+        if self.dialog:
+            strip.last_panel().add_dialog("", self.dialog)
