@@ -1,4 +1,7 @@
 from Model.PanelItem import PanelItem
 
 class Character(PanelItem):
-    pass
+
+    def __init__(self, name, image_name, position):
+        super().__init__(image_name, position)
+        self.name = name
