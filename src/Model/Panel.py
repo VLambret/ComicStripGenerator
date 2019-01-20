@@ -16,9 +16,6 @@ class Panel:
     def add_balloon(self, balloon):
         self.balloons.append(balloon)
 
-    def get_background(self):
-        return self.panel_items[0]
-
     def get_panel_items(self):
         return self.characters + self.panel_items[1:]
 

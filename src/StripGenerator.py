@@ -27,7 +27,7 @@ def add_borders(image, size, color):
     return ImageOps.expand(image, size, color)
 
 def create_image_from_panel(panel):
-    panel_image = create_image_from_background(panel.get_background())
+    panel_image = create_image_from_background(panel.background)
     return overlay_panel_items(panel_image, panel.get_panel_items())
 
 def draw_tail(draw, position, size, angle, length):
