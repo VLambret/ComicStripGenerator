@@ -3,6 +3,13 @@ class Type(Enum):
     PIXELS = 1
     POURCENTAGE = 2
 
+def get_pixel_position(position, item_length, container_length):
+    value = position[0]
+    position_type = position[1]
+    if position_type is Type.POURCENTAGE:
+        return int(float(value) * (container_length - item_length) / 100)
+    return value
+
 class Position:
 
     def __init__(self, x, y):
@@ -14,17 +21,10 @@ class Position:
             return self.x == other.x and self.y == other.y
         return False
 
-    def value(position, item_length, container_length):
-        value = position[0]
-        type = position[1]
-        if type is Type.POURCENTAGE:
-            return int(float(value) * (container_length - item_length) / 100)
-        return value
-
     def get_position_in(self, item_box, container_box):
-        x_value = Position.value(self.x, item_box[0], container_box[0])
+
+        x_value = get_pixel_position(self.x, item_box[0], container_box[0])
         # We prefer (0,0) to be the bottom-left of the image. For PIL it's
         flipped_y = (100 - self.y[0], Type.POURCENTAGE)
-        y_value = Position.value(flipped_y, item_box[1], container_box[1])
+        y_value = get_pixel_position(flipped_y, item_box[1], container_box[1])
         return (x_value, y_value)
-

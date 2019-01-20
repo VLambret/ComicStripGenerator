@@ -1,6 +1,6 @@
 import pytest
 
-from Model.Position import Position
+from Model.Position import get_pixel_position
 from Model.Position import Type
 
 @pytest.mark.parametrize("position, item_length, container_length, expected_value", [
@@ -11,8 +11,8 @@ from Model.Position import Type
     ((100, Type.POURCENTAGE), 10, 400, 390),
 ])
 def test_pourcentage_position_value(position, item_length, container_length, expected_value):
-    value = Position.value(position, item_length, container_length)
-    assert value == expected_value
+    obtained_value = get_pixel_position(position, item_length, container_length)
+    assert obtained_value == expected_value
 
 @pytest.mark.parametrize("position, item_length, container_length, expected_value", [
     ((0, Type.PIXELS), 10, 400, 0),
@@ -23,5 +23,5 @@ def test_pourcentage_position_value(position, item_length, container_length, exp
     ((392, Type.PIXELS), 10, 400, 392),
 ])
 def test_pixels_position_value(position, item_length, container_length, expected_value):
-    value = Position.value(position, item_length, container_length)
-    assert value == expected_value
+    obtained_value = get_pixel_position(position, item_length, container_length)
+    assert obtained_value == expected_value
