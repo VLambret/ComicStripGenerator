@@ -39,8 +39,9 @@ def overlay_balloons_to_panel(panel_image, balloons):
 
     for balloon in balloons:
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
-        tmp_image.paste(balloon.image, balloon.position)
-        draw_tail(tail_draw, balloon.position, balloon.size,
+        balloon_position = balloon.get_absolute_position_in(panel_image.size)
+        tmp_image.paste(balloon.image, balloon_position)
+        draw_tail(tail_draw, balloon_position, balloon.size,
                   balloon.tail_angle, balloon.tail_length)
         balloons_image = Image.alpha_composite(balloons_image, tmp_image)
 
