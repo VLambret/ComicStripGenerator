@@ -1,3 +1,6 @@
+import math
+
+import Config
 import ImageFactory
 
 class Balloon:
@@ -15,3 +18,12 @@ class Balloon:
 
     def get_absolute_position_in(self, box):
         return self._position.get_position_in(self.size, box)
+
+    def get_tail_start_at(self, position):
+        return (position[0] + self.size[0] / 2, position[1] + self.size[1] - Config.border_width / 2)
+
+    def get_tail_end_at(self, position):
+        start = self.get_tail_start_at(position)
+        offsetx = self.tail_length * math.cos(math.radians(self.tail_angle))
+        offsety = self.tail_length * math.sin(math.radians(self.tail_angle))
+        return (start[0] + offsetx, start[1] + offsety)

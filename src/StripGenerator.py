@@ -1,5 +1,3 @@
-import math
-
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
@@ -26,10 +24,8 @@ def create_image_from_panel(panel):
     return panel_image
 
 def draw_tail(draw, position, balloon):
-    start = (position[0] + balloon.size[0] / 2, position[1] + balloon.size[1] - Config.border_width / 2)
-    offsetx = balloon.tail_length * math.cos(math.radians(balloon.tail_angle))
-    offsety = balloon.tail_length * math.sin(math.radians(balloon.tail_angle))
-    end = (start[0] + offsetx, start[1] + offsety)
+    start = balloon.get_tail_start_at(position)
+    end = balloon.get_tail_end_at(position)
     draw.line([start, end], fill="black", width=Config.border_width)
 
 def overlay_balloons_to_panel(panel_image, balloons):
