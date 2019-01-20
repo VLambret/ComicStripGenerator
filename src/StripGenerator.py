@@ -6,14 +6,12 @@ import ImageFactory
 import Config
 
 def overlay_item(image, item):
-    item_position = item.get_position()
     # PIL paste dont handle alpha, we have to use alpha_composite but it only
     #  accept images with the same size. The workarround here consist to create
     # a temporary alpha image where the panel_item is pasted at the correct
     #  position and then composite this image.
     alpha_tmp = Image.new('RGBA', image.size, (255, 255, 255, 0))
-    position = item_position.get_position_in(item.size, image.size)
-    alpha_tmp.paste(item.image, position)
+    alpha_tmp.paste(item.image, item.get_absolute_position_in(image.size))
     return Image.alpha_composite(image, alpha_tmp)
 
 def add_borders(image, size, color):
