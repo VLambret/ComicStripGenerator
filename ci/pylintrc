@@ -314,7 +314,7 @@ contextmanager-decorators=contextlib.contextmanager
 [MISCELLANEOUS]
 
 # List of note tags to take in consideration, separated by a comma.
-notes=FIXME,XXX,TODO
+notes=FIXME,TODO
 
 
 [CLASSES]

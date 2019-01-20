@@ -24,7 +24,7 @@ class Position:
     def get_position_in(self, item_box, container_box):
 
         x_value = get_pixel_position(self.x, item_box[0], container_box[0])
-        # We prefer (0,0) to be the bottom-left of the image. For PIL it's
+        # XXX: We prefer (0,0) to be the bottom-left of the image. For PIL it's the bottom-top
         flipped_y = (100 - self.y[0], Type.POURCENTAGE)
         y_value = get_pixel_position(flipped_y, item_box[1], container_box[1])
         return (x_value, y_value)
