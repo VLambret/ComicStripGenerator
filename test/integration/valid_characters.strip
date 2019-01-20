@@ -5,7 +5,7 @@ database:../../sources
 narrateur-open-arm.png
 
 @mountains
-narrateur-grumpy.png
+narrateur-grumpy.png "Hi !"
 
 # Test with multiple characters on the same panel
 @mountains
