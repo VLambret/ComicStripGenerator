@@ -25,7 +25,7 @@ def create_image_from_panel(panel):
 
 def draw_tail(draw, position, balloon):
     start = balloon.get_tail_start_at(position)
-    end = balloon.get_tail_end_at(position)
+    end = balloon.get_tail_end()
     draw.line([start, end], fill="black", width=Config.border_width)
 
 def overlay_balloons_to_panel(panel_image, balloons):

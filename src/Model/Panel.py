@@ -11,14 +11,22 @@ class Panel:
 
     @property
     def size(self):
-        return self.background.get_size()
+        return self.background.size
 
     @property
     def balloons(self):
         balloon_list = []
         for dialog in self._dialogs:
-            balloon_list.append(Balloon(dialog[1], Position((50, Type.POURCENTAGE), (100, Type.POURCENTAGE))))
+            position = Position((50, Type.POURCENTAGE), (100, Type.POURCENTAGE))
+            target = self.get_character_named(dialog[0]).get_top_in(self.size)
+            balloon_list.append(Balloon(dialog[1], position, target))
         return balloon_list
+
+    def get_character_named(self, name):
+        for character in self.characters:
+            if character.name == name:
+                return character
+        return None
 
     def get_panel_items(self):
         return self.characters
