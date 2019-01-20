@@ -2,6 +2,12 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
+import Config
+
+def create_balloon_image_from(speech):
+    balloon_text = draw_balloon_text(speech, Config.font_name, Config.font_size)
+    return draw_balloon(balloon_text, 25, Config.border_width)
+
 def get_text_size(speech, font):
     image = Image.new("RGBA", (1, 1), "white")
     draw = ImageDraw.Draw(image)

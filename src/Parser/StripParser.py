@@ -3,7 +3,6 @@
 import re
 
 import Config
-from Model.Balloon import Balloon
 from Model.PanelItem import PanelItem
 from Model.Strip import Strip
 from Parser.BackgroundLine import BackgroundLine
@@ -94,16 +93,6 @@ def parse_item(line):
     filename = match.group(1)
     position = (int(match.group(2)), int(match.group(3)))
     return PanelItem(Config.image_database + "/" + filename, position)
-
-def parse_balloon(line):
-    match = re.match(line_regex(BALLOON_REGEX), line)
-    if not match:
-        return None
-    position = (int(match.group(1)), int(match.group(2)))
-    tail_angle = int(match.group(3))
-    tail_length = int(match.group(4))
-    speech = match.group(5).strip().replace('\\n', '\n')
-    return Balloon(speech, position)
 
 def parse_strip(file_content):
     parsed_lines = parse_lines(file_content)

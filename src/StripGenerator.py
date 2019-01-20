@@ -1,9 +1,11 @@
 import math
+
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
-import ImageFactory
+
 import Config
+
 
 def overlay_item(image, item):
     # PIL paste dont handle alpha, we have to use alpha_composite but it only
@@ -37,11 +39,8 @@ def overlay_balloons_to_panel(panel_image, balloons):
 
     for balloon in balloons:
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
-        balloon_text = ImageFactory.draw_balloon_text(balloon.speech,
-                                                      Config.font_name, Config.font_size)
-        balloon_image = ImageFactory.draw_balloon(balloon_text, 25, Config.border_width)
-        tmp_image.paste(balloon_image, balloon.position)
-        draw_tail(tail_draw, balloon.position, balloon_image.size,
+        tmp_image.paste(balloon.image, balloon.position)
+        draw_tail(tail_draw, balloon.position, balloon.image.size,
                   balloon.tail_angle, balloon.tail_length)
         balloons_image = Image.alpha_composite(balloons_image, tmp_image)
 
