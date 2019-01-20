@@ -10,7 +10,7 @@ def print_usage(command):
 
 def main():
     argc = len(sys.argv)
-    if (argc < 2 or 3 < argc):
+    if argc not in [2, 3]:
         exit(1)
 
     if sys.argv[1] == "--help":
