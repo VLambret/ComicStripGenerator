@@ -1,7 +1,7 @@
 class Balloon:
 
-    def __init__(self, position, tail_angle, tail_length, speech):
+    def __init__(self, speech, position):
         self.position = position
-        self.tail_angle = tail_angle
-        self.tail_length = tail_length
+        self.tail_angle = 90
+        self.tail_length = 20
         self.speech = speech

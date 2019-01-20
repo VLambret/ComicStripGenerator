@@ -103,7 +103,7 @@ def parse_balloon(line):
     tail_angle = int(match.group(3))
     tail_length = int(match.group(4))
     speech = match.group(5).strip().replace('\\n', '\n')
-    return Balloon(position, tail_angle, tail_length, speech)
+    return Balloon(speech, position)
 
 def parse_strip(file_content):
     parsed_lines = parse_lines(file_content)
