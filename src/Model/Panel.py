@@ -17,7 +17,7 @@ class Panel:
     def balloons(self):
         balloon_list = []
         for dialog in self._dialogs:
-            balloon_list.append(Balloon(dialog[1], Position((0, Type.POURCENTAGE), (100, Type.POURCENTAGE))))
+            balloon_list.append(Balloon(dialog[1], Position((50, Type.POURCENTAGE), (100, Type.POURCENTAGE))))
         return balloon_list
 
     def get_panel_items(self):
