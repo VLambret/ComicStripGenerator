@@ -62,3 +62,11 @@ CSG_COMMAND=../../src/main.py
 		echo $VALID_FILE
 	done
 }
+
+@test "test staging files, not ready to be used as reference" {
+	for STAGING_FILE in staging*.strip
+	do
+		$CSG_COMMAND $STAGING_FILE
+		echo $STAGING_FILE
+	done
+}
