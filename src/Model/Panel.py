@@ -18,7 +18,7 @@ class Panel:
         balloon_list = []
         for dialog in self._dialogs:
             position = Position((50, Type.POURCENTAGE), (100, Type.POURCENTAGE))
-            target = self.get_character_named(dialog[0]).get_top_in(self.size)
+            target = self.get_character_named(dialog[0]).get_top_in(self)
             balloon_list.append(Balloon(dialog[1], position, target))
         return balloon_list
 

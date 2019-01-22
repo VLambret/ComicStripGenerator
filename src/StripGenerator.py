@@ -11,7 +11,7 @@ def overlay_item(image, item):
     # a temporary alpha image where the panel_item is pasted at the correct
     #  position and then composite this image.
     alpha_tmp = Image.new('RGBA', image.size, (255, 255, 255, 0))
-    alpha_tmp.paste(item.image, item.get_absolute_position_in(image.size))
+    alpha_tmp.paste(item.image, item.get_absolute_position_in(image))
     return Image.alpha_composite(image, alpha_tmp)
 
 def add_borders(image, size, color):
@@ -35,7 +35,7 @@ def overlay_balloons_to_panel(panel_image, balloons):
 
     for balloon in balloons:
         tmp_image = Image.new("RGBA", panel_image.size, (0, 0, 0, 0))
-        balloon_position = balloon.get_absolute_position_in(panel_image.size)
+        balloon_position = balloon.get_absolute_position_in(panel_image)
         tmp_image.paste(balloon.image, balloon_position)
         draw_tail(tail_draw, balloon_position, balloon)
         balloons_image = Image.alpha_composite(balloons_image, tmp_image)
