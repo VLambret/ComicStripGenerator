@@ -1,7 +1,7 @@
 import pytest
 
 from Model.Position import get_pixel_position
-from Model.Position import Type
+from Model.Position import Type, Position
 
 @pytest.mark.parametrize("position, item_length, container_length, expected_value", [
     ((0, Type.POURCENTAGE), 10, 400, 0),
@@ -25,3 +25,12 @@ def test_pourcentage_position_value(position, item_length, container_length, exp
 def test_pixels_position_value(position, item_length, container_length, expected_value):
     obtained_value = get_pixel_position(position, item_length, container_length)
     assert obtained_value == expected_value
+
+DEFAULT_X = (0, Type.POURCENTAGE)
+DEFAULT_Y = (0, Type.POURCENTAGE)
+
+def test_setting_auto_position_changes_nothing_on_non_auto_positons():
+    position = Position(DEFAULT_X, DEFAULT_Y)
+    position.set_auto_position(0)
+    assert position.x == DEFAULT_X
+    assert position.y == DEFAULT_Y

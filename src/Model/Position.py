@@ -29,3 +29,7 @@ class Position:
         flipped_y = (100 - self.y[0], Type.POURCENTAGE)
         y_value = get_pixel_position(flipped_y, item_box[1], container_box[1])
         return (x_value, y_value)
+
+    def set_auto_position(self, auto_x_element_number):
+        pass
+
