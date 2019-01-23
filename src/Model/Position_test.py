@@ -34,3 +34,17 @@ def test_setting_auto_position_changes_nothing_on_non_auto_positons():
     position.set_auto_position(0)
     assert position.x == DEFAULT_X
     assert position.y == DEFAULT_Y
+
+@pytest.mark.parametrize("rank, size, expected_x_value", [
+    (0, 1, 50),
+    (0, 2, 0),
+    (1, 2, 100),
+    (0, 3, 0),
+    (1, 3, 50),
+    (2, 3, 100),
+])
+def test_setting_auto_position_changes_nothing_on_non_auto_positons(rank, size, expected_x_value):
+    position = Position((rank, Type.AUTO), DEFAULT_Y)
+    position.set_auto_position(size)
+    assert position.x == (expected_x_value, Type.POURCENTAGE)
+    assert position.y == DEFAULT_Y

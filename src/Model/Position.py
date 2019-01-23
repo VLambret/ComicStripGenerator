@@ -31,5 +31,8 @@ class Position:
         return (x_value, y_value)
 
     def set_auto_position(self, auto_x_element_number):
-        pass
+        value = 50
+        if (auto_x_element_number > 1):
+            value = self.x[0] * (100 / (auto_x_element_number - 1))
+        self.x = (value, Type.POURCENTAGE)
 
