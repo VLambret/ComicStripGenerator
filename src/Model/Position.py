@@ -2,6 +2,7 @@ from enum import Enum
 class Type(Enum):
     PIXELS = 1
     POURCENTAGE = 2
+    AUTO = 3
 
 def get_pixel_position(position, item_length, container_length):
     value = position[0]

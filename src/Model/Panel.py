@@ -36,3 +36,10 @@ class Panel:
 
     def add_dialog(self, charater_name, speech):
         self._dialogs.append((charater_name, speech))
+
+    def get_auto_placed_characters_number(self):
+        count = 0
+        for c in self.characters:
+            if (c.is_auto_placed):
+                count = count + 1
+        return count

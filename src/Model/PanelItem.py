@@ -1,4 +1,5 @@
 from PIL import Image
+from Model.Position import Type
 
 class PanelItem:
 
@@ -9,6 +10,10 @@ class PanelItem:
     @property
     def size(self):
         return self.image.size
+
+    @property
+    def is_auto_placed(self):
+        return self._position.x[1] == Type.AUTO
 
     def get_absolute_position_in(self, container):
         return self._position.get_position_in(self.size, container)
