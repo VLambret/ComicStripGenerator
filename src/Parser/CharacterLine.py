@@ -58,7 +58,7 @@ class CharacterLine:
         if len(elements) > 1:
             self.position = parse_position(elements[1])
         else:
-            self.position = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
+            self.position = Position((0, Type.AUTO), (0, Type.POURCENTAGE))
 
     def modify(self, strip):
         character = Character("", Config.image_database+"/"+ self.character_file, self.position)

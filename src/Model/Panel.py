@@ -29,6 +29,7 @@ class Panel:
         return None
 
     def get_panel_items(self):
+        self.place_auto_characters()
         return self.characters
 
     def add_character(self, character):
@@ -36,6 +37,14 @@ class Panel:
 
     def add_dialog(self, charater_name, speech):
         self._dialogs.append((charater_name, speech))
+
+    def place_auto_characters(self):
+        total = self.get_auto_placed_characters_number()
+        rank = 0
+        for c in self.characters:
+            if (c.is_auto_placed):
+                c.place_auto(rank, total)
+                rank = rank + 1
 
     def get_auto_placed_characters_number(self):
         count = 0

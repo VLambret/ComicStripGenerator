@@ -5,10 +5,10 @@ from Model.Position import Position
 from Model.Position import Type
 
 DEFAULT_IMAGE = "narrateur-angry.png"
-DEFAULT_CENTER_POSITION = Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))
+DEFAULT_CENTER_POSITION = Position((0, Type.AUTO), (0, Type.POURCENTAGE))
 
 @pytest.mark.parametrize("line, expected_image, expected_position", [
-    ("narrateur-angry.png", "narrateur-angry.png", Position((50, Type.POURCENTAGE), (0, Type.POURCENTAGE))),
+    ("narrateur-angry.png", "narrateur-angry.png", DEFAULT_CENTER_POSITION),
     ("narrateur-angry.png 0%", "narrateur-angry.png", Position((0, Type.POURCENTAGE), (0, Type.POURCENTAGE))),
     ("narrateur-angry.png 100%", "narrateur-angry.png", Position((100, Type.POURCENTAGE), (0, Type.POURCENTAGE))),
     ("narrateur-angry.png 0", "narrateur-angry.png", Position((0, Type.PIXELS), (0, Type.POURCENTAGE))),

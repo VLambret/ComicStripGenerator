@@ -30,9 +30,9 @@ class Position:
         y_value = get_pixel_position(flipped_y, item_box[1], container_box[1])
         return (x_value, y_value)
 
-    def set_auto_position(self, auto_x_element_number):
+    def set_auto_position(self, rank, auto_x_element_number):
         value = 50
         if (auto_x_element_number > 1):
-            value = self.x[0] * (100 / (auto_x_element_number - 1))
+            value = rank * (100 / (auto_x_element_number - 1))
         self.x = (value, Type.POURCENTAGE)
 
