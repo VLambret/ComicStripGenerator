@@ -1,5 +1,6 @@
 from Model.Balloon import Balloon
 from Model.Position import Type, Position
+import Config
 
 
 class Panel:
@@ -19,7 +20,7 @@ class Panel:
         total = len(self._dialogs)
         rank = 0
         for dialog in self._dialogs:
-            position = Position((0, Type.AUTO), (100, Type.POURCENTAGE))
+            position = Position((0, Type.AUTO), (100 - Config.balloon_padding_pourcentage, Type.POURCENTAGE))
             target = self.get_character_named(dialog[0]).get_top_in(self)
             balloon = Balloon(dialog[1], position, target)
             balloon.place_auto(rank, total)

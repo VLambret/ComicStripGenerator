@@ -37,11 +37,11 @@ def test_setting_auto_position_changes_nothing_on_non_auto_positons():
 
 @pytest.mark.parametrize("rank, total, expected_x_value", [
     (0, 1, 50),
-    (0, 2, 0),
-    (1, 2, 100),
-    (0, 3, 0),
+    (0, 2, 2),
+    (1, 2, 98),
+    (0, 3, 2),
     (1, 3, 50),
-    (2, 3, 100),
+    (2, 3, 98),
 ])
 def test_auto_position_computed_values(rank, total, expected_x_value):
     position = Position((rank, Type.AUTO), DEFAULT_Y)

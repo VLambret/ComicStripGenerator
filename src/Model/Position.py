@@ -1,3 +1,5 @@
+import Config
+
 from enum import Enum
 class Type(Enum):
     PIXELS = 1
@@ -33,8 +35,9 @@ class Position:
     def set_auto_position(self, rank, auto_x_element_number):
         if self.x[1] != Type.AUTO:
             return
+        padding = Config.balloon_padding_pourcentage
         value = 50
         if (auto_x_element_number > 1):
-            value = rank * (100 / (auto_x_element_number - 1))
+            value = padding + (rank * (100 - 2 * padding) / (auto_x_element_number - 1))
         self.x = (value, Type.POURCENTAGE)
 
