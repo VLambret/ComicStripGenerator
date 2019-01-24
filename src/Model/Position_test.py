@@ -31,7 +31,7 @@ DEFAULT_Y = (0, Type.POURCENTAGE)
 
 def test_setting_auto_position_changes_nothing_on_non_auto_positons():
     position = Position(DEFAULT_X, DEFAULT_Y)
-    position.set_auto_position(0)
+    position.set_auto_position(1, 3)
     assert position.x == DEFAULT_X
     assert position.y == DEFAULT_Y
 
@@ -43,7 +43,7 @@ def test_setting_auto_position_changes_nothing_on_non_auto_positons():
     (1, 3, 50),
     (2, 3, 100),
 ])
-def test_setting_auto_position_changes_nothing_on_non_auto_positons(rank, total, expected_x_value):
+def test_auto_position_computed_values(rank, total, expected_x_value):
     position = Position((rank, Type.AUTO), DEFAULT_Y)
     position.set_auto_position(rank, total)
     assert position.x == (expected_x_value, Type.POURCENTAGE)

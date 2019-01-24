@@ -31,6 +31,8 @@ class Position:
         return (x_value, y_value)
 
     def set_auto_position(self, rank, auto_x_element_number):
+        if self.x[1] != Type.AUTO:
+            return
         value = 50
         if (auto_x_element_number > 1):
             value = rank * (100 / (auto_x_element_number - 1))
