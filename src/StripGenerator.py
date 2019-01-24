@@ -23,9 +23,15 @@ def create_image_from_panel(panel):
         panel_image = overlay_item(panel_image, panel_item)
     return panel_image
 
+def reduce_tail_end(start, end):
+    reduction = 70
+    reduce_x = start[0] + (reduction * (end[0] - start[0])) / 100
+    reduce_y = start[1] + (reduction * (end[1] - start[1])) / 100
+    return reduce_x, reduce_y
+
 def draw_tail(draw, position, balloon):
     start = balloon.get_tail_start_at(position)
-    end = balloon.get_tail_end()
+    end = reduce_tail_end(start, balloon.get_tail_end())
     draw.line([start, end], fill="black", width=Config.border_width)
 
 def overlay_balloons_to_panel(panel_image, balloons):
