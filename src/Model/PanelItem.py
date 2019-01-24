@@ -17,3 +17,6 @@ class PanelItem:
 
     def get_absolute_position_in(self, container):
         return self._position.get_position_in(self.size, container)
+
+    def place_auto(self, rank, total):
+        self._position.set_auto_position(rank, total)
