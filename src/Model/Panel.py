@@ -16,10 +16,16 @@ class Panel:
     @property
     def balloons(self):
         balloon_list = []
+        total = len(self._dialogs)
+        rank = 0
         for dialog in self._dialogs:
-            position = Position((50, Type.POURCENTAGE), (100, Type.POURCENTAGE))
+            position = Position((0, Type.AUTO), (100, Type.POURCENTAGE))
             target = self.get_character_named(dialog[0]).get_top_in(self)
-            balloon_list.append(Balloon(dialog[1], position, target))
+            balloon = Balloon(dialog[1], position, target)
+            balloon.place_auto(rank, total)
+            balloon_list.append(balloon)
+            rank = rank + 1
+
         return balloon_list
 
     def get_character_named(self, name):
