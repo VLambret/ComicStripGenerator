@@ -5,8 +5,8 @@ from Model.Panel import Panel
 class BackgroundLine:
 
     def __init__(self, line):
-        pass
+        self._background = line[1:].strip()
 
     def modify(self, strip):
-        background_item = PanelItem(Config.image_database+"/"+ "background.png", (0, 0))
+        background_item = PanelItem(Config.image_database+"/" + self._background, (0, 0))
         strip.panels.append(Panel(background_item))
