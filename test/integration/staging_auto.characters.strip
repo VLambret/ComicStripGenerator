@@ -1,13 +1,13 @@
 database:../../sources
 
-@mountains
+@background.png
 narrateur-open-arm.png "A Single character is centered"
 
-@mountains
+@background.png
 narrateur-open-arm.png "With two, one is left..."
 narrateur-grumpy.png "... the other is right !"
 
-@mountains
+@background.png
 narrateur-open-arm.png "Let's"
 narrateur-smiling.png "keep our"
 narrateur-grumpy.png "distances"

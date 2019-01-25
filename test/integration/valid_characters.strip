@@ -1,13 +1,13 @@
 database:../../sources
 
 # A character can be designed by the full image name. By default he is centered.
-@mountains
+@background.png
 narrateur-open-arm.png
 
-@mountains
+@background.png
 narrateur-grumpy.png "Hi !"
 
 # Test with multiple characters on the same panel
-@mountains
+@background.png
 narrateur-open-arm.png 0%
 narrateur-grumpy.png 100%,100%
