@@ -42,7 +42,7 @@ def identify_line(line):
     if line == "" or line.isspace():
         return SeparatorLine()
     if line[0] == "@":
-        return BackgroundLine()
+        return BackgroundLine(line)
     if line[0] == "#":
         return IgnoredLine()
     if is_config_format(line):

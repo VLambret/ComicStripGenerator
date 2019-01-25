@@ -4,7 +4,7 @@ from Model.Panel import Panel
 
 class BackgroundLine:
 
-    def __init__(self):
+    def __init__(self, line):
         pass
 
     def modify(self, strip):
