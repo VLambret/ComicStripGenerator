@@ -32,10 +32,9 @@ class Position:
         y_value = get_pixel_position(flipped_y, item_box[1], container_box[1])
         return (x_value, y_value)
 
-    def set_auto_position(self, rank, auto_x_element_number):
+    def set_auto_position(self, rank, auto_x_element_number, padding):
         if self.x[1] != Type.AUTO:
             return
-        padding = Config.balloon_padding_pourcentage
         value = 50
         if (auto_x_element_number > 1):
             value = padding + (rank * (100 - 2 * padding) / (auto_x_element_number - 1))
