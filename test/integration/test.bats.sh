@@ -64,7 +64,7 @@ CSG_COMMAND=../../src/main.py
 }
 
 @test "test staging files, not ready to be used as reference" {
-	for STAGING_FILE in staging*.strip
+	for STAGING_FILE in $(find -name 'staging*.strip')
 	do
 		$CSG_COMMAND $STAGING_FILE
 		echo $STAGING_FILE

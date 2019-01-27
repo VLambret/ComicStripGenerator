@@ -1,0 +1,14 @@
+database:../../sources
+
+@background.png
+narrateur-smiling-raising-arm.png "Can I just say one thing ?"
+narrateur-smiling-raising-arm.png "or two ?"
+
+@background.png
+narrateur-grumpy.png 100% "You're just trying to look smart"
+narrateur-smiling-raising-arm.png 0% "No !"
+
+@background.png
+narrateur-smiling-raising-arm.png "You will like it"
+narrateur-grumpy.png "really ?"
+narrateur-smiling-raising-arm.png "I assure you !"
