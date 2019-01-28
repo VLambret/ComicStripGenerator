@@ -10,3 +10,6 @@ class Characters:
 
     def get_items(self):
         return self._characters
+
+    def place_dialogs(self, dialogs):
+        return []
