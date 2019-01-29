@@ -1,3 +1,4 @@
+from Model.PlacedDialog import PlacedDialog
 
 class Characters:
 
@@ -12,4 +13,7 @@ class Characters:
         return self._characters
 
     def place_dialogs(self, dialogs):
-        return []
+        result = []
+        for dialog in dialogs:
+            result.append(PlacedDialog(dialog[0], dialog[1]))
+        return result
