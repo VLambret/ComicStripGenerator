@@ -1,6 +1,9 @@
 from Model.Characters import Characters
 from Model.Character import Character
+from Model.Dialog import Dialog
 from Model.PlacedDialog import PlacedDialog
+
+import pytest
 import TestFactory
 
 def test_by_default_a_character_list_contains_no_items():
@@ -24,4 +27,32 @@ def test_given_a_dialog_from_a_lonely_character_then_dialogs_contains_his_speech
     characters.add(character)
     dialogs = [("Scott", "Hello !")]
     placed_dialogs = characters.place_dialogs(dialogs)
-    assert placed_dialogs == [PlacedDialog("Scott", "Hello !")]
+    expected_dialog = PlacedDialog("Scott", "Hello !")
+    assert placed_dialogs == [expected_dialog]
+
+NOBODY = []
+SINGLE_GUY = [TestFactory.character_named_at("One", TestFactory.LEFT)]
+FIRST_LEFT_SECOND_RIGHT = [TestFactory.character_named_at("First", TestFactory.LEFT),
+                           TestFactory.character_named_at("Second", TestFactory.RIGHT)]
+FIRST_RIGHT_SECOND_LEFT = [TestFactory.character_named_at("First", TestFactory.RIGHT),
+                           TestFactory.character_named_at("Second", TestFactory.LEFT)]
+
+SILENCE = []
+MONOLOGUE = [Dialog("First", "A")]
+LONG_MONOLOGUE = [Dialog("First", "A"), Dialog("First", "B")]
+EACH_SPEACK_ONCE = [Dialog("First", "A"), Dialog("Second", "B")]
+SIMPLE_EXCHANGE = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("First", "C"), Dialog("Second", "D")]
+QUESTION_THEN_MONOLOGUE = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
+MONOLOGUE_THEN_ANSWER = [Dialog("First", "A"), Dialog("First", "B"), Dialog("First", "C"), Dialog("Second", "D")]
+MONOLOGUE_THEN_MONOLOGUE = [Dialog("First", "A"), Dialog("First", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
+
+@pytest.mark.parametrize("characters, dialogs, expected_placed_dialogs", [
+    (NOBODY, SILENCE, SILENCE),
+])
+def test_pourcentage_position_value(characters, dialogs, expected_placed_dialogs):
+    actual_characters = Characters()
+    for character in characters:
+        actual_characters.add(character)
+
+    placed_dialogs = actual_characters.place_dialogs(dialogs)
+    assert placed_dialogs == expected_placed_dialogs

@@ -11,3 +11,6 @@ def character():
 
 def character_named(name):
     return Character(name, "sources/narrateur-angry.png", POSITION_DEFAULT)
+
+def character_named_at(name, position):
+    return Character(name, "sources/narrateur-angry.png", position)
