@@ -15,7 +15,5 @@ class Characters:
     def place_dialogs(self, dialogs):
         result = []
         for dialog in dialogs:
-            expected_dialog = PlacedDialog("Scott", "Hello !")
-            result.append(expected_dialog)
-            #result.append(PlacedDialog(dialog[0], dialog[1]))
+            result.append(PlacedDialog(dialog.name, dialog.speech))
         return result

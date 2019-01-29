@@ -25,7 +25,7 @@ def test_given_a_dialog_from_a_lonely_character_then_dialogs_contains_his_speech
     characters = Characters()
     character = TestFactory.character_named("Scott")
     characters.add(character)
-    dialogs = [("Scott", "Hello !")]
+    dialogs = [Dialog("Scott", "Hello !")]
     placed_dialogs = characters.place_dialogs(dialogs)
     expected_dialog = PlacedDialog("Scott", "Hello !")
     assert placed_dialogs == [expected_dialog]
@@ -38,18 +38,25 @@ FIRST_RIGHT_SECOND_LEFT = [TestFactory.character_named_at("First", TestFactory.R
                            TestFactory.character_named_at("Second", TestFactory.LEFT)]
 
 SILENCE = []
-MONOLOGUE = [Dialog("First", "A")]
-LONG_MONOLOGUE = [Dialog("First", "A"), Dialog("First", "B")]
+MONOLOG = [Dialog("First", "A")]
+LONG_MONOLOG = [Dialog("First", "A"), Dialog("First", "B")]
 EACH_SPEACK_ONCE = [Dialog("First", "A"), Dialog("Second", "B")]
 SIMPLE_EXCHANGE = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("First", "C"), Dialog("Second", "D")]
-QUESTION_THEN_MONOLOGUE = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
-MONOLOGUE_THEN_ANSWER = [Dialog("First", "A"), Dialog("First", "B"), Dialog("First", "C"), Dialog("Second", "D")]
-MONOLOGUE_THEN_MONOLOGUE = [Dialog("First", "A"), Dialog("First", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
+QUESTION_THEN_MONOLOG = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
+MONOLOG_THEN_ANSWER = [Dialog("First", "A"), Dialog("First", "B"), Dialog("First", "C"), Dialog("Second", "D")]
+MONOLOG_THEN_MONOLOG = [Dialog("First", "A"), Dialog("First", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
+
+EXPECTED_MONOLOG = [PlacedDialog("First", "A")]
+EXPECTED_LONG_MONOLOG = [PlacedDialog("First", "A"), PlacedDialog("First", "B")]
 
 @pytest.mark.parametrize("characters, dialogs, expected_placed_dialogs", [
     (NOBODY, SILENCE, SILENCE),
+    (FIRST_LEFT_SECOND_RIGHT, MONOLOG, EXPECTED_MONOLOG),
+    (FIRST_RIGHT_SECOND_LEFT, MONOLOG, EXPECTED_MONOLOG),
+    (FIRST_LEFT_SECOND_RIGHT, LONG_MONOLOG, EXPECTED_LONG_MONOLOG),
+    (FIRST_RIGHT_SECOND_LEFT, LONG_MONOLOG, EXPECTED_LONG_MONOLOG),
 ])
-def test_pourcentage_position_value(characters, dialogs, expected_placed_dialogs):
+def test_dialogs_use_several_levels_when_speeches_are_mixed(characters, dialogs, expected_placed_dialogs):
     actual_characters = Characters()
     for character in characters:
         actual_characters.add(character)
