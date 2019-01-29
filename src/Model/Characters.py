@@ -16,4 +16,4 @@ class Characters:
         result = []
         for dialog in dialogs:
             result.append(PlacedDialog(dialog.name, dialog.speech))
-        return result
+        return [result]
