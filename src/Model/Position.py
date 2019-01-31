@@ -40,3 +40,17 @@ class Position:
             value = padding + (rank * (100 - 2 * padding) / (auto_x_element_number - 1))
         self.x = (value, Type.POURCENTAGE)
 
+    def repr_axe(self, value, value_type):
+        if value_type == Type.PIXELS:
+            return str(value) + "px"
+        elif value_type == Type.POURCENTAGE:
+            return str(value) + "%"
+        elif value_type == Type.AUTO:
+            return "auto"
+        return "invalid type"
+
+    def __repr__(self):
+        x_text = self.repr_axe(self.x[0], self.x[1])
+        y_text = self.repr_axe(self.y[0], self.y[1])
+        return "({0}, {1})".format(x_text, y_text)
+

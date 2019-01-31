@@ -3,21 +3,23 @@ from Model.Character import Character
 import pytest
 import TestFactory
 
-LEFT_GUY = TestFactory.character_at(TestFactory.LEFT)
-MIDDLE_GUY = TestFactory.character_at(TestFactory.MIDDLE)
-RIGHT_GUY = TestFactory.character_at(TestFactory.RIGHT)
+LEFT = TestFactory.LEFT
+MIDDLE = TestFactory.MIDDLE
+RIGHT = TestFactory.RIGHT
 
-@pytest.mark.parametrize("first, second, expected_result", [
-    #(LEFT_GUY, LEFT_GUY, True),
-    (LEFT_GUY, MIDDLE_GUY, True),
-    (LEFT_GUY, RIGHT_GUY, True),
-    (MIDDLE_GUY, LEFT_GUY, False),
-    #(MIDDLE_GUY, MIDDLE_GUY, True),
-    (MIDDLE_GUY, RIGHT_GUY, True),
-    (RIGHT_GUY, LEFT_GUY, False),
-    (RIGHT_GUY, MIDDLE_GUY, False),
-    #(RIGHT_GUY, RIGHT_GUY, True),
+@pytest.mark.parametrize("first_position, second_position, expected_result", [
+#    #(LEFT, LEFT, True),
+    (LEFT, MIDDLE, True),
+    (LEFT, RIGHT, True),
+    (MIDDLE, LEFT, False),
+#    #(MIDDLE, MIDDLE, True),
+    (MIDDLE, RIGHT, True),
+    (RIGHT, LEFT, False),
+    (RIGHT, MIDDLE, False),
+#    #(RIGHT, RIGHT, True),
 ])
-def test_verify_read_order_for_characters(first, second, expected_result):
+def test_verify_read_order_for_characters(first_position, second_position, expected_result):
+    first = TestFactory.character_at(first_position)
+    second = TestFactory.character_at(second_position)
     result = first.is_before_in_read_order(second)
     assert result == expected_result
