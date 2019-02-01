@@ -1,4 +1,4 @@
-from Model.Characters import Characters
+from Model.Scene import Scene
 from Model.Character import Character
 from Model.Dialog import Dialog
 from Model.PlacedDialog import PlacedDialog
@@ -7,22 +7,22 @@ import pytest
 import TestFactory
 
 def test_by_default_a_character_list_contains_no_items():
-    characters = Characters()
+    characters = Scene()
     assert len(characters.get_items()) == 0
 
 def test_given_a_character_is_added_then_items_list_is_one():
-    characters = Characters()
+    characters = Scene()
     character = TestFactory.character()
     characters.add(character)
     assert len(characters.get_items()) == 1
 
 def test_given_no_dialogs_then_placed_dialogs_is_empty():
-    characters = Characters()
+    characters = Scene()
     placed_dialogs = characters.place_dialogs([])
     assert placed_dialogs == [[]]
 
 def test_given_a_dialog_from_a_lonely_character_then_dialogs_contains_his_speech():
-    characters = Characters()
+    characters = Scene()
     character = TestFactory.character_named("Scott")
     characters.add(character)
     dialogs = [Dialog("Scott", "Hello !")]
@@ -70,7 +70,7 @@ EXPECTED_EXCHANGE_OUTPUT_FIRST_RIGHT = [[PlacedDialog("First", "A")],
     (FIRST_RIGHT_SECOND_LEFT, SIMPLE_EXCHANGE, EXPECTED_EXCHANGE_OUTPUT_FIRST_RIGHT),
 ])
 def test_dialogs_use_several_levels_when_speeches_are_mixed(characters, dialogs, expected_placed_dialogs):
-    actual_characters = Characters()
+    actual_characters = Scene()
     for character in characters:
         actual_characters.add(character)
 

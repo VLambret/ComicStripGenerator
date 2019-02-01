@@ -1,6 +1,6 @@
 from Model.PlacedDialog import PlacedDialog
 
-class Characters:
+class Scene:
 
     def __init__(self):
         self._characters = []
