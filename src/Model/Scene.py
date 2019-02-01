@@ -4,7 +4,6 @@ class Scene:
 
     def __init__(self):
         self._characters = []
-        pass
 
     def add(self, character):
         self._characters.append(character)
@@ -15,7 +14,7 @@ class Scene:
 
     def get_character(self, name):
         for character in self._characters:
-            if (character.name == name):
+            if character.name == name:
                 return character
         return None
 
@@ -36,14 +35,14 @@ class Scene:
     def place_auto_characters(self):
         total = self.get_auto_placed_characters_number()
         rank = 0
-        for c in self._characters:
-            if (c.is_auto_placed):
-                c.place_auto(rank, total, 0)
+        for character in self._characters:
+            if character.is_auto_placed:
+                character.place_auto(rank, total, 0)
                 rank = rank + 1
 
     def get_auto_placed_characters_number(self):
         count = 0
-        for c in self._characters:
-            if (c.is_auto_placed):
+        for character in self._characters:
+            if character.is_auto_placed:
                 count = count + 1
         return count

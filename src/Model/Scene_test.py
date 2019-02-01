@@ -1,10 +1,10 @@
-from Model.Scene import Scene
-from Model.Character import Character
+import pytest
+
+import TestFactory
 from Model.Dialog import Dialog
 from Model.PlacedDialog import PlacedDialog
+from Model.Scene import Scene
 
-import pytest
-import TestFactory
 
 def test_by_default_a_character_list_contains_no_items():
     characters = Scene()
@@ -56,7 +56,7 @@ EXPECTED_EXCHANGE_OUTPUT_FIRST_LEFT = [[PlacedDialog("First", "A"), PlacedDialog
 EXPECTED_EXCHANGE_OUTPUT_FIRST_RIGHT = [[PlacedDialog("First", "A")],
                                         [PlacedDialog("Second", "B"), PlacedDialog("First", "C")],
                                         [PlacedDialog("Second", "D")]
-                                      ]
+                                       ]
 
 @pytest.mark.parametrize("characters, dialogs, expected_placed_dialogs", [
     (NOBODY, SILENCE, EXPECTED_SILENCE),

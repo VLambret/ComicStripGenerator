@@ -1,8 +1,7 @@
-from Model.Scene import Scene
 from Model.Balloon import Balloon
-from Model.Position import Type, Position
-import Config
 from Model.Configuration import Configuration
+from Model.Position import Type, Position
+from Model.Scene import Scene
 
 
 class Panel:

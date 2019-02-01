@@ -11,6 +11,7 @@ IMAGE_DEFAULT = "sources/narrateur-angry.png"
 class Name:
     name_counter = 0
 
+    @staticmethod
     def new():
         Name.name_counter = Name.name_counter + 1
         return "Keno" + str(Name.name_counter)
@@ -44,4 +45,3 @@ def character_named_at(name, position):
 
 def character_at(position):
     return NewCharacter().at(position).create()
-
