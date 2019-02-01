@@ -23,7 +23,7 @@ class NewCharacter:
         self._image = IMAGE_DEFAULT
 
     def named(self, name):
-        _name = name
+        self._name = name
         return self
 
     def at(self, position):

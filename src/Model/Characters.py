@@ -12,7 +12,7 @@ class Characters:
     def get_items(self):
         return self._characters
 
-    def get_character(name):
+    def get_character(self, name):
         for character in self._characters:
             if (character.name == name):
                 return character
@@ -22,7 +22,7 @@ class Characters:
         result = []
         current_line = []
         for dialog in dialogs:
-            if len(current_line) > 1:
+            if len(current_line) >= 1:
                 current_character = self.get_character(dialog.name)
                 previous_character = self.get_character(current_line[-1].name)
                 if current_character.is_before_in_read_order(previous_character):
