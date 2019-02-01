@@ -22,7 +22,7 @@ class Characters:
         result = []
         current_line = []
         for dialog in dialogs:
-            if len(current_line) >= 1:
+            if len(current_line) > 0:
                 current_character = self.get_character(dialog.name)
                 previous_character = self.get_character(current_line[-1].name)
                 if current_character.is_before_in_read_order(previous_character):

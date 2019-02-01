@@ -42,15 +42,21 @@ MONOLOG = [Dialog("First", "A")]
 LONG_MONOLOG = [Dialog("First", "A"), Dialog("First", "B")]
 EACH_SPEACK_ONCE = [Dialog("First", "A"), Dialog("Second", "B")]
 SIMPLE_EXCHANGE = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("First", "C"), Dialog("Second", "D")]
-QUESTION_THEN_MONOLOG = [Dialog("First", "A"), Dialog("Second", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
-MONOLOG_THEN_ANSWER = [Dialog("First", "A"), Dialog("First", "B"), Dialog("First", "C"), Dialog("Second", "D")]
-MONOLOG_THEN_MONOLOG = [Dialog("First", "A"), Dialog("First", "B"), Dialog("Second", "C"), Dialog("Second", "D")]
 
 EXPECTED_SILENCE = [[]]
 EXPECTED_MONOLOG = [[PlacedDialog("First", "A")]]
 EXPECTED_LONG_MONOLOG = [[PlacedDialog("First", "A"), PlacedDialog("First", "B")]]
 EXPECTED_EACH_SPEACK_ONCE_FIRST_LEFT = [[PlacedDialog("First", "A"), PlacedDialog("Second", "B")]]
-EXPECTED_EACH_SPEACK_ONCE_FIRST_RIGHT = [[PlacedDialog("First", "A")], [PlacedDialog("Second", "B")]]
+EXPECTED_EACH_SPEACK_ONCE_FIRST_RIGHT = [[PlacedDialog("First", "A")],
+                                         [PlacedDialog("Second", "B")]
+                                        ]
+EXPECTED_EXCHANGE_OUTPUT_FIRST_LEFT = [[PlacedDialog("First", "A"), PlacedDialog("Second", "B")],
+                                       [PlacedDialog("First", "C"), PlacedDialog("Second", "D")]
+                                      ]
+EXPECTED_EXCHANGE_OUTPUT_FIRST_RIGHT = [[PlacedDialog("First", "A")],
+                                        [PlacedDialog("Second", "B"), PlacedDialog("First", "C")],
+                                        [PlacedDialog("Second", "D")]
+                                      ]
 
 @pytest.mark.parametrize("characters, dialogs, expected_placed_dialogs", [
     (NOBODY, SILENCE, EXPECTED_SILENCE),
@@ -60,6 +66,8 @@ EXPECTED_EACH_SPEACK_ONCE_FIRST_RIGHT = [[PlacedDialog("First", "A")], [PlacedDi
     (FIRST_RIGHT_SECOND_LEFT, LONG_MONOLOG, EXPECTED_LONG_MONOLOG),
     (FIRST_LEFT_SECOND_RIGHT, EACH_SPEACK_ONCE, EXPECTED_EACH_SPEACK_ONCE_FIRST_LEFT),
     (FIRST_RIGHT_SECOND_LEFT, EACH_SPEACK_ONCE, EXPECTED_EACH_SPEACK_ONCE_FIRST_RIGHT),
+    (FIRST_LEFT_SECOND_RIGHT, SIMPLE_EXCHANGE, EXPECTED_EXCHANGE_OUTPUT_FIRST_LEFT),
+    (FIRST_RIGHT_SECOND_LEFT, SIMPLE_EXCHANGE, EXPECTED_EXCHANGE_OUTPUT_FIRST_RIGHT),
 ])
 def test_dialogs_use_several_levels_when_speeches_are_mixed(characters, dialogs, expected_placed_dialogs):
     actual_characters = Characters()
