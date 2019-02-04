@@ -4,8 +4,12 @@ from Model.Position import Type
 class PanelItem:
 
     def __init__(self, image_name, position):
-        self.image = Image.open(image_name)
+        self._image = Image.open(image_name)
         self._position = position
+
+    @property
+    def image(self):
+        return self._image
 
     @property
     def size(self):

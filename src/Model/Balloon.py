@@ -5,7 +5,7 @@ from Model.PanelItem import PanelItem
 class Balloon(PanelItem):
 
     def __init__(self, speech, position, target):
-        self.image = ImageFactory.create_balloon_image_from(speech)
+        self._image = ImageFactory.create_balloon_image_from(speech)
         self._position = position
         self._target = target
         self.speech = speech
