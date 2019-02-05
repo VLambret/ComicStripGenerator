@@ -1,5 +1,6 @@
 from PIL import Image
 from Model.Position import Type
+from Model.Coordinates import Coordinates
 
 class PanelItem:
 
@@ -19,8 +20,9 @@ class PanelItem:
     def is_auto_placed(self):
         return self._position.x[1] == Type.AUTO
 
-    def get_absolute_position_in(self, container):
-        return self._position.get_position_in(self.size, container)
+    def get_coordinates_in(self, container):
+        absolute_position = self._position.get_position_in(self.size, container)
+        return Coordinates(absolute_position[0], absolute_position[1]).toTuple()
 
     def place_auto(self, rank, total, padding):
         self._position.set_auto_position(rank, total, padding)

@@ -8,7 +8,7 @@ class Character(PanelItem):
         self.name_id = name
 
     def get_top_in(self, container):
-        position = self.get_absolute_position_in(container)
+        position = self.get_coordinates_in(container)
         # XXX : Another PIL coordinate conversion that should be put elsewhere
         return position[0] + self.size[0] / 2, container.size[1] - self.size[1]
 
