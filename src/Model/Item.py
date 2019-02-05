@@ -2,7 +2,7 @@ from PIL import Image
 from Model.Position import Type
 from Model.Coordinates import Coordinates
 
-class PanelItem:
+class Item:
 
     def __init__(self, image_name, position):
         self._image = Image.open(image_name)

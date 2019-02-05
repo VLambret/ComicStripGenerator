@@ -3,7 +3,7 @@
 import re
 
 import Config
-from Model.PanelItem import PanelItem
+from Model.Item import Item
 from Model.Strip import Strip
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
@@ -84,7 +84,7 @@ def parse_background(line):
     if match is None:
         return None
     background_name = match.group(1)
-    return PanelItem(Config.image_database+"/"+ background_name, (0, 0))
+    return Item(Config.image_database + "/" + background_name, (0, 0))
 
 def parse_item(line):
     match = re.match(line_regex(ITEM_REGEX), line)
@@ -92,7 +92,7 @@ def parse_item(line):
         return None
     filename = match.group(1)
     position = (int(match.group(2)), int(match.group(3)))
-    return PanelItem(Config.image_database + "/" + filename, position)
+    return Item(Config.image_database + "/" + filename, position)
 
 def parse_strip(file_content):
     parsed_lines = parse_lines(file_content)

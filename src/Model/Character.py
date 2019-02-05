@@ -1,6 +1,6 @@
-from Model.PanelItem import PanelItem
+from Model.Item import Item
 
-class Character(PanelItem):
+class Character(Item):
 
     def __init__(self, name, image_name, position):
         super().__init__(image_name, position)

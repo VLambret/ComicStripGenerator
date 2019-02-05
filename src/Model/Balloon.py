@@ -1,8 +1,8 @@
 import Config
 import ImageFactory
-from Model.PanelItem import PanelItem
+from Model.Item import Item
 
-class Balloon(PanelItem):
+class Balloon(Item):
 
     def __init__(self, speech, position, target):
         self._image = ImageFactory.create_balloon_image_from(speech)
