@@ -1,9 +1,12 @@
 import re
 
+from PIL import Image
+
 import Config
 from Model.Character import Character
 from Model.Position import Position
 from Model.Position import Type
+
 
 def captured(pattern):
     return pattern
@@ -61,8 +64,10 @@ class CharacterLine:
             self.position = Position((0, Type.AUTO), (0, Type.POURCENTAGE))
 
     def modify(self, strip):
+        image_path = Config.image_database + "/" + self.character_file
+        image = Image.open(image_path)
         name = self.character_file
-        character = Character(name, Config.image_database+"/"+ self.character_file, self.position)
+        character = Character(name, image, self.position)
         strip.last_panel().add_character(character)
         if self.dialog:
             strip.last_panel().add_dialog(name, self.dialog)
