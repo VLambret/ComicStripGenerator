@@ -42,8 +42,8 @@ def create_image_from_strip(strip, output_file_name):
     for panel in strip.panels:
         panel_image = PanelImage(panel).image
         panel_image = add_borders(panel_image,
-                                  strip.panel_border_size,
-                                  strip.panel_border_color)
+                                  strip.config.border_size,
+                                  strip.config.border_color)
         panel_image = overlay_balloons_to_panel(panel_image, panel.balloons)
         strip_width = max(strip_width, panel_image.size[0])
         strip_height += panel_image.size[1] + strip.space_arround_panels
