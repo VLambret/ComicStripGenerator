@@ -2,7 +2,7 @@
 
 import sys
 import Parser.StripParser
-import StripGenerator
+import Generator.StripGenerator
 
 def print_usage(command):
     print("usage : " + command + " input.strip [output.strip]")
@@ -24,7 +24,7 @@ def main():
         output_image_file = comic_file_name + ".png"
 
     strip = Parser.StripParser.init_from_file(comic_file_name)
-    StripGenerator.create_image_from_strip(strip, output_image_file)
+    Generator.StripGenerator.create_image_from_strip(strip, output_image_file)
     exit(0)
 
 main()
