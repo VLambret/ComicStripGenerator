@@ -28,7 +28,6 @@ class Panel:
             for dialog in balloon_line:
                 character = self.scene.get_character(dialog.name)
                 position = Position((0, Type.AUTO), (100 - self.config.balloon_padding_pourcentage - offset, Type.POURCENTAGE))
-                #position = Position(character._position.x, (100 - self.config.balloon_padding_pourcentage - offset, Type.POURCENTAGE))
                 target = character.get_top_in(self)
                 balloon = Balloon(dialog.speech, position, target)
                 balloon.place_auto(rank, total, self.config.balloon_padding_pourcentage)
