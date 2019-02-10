@@ -2,8 +2,6 @@
 
 import re
 
-import Config
-from Model.Item import Item
 from Model.Strip import Strip
 from Parser.BackgroundLine import BackgroundLine
 from Parser.CharacterLine import CharacterLine
@@ -49,50 +47,11 @@ def identify_line(line):
         return ConfigLine(line)
     return CharacterLine(line)
 
-def line_regex(description):
-    return "^" + "".join(description) + "$"
-
 def is_config_format(line):
     # A valid config is a key:value string
     if re.match("[^:]+:[^:]+", line) is None:
         return False
     return True
-
-def is_config(line):
-    if is_config_format(line):
-        config_key = line.rstrip().split(':')[0]
-        return config_key in ["font_name", "font_size", "image_database", "border_width"]
-    return False
-
-def is_empty_line(line):
-    return re.match(line_regex(IGNORE_REGEX), line) is not None
-
-def set_config(line):
-    config_key = line.rstrip().split(':')[0]
-    value = line.rstrip().split(':')[1]
-    if config_key == "font_name":
-        Config.font_name = value
-    elif config_key == "font_size":
-        Config.font_size = int(value)
-    elif config_key == "image_database":
-        Config.image_database = value
-    elif config_key == "border_width":
-        Config.border_width = int(value)
-
-def parse_background(line):
-    match = re.match(line_regex(BACKGROUND_REGEX), line)
-    if match is None:
-        return None
-    background_name = match.group(1)
-    return Item(Config.image_database + "/" + background_name, (0, 0))
-
-def parse_item(line):
-    match = re.match(line_regex(ITEM_REGEX), line)
-    if not match:
-        return None
-    filename = match.group(1)
-    position = (int(match.group(2)), int(match.group(3)))
-    return Item(Config.image_database + "/" + filename, position)
 
 def parse_strip(file_content):
     parsed_lines = parse_lines(file_content)
