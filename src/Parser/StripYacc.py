@@ -9,13 +9,14 @@ def p_strip(p):
     p[0] = Strip()
 
 def p_lines(p):
-    """lines :  line  lines
-              | empty"""
+    """lines : line EOL lines
+             | line
+             | empty"""
 
 def p_line(p):
-    """line :   config_line
-              | unknown_line
-              | empty"""
+    """line : config_line
+            | unknown_line
+            | empty"""
 
 def p_config_line(p):
     """config_line : KEY COLON CONFIG_KEY"""
