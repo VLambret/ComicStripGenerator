@@ -23,10 +23,10 @@ def test_multiline_comment():
     assert isinstance(strip, Strip)
     assert len(strip.panels) == 0
 
-#def test_a_key_value_separated_with_a_colon_is_a_config_element():
-#    input = io.StringIO("database:toto")
-#    strip = parser.parse(input.read())
-#    assert isinstance(strip, Strip)
-#    assert len(strip.panels) == 0
-#    assert Config.image_database == "toto"
+def test_a_key_value_separated_with_a_colon_is_a_config_element():
+    input = io.StringIO("database:toto")
+    strip = parser.parse(input.read())
+    assert isinstance(strip, Strip)
+    assert len(strip.panels) == 0
+    assert Config.image_database == "toto"
 
