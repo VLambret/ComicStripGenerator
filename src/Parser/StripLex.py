@@ -4,7 +4,7 @@ tokens = (
     'UNKNOWN_LINE',
     'KEY',
     'COLON',
-    'CONFIG_KEY',
+    'VALUE',
     'EOL',
 )
 
@@ -16,8 +16,8 @@ def t_COLON(t):
     r""":"""
     return t
 
-def t_CONFIG_KEY(t):
-    r"""toto"""
+def t_VALUE(t):
+    r""".+"""
     return t
 
 def t_UNKNOWN_LINE(t):

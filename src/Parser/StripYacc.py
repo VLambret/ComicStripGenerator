@@ -19,7 +19,7 @@ def p_line(p):
             | empty"""
 
 def p_config_line(p):
-    """config_line : KEY COLON CONFIG_KEY"""
+    """config_line : KEY COLON VALUE"""
     print("key=", p[1], " detected ! with value=", p[3])
     Config.image_database = p[3]
 

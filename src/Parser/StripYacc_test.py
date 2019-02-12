@@ -1,5 +1,7 @@
 import io
 
+import pytest
+
 import Config
 from Model.Strip import Strip
 from Parser.StripYacc import parser
@@ -23,10 +25,14 @@ def test_multiline_comment():
     assert isinstance(strip, Strip)
     assert len(strip.panels) == 0
 
-def test_a_key_value_separated_with_a_colon_is_a_config_element():
-    input = io.StringIO("database:toto")
+@pytest.mark.parametrize("key, value", [
+    ("database", "toto"),
+    ("database", "../../sources"),
+])
+def test_a_key_value_separated_with_a_colon_is_a_config_element(key, value):
+    input = io.StringIO(key + ":" + value)
     strip = parser.parse(input.read())
     assert isinstance(strip, Strip)
     assert len(strip.panels) == 0
-    assert Config.image_database == "toto"
+    assert Config.image_database == value
 
