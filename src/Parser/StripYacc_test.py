@@ -14,7 +14,6 @@ class Source():
 
     def addPanel(self):
         if not self.database:
-            #self.with_database("../../sources")
             self.with_database("sources")
         self.lines.append("@background.png")
         return self
