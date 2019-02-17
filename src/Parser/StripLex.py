@@ -18,6 +18,7 @@ def t_EOL(t):
 def t_COMMENT(t):
     r"""\#[^\n]*"""
     print(t)
+    t.value = []
 
 def t_BACKGROUND(t):
     r"""\@[^\n]+\.png"""

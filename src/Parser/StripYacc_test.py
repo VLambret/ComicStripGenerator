@@ -57,9 +57,16 @@ def test_a_key_value_separated_with_a_colon_is_a_config_element(key, value):
     assert len(strip.panels) == 0
     assert Config.image_database == value
 
-def test_a_line_starting_with_an_arobase_is_a_new_panel():
-    input = Source().addPanel().build()
+@pytest.mark.parametrize("expected_panel_number", [1, 2, 3])
+def test_a_line_starting_with_an_arobase_is_a_new_panel(expected_panel_number):
+    source = Source()
+    panel_number = 0
+    while panel_number < expected_panel_number:
+        source.addPanel()
+        panel_number +=1
+
+    input = source.build()
     strip = parser.parse(input.read())
     assert isinstance(strip, Strip)
-    assert len(strip.panels) == 1
+    assert len(strip.panels) == expected_panel_number
 
