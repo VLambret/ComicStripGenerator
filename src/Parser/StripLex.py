@@ -1,17 +1,29 @@
 import ply.lex as lex
 
 tokens = (
+    'EOL',
     'COMMENT',
-    'UNKNOWN_LINE',
+    'BACKGROUND',
     'VALUE',
     'KEY',
     'COLON',
-    'EOL',
+    'UNKNOWN_LINE',
 )
 
-def t_COMMENT(t):
-    r"""^\#[^\n]*"""
+def t_EOL(t):
+    r"\n"
     print(t)
+    return t
+
+def t_COMMENT(t):
+    r"""\#[^\n]*"""
+    print(t)
+
+def t_BACKGROUND(t):
+    r"""\@[^\n]+\.png"""
+    print(t)
+    t.value = t.value
+    return t
 
 def t_KEY(t):
     #r"""database"""
@@ -25,19 +37,17 @@ def t_COLON(t):
     return t
 
 def t_VALUE(t):
-    r"""[^:\n]+$"""
+    r""".+"""
     print(t)
     return t
 
 def t_UNKNOWN_LINE(t):
-    r"[^\n]+"
+    r"^[^\n]+"
     print(t)
     return t
 
-def t_EOL(t):
-    r"\n"
+def t_error(t):
     print(t)
-    return t
 
 lexer = lex.lex()
 

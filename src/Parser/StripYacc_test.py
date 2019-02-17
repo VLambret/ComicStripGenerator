@@ -14,7 +14,8 @@ class Source():
 
     def addPanel(self):
         if not self.database:
-            self.with_database("../../sources")
+            #self.with_database("../../sources")
+            self.with_database("sources")
         self.lines.append("@background.png")
         return self
 
@@ -55,4 +56,10 @@ def test_a_key_value_separated_with_a_colon_is_a_config_element(key, value):
     assert isinstance(strip, Strip)
     assert len(strip.panels) == 0
     assert Config.image_database == value
+
+def test_a_line_starting_with_an_arobase_is_a_new_panel():
+    input = Source().addPanel().build()
+    strip = parser.parse(input.read())
+    assert isinstance(strip, Strip)
+    assert len(strip.panels) == 1
 
