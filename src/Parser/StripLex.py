@@ -4,6 +4,7 @@ tokens = (
     'EOL',
     'COMMENT',
     'BACKGROUND',
+    'IMAGE_NAME',
     'VALUE',
     'KEY',
     'COLON',
@@ -22,6 +23,12 @@ def t_COMMENT(t):
 
 def t_BACKGROUND(t):
     r"""\@[^\n]+\.png"""
+    print(t)
+    t.value = t.value
+    return t
+
+def t_IMAGE_NAME(t):
+    r"""[^\n \t]+\.png"""
     print(t)
     t.value = t.value
     return t

@@ -12,11 +12,17 @@ class Source():
         self.lines = []
         self.database = ""
 
-    def addPanel(self):
+    def _add_content(self, line):
         if not self.database:
             self.with_database("sources")
-        self.lines.append("@background.png")
+        self.lines.append(line)
         return self
+
+    def addPanel(self):
+        return self._add_content("@background.png")
+
+    def addCharacter(self):
+        return self._add_content("narrateur-smiling.png")
 
     def with_database(self, database):
         self.database = 'database:' + database
@@ -69,3 +75,9 @@ def test_a_line_starting_with_an_arobase_is_a_new_panel(expected_panel_number):
     assert isinstance(strip, Strip)
     assert len(strip.panels) == expected_panel_number
 
+def test_a_panel_can_contain_a_character():
+    input = Source().addPanel().addCharacter().build()
+    strip = parser.parse(input.read())
+    assert isinstance(strip, Strip)
+    assert len(strip.panels) == 1
+    assert len(strip.panels[0].scene._characters) == 1

@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 
+from Parser.CharacterLine import CharacterLine
 from Parser.ConfigLine import ConfigLine
 from Parser.BackgroundLine import BackgroundLine
 from Parser.StripLex import tokens
@@ -35,6 +36,7 @@ def p_line(p):
     """line : COMMENT
             | config_line
             | panel
+            | character_line
             | UNKNOWN_LINE"""
     p[0] = p[1]
 
@@ -42,6 +44,11 @@ def p_panel(p):
     """panel : BACKGROUND"""
     print("Creating Background")
     p[0] = [BackgroundLine(p[1])]
+
+def p_character_line(p):
+    """character_line : IMAGE_NAME"""
+    print("Creating Character")
+    p[0] = [CharacterLine(p[1])]
 
 def p_config_line(p):
     """config_line : KEY COLON VALUE"""
